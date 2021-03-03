@@ -4,8 +4,8 @@ import '@types/node';
  * Base
  */
 export const
-    Window = window,
-    Document = document;
+    W = window,
+    D = document;
 
 /**
  * Plugin
@@ -34,8 +34,8 @@ export const
  * Global
  */
 export default class Global {
-    public static readonly W: Window = Window;
-    public static readonly D: Document = Document;
+    public static readonly W: Window = W;
+    public static readonly D: Document = D;
     
     public static readonly $: any = $;
     public static readonly VConsole: any = VConsole;

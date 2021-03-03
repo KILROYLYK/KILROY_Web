@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.$ = exports.Document = exports.Window = void 0;
+exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.$ = exports.D = exports.W = void 0;
 require("@types/node");
 /**
  * Base
  */
-exports.Window = window, exports.Document = document;
+exports.W = window, exports.D = document;
 /**
  * Plugin
  * NodePath：/usr/local/lib/node_modules/
@@ -21,8 +21,8 @@ exports.FN = require('../Function/Function').default, exports.Algorithm = requir
 var Global = /** @class */ (function () {
     function Global() {
     }
-    Global.W = exports.Window;
-    Global.D = exports.Document;
+    Global.W = exports.W;
+    Global.D = exports.D;
     Global.$ = exports.$;
     Global.VConsole = exports.VConsole;
     Global.GSAP = exports.GSAP;

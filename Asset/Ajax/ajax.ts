@@ -1,6 +1,6 @@
 // @ts-nocheck
 import $ from '/usr/local/lib/node_modules/jquery';
-import * as CryptoJS from '/usr/local/lib/node_modules/crypto-js';
+import CryptoJS from '/usr/local/lib/node_modules/crypto-js';
 
 interface AjaxConfig { // 请求配置
     type?: string // 请求类型

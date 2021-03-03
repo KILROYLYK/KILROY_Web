@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("@types/node");
+// @ts-nocheck
+var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./flip.less");
 var Function_1 = __importDefault(require("../Function/Function"));
 var ajax_1 = __importDefault(require("../Ajax/ajax"));
-var $ = require('jquery');
 /**
  * 翻页
  */
@@ -25,8 +25,8 @@ var Flip = /** @class */ (function () {
             domain: 'https://cms.gaeamobile.net',
             getList: '/api/get-posts-list'
         };
-        this.$W = $(Function_1.default.window); // Jquery的Window元素
-        this.$D = $(Function_1.default.document); // Jquery的Document元素
+        this.$W = jquery_1.default(Function_1.default.window); // Jquery的Window元素
+        this.$D = jquery_1.default(Function_1.default.document); // Jquery的Document元素
         var _this = this;
         _this.config = {
             projectID: config.projectID,
@@ -43,10 +43,10 @@ var Flip = /** @class */ (function () {
                 last: (config.button && config.button.last) || '>>'
             },
             $dom: {
-                $content: (config.$dom && config.$dom.$content) || $('#content'),
-                $list: (config.$dom && config.$dom.$list) || $('#content > .list'),
-                $page: (config.$dom && config.$dom.$page) || $('#content > .page'),
-                $scroll: (config.$dom && config.$dom.$scroll) || $('#content > .more')
+                $content: (config.$dom && config.$dom.$content) || jquery_1.default('#content'),
+                $list: (config.$dom && config.$dom.$list) || jquery_1.default('#content > .list'),
+                $page: (config.$dom && config.$dom.$page) || jquery_1.default('#content > .page'),
+                $scroll: (config.$dom && config.$dom.$scroll) || jquery_1.default('#content > .more')
             },
             createDom: config.createDom || (function (k, v) {
                 return "<a href=\"" + v.post_url + "\">\n                        <span>\u3010" + v.category_name + "\u3011</span>\n                        <span>" + v.post_date.substring(5, 10) + "</span>\n                        <span>" + v.post_title + "</span>\n                    </a>";
@@ -178,7 +178,7 @@ var Flip = /** @class */ (function () {
             "<button class=\"first " + prevDisabled + "\" data-page=\"1\">" + config.button.first + "</button>\n            <button class=\"prev " + prevDisabled + "\" data-page=\"" + prevDom + "\">" + config.button.prev + "</button>\n            " + prevMore + dom + nextMore + "\n            <button class=\"next " + nextDisabled + "\" data-page=\"" + nextDom + "\">" + config.button.next + "</button>\n            <button class=\"last #{nextDisabled}\" data-page=\"" + maxPage + "\">" + config.button.last + "</button>";
         config.$dom.$page.html(dom);
         config.$dom.$page.children('button').on('click', function (e) {
-            config.page = parseInt($(e.currentTarget).attr('data-page'), 10);
+            config.page = parseInt(jquery_1.default(e.currentTarget).attr('data-page'), 10);
             _this.getData();
         });
     };

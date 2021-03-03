@@ -1,7 +1,6 @@
-import '@types/node';
-
-const $ = require('/usr/local/lib/node_modules/jquery'),
-    CryptoJS = require('crypto-js');
+// @ts-nocheck
+import $ from '/usr/local/lib/node_modules/jquery';
+import CryptoJS from '/usr/local/lib/node_modules/crypto-js';
 
 interface AjaxConfig { // 请求配置
     type?: string // 请求类型

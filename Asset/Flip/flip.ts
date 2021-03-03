@@ -1,9 +1,9 @@
-import '@types/node';
+// @ts-nocheck
+import $ from '/usr/local/lib/node_modules/jquery';
+
 import './flip.less';
 import FN from '../Function/Function';
 import Ajax from '../Ajax/ajax';
-
-const $ = require('jquery');
 
 interface FlipConfig { // 翻页配置
     projectID: number // CMS项目ID

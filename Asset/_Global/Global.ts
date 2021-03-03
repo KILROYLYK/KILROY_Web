@@ -1,4 +1,4 @@
-import '@types/node';
+// @ts-nocheck
 
 /**
  * Base

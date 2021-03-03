@@ -1,7 +1,7 @@
 "use strict";
+// @ts-nocheck
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.$ = exports.D = exports.W = void 0;
-require("@types/node");
 /**
  * Base
  */

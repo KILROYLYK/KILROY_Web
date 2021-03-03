@@ -1,6 +1,7 @@
 // @ts-nocheck
-import './popup.less';
 import $ from '/usr/local/lib/node_modules/jquery';
+
+import './popup.less';
 
 interface PopupConfig { // 弹窗配置
     content?: any // 内容

@@ -3,8 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-nocheck
-var base_1 = __importDefault(require("../../../_Base/Asset/javascript/base"));
+var Function_1 = __importDefault(require("../Function/Function"));
 /**
  * Preload
  */
@@ -95,7 +94,7 @@ var Preload = /** @class */ (function () {
         }, false);
         audio.src = src;
         audio.load();
-        if (base_1.default.isPSB.platform === 'Mobile')
+        if (Function_1.default.isPSB.platform === 'Mobile')
             callback();
     };
     /**

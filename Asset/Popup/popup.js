@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-nocheck
-require("./popup.less");
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
+require("./popup.less");
 /**
  * 弹窗
  */

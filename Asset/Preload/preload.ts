@@ -1,5 +1,4 @@
-// @ts-nocheck
-import Base from '../../../_Base/Asset/javascript/base';
+import FN from '../Function/Function';
 
 interface PreloadConfig { // 预加载配置
     loadedCallback?: Function // 加载完成（单个资源）
@@ -109,7 +108,7 @@ export default class Preload {
         audio.src = src;
         audio.load();
         
-        if (Base.isPSB.platform === 'Mobile') callback();
+        if (FN.isPSB.platform === 'Mobile') callback();
     }
     
     /**

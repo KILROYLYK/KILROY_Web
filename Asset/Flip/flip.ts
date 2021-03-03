@@ -1,7 +1,8 @@
 // @ts-nocheck
-import './flip.less';
 import $ from '/usr/local/lib/node_modules/jquery';
-import Base from '../../../_Base/Asset/javascript/base';
+
+import './flip.less';
+import FN from '../Function/Function';
 import Ajax from '../Ajax/ajax';
 
 interface FlipConfig { // 翻页配置
@@ -25,14 +26,38 @@ interface FlipConfig { // 翻页配置
         $scroll?: any
     },
     createDom?: Function
-    callback?: Function
+    callback?: Function | null
+}
+
+interface FlipData { // 翻页数据
+    projectID: number // CMS项目ID
+    language: string // 语言
+    group: string
+    type: string
+    page: number
+    limit: number
+    showPage: number
+    button: {
+        prev: string
+        next: string
+        first: string
+        last: string
+    },
+    $dom: { // Jquery元素
+        $content: any
+        $list: any
+        $page: any
+        $scroll: any
+    },
+    createDom: Function
+    callback: Function | null
 }
 
 /**
  * 翻页
  */
 export default class Flip {
-    private config: FlipConfig | null = null; // 配置
+    private config: FlipData | null = null; // 配置
     private total: number = 0; // 信息总数
     private isNet: boolean = false; // 是否正在请求开关
     private readonly network: any = {
@@ -40,8 +65,8 @@ export default class Flip {
         getList: '/api/get-posts-list' as string
     };
     
-    private readonly $W: any = $(Base.Window); // Jquery的Window元素
-    private readonly $D: any = $(Base.Document); // Jquery的Document元素
+    private readonly $W: any = $(FN.window); // Jquery的Window元素
+    private readonly $D: any = $(FN.document); // Jquery的Document元素
     
     /**
      * 构造函数
@@ -89,56 +114,60 @@ export default class Flip {
      * @return {void}
      */
     public getData(): void {
-        const _this = this;
+        const _this = this,
+            config = _this.config;
         
+        if (!config) return;
         if (_this.isNet) return;
         _this.isNet = true;
         
-        _this.config.type === 'scroll' && _this.config.$dom.$scroll.addClass('loading');
+        config.type === 'scroll' && config.$dom.$scroll.addClass('loading');
         
         const a = {
             url: _this.network.domain + _this.network.getList,
             data: {
-                project_id: _this.config.projectID,
+                project_id: config.projectID,
                 taxonomy: 'category',
-                termStr: _this.config.group,
+                termStr: config.group,
                 resourceType: 'post',
-                page: _this.config.page,
-                limit: _this.config.limit,
-                lang: _this.config.language
+                page: config.page,
+                limit: config.limit,
+                lang: config.language
             },
             successCallback: (result: any) => {
                 _this.isNet = false;
+                
                 if (result.retCode !== 0) return;
+                
                 _this.total = result.total;
                 
                 // 创建列表
                 _this.creatList(result.data, (dom: HTMLElement) => {
-                    if (_this.config.type === 'page') { // 翻页模式
-                        _this.config.$dom.$list.html(dom);
-                    } else if (_this.config.type === 'scroll') { // 滚动模式
-                        const list = _this.config.$dom.$list.html();
-                        _this.config.$dom.$list.html(list + dom);
+                    if (config.type === 'page') { // 翻页模式
+                        config.$dom.$list.html(dom);
+                    } else if (config.type === 'scroll') { // 滚动模式
+                        const list = config.$dom.$list.html();
+                        config.$dom.$list.html(list + dom);
                     }
                 });
                 
-                if (_this.config.type === 'page') { // 翻页模式
-                    _this.config.$dom.$page.show();
-                    _this.config.$dom.$scroll.hide();
+                if (config.type === 'page') { // 翻页模式
+                    config.$dom.$page.show();
+                    config.$dom.$scroll.hide();
                     _this.creatPage();
-                } else if (_this.config.type === 'scroll') { // 滚动模式
-                    _this.config.$dom.$page.hide();
-                    _this.config.$dom.$scroll.show();
-                    _this.config.page++;
-                    _this.config.$dom.$scroll.removeClass('loading');
+                } else if (config.type === 'scroll') { // 滚动模式
+                    config.$dom.$page.hide();
+                    config.$dom.$scroll.show();
+                    config.page++;
+                    config.$dom.$scroll.removeClass('loading');
                     
                     if ((result.data.length === 0) || // 滚到底
-                        (result.data.length < _this.config.limit)) {
+                        (result.data.length < config.limit)) {
                         _this.isNet = true;
-                        _this.config.$dom.$scroll.addClass('over');
+                        config.$dom.$scroll.addClass('over');
                     }
                 }
-                _this.config.callback && _this.config.callback(result);
+                config.callback && config.callback(result);
             },
             errorCallback: () => {
                 _this.isNet = false;
@@ -161,12 +190,15 @@ export default class Flip {
      * @return {void}
      */
     private creatList(array: any[], callback: Function): void {
-        const _this = this;
+        const _this = this,
+            config = _this.config;
         
         let dom = '';
         
-        Base.traversingArray(array, (k: number, v: string) => {
-            dom += _this.config.createDom(k, v);
+        if (!config) return;
+        
+        FN.traversingArray(array, (k: number, v: string) => {
+            dom += config.createDom(k, v);
         });
         
         callback && callback(dom);
@@ -178,10 +210,14 @@ export default class Flip {
      */
     private creatPage(): void {
         const _this = this,
-            page = _this.config.page,
+            config = _this.config;
+        
+        if (!config) return;
+        
+        const page = config.page,
             total = _this.total,
-            limit = _this.config.limit,
-            showPage = _this.config.showPage,
+            limit = config.limit,
+            showPage = config.showPage,
             maxPage = Math.ceil(total / limit);
         
         let prevDom = page - 1,
@@ -215,15 +251,15 @@ export default class Flip {
         if (page + showPage < maxPage) nextMore = `<button class="more">...</button>`;
         
         dom =
-            `<button class="first ${ prevDisabled }" data-page="1">${ _this.config.button.first }</button>
-            <button class="prev ${ prevDisabled }" data-page="${ prevDom }">${ _this.config.button.prev }</button>
+            `<button class="first ${ prevDisabled }" data-page="1">${ config.button.first }</button>
+            <button class="prev ${ prevDisabled }" data-page="${ prevDom }">${ config.button.prev }</button>
             ${ prevMore }${ dom }${ nextMore }
-            <button class="next ${ nextDisabled }" data-page="${ nextDom }">${ _this.config.button.next }</button>
-            <button class="last #{nextDisabled}" data-page="${ maxPage }">${ _this.config.button.last }</button>`;
+            <button class="next ${ nextDisabled }" data-page="${ nextDom }">${ config.button.next }</button>
+            <button class="last #{nextDisabled}" data-page="${ maxPage }">${ config.button.last }</button>`;
         
-        _this.config.$dom.$page.html(dom);
-        _this.config.$dom.$page.children('button').on('click', (e: Event) => {
-            _this.config.page = parseInt($(e.currentTarget).attr('data-page'), 10);
+        config.$dom.$page.html(dom);
+        config.$dom.$page.children('button').on('click', (e: Event) => {
+            config.page = parseInt($(e.currentTarget).attr('data-page'), 10);
             _this.getData();
         });
     }
@@ -236,7 +272,7 @@ export default class Flip {
         const _this = this,
             top = _this.$W.scrollTop(),
             winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * Base.rem.get()) return;
+        if (top < winHeight - _this.$W.height() - 2 * FN.rem.get()) return;
         _this.getData();
     }
 }

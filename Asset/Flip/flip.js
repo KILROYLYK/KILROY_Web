@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-nocheck
-require("./flip.less");
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
-var base_1 = __importDefault(require("../../../_Base/Asset/javascript/base"));
+require("./flip.less");
+var Function_1 = __importDefault(require("../Function/Function"));
 var ajax_1 = __importDefault(require("../Ajax/ajax"));
 /**
  * 翻页
@@ -25,8 +25,8 @@ var Flip = /** @class */ (function () {
             domain: 'https://cms.gaeamobile.net',
             getList: '/api/get-posts-list'
         };
-        this.$W = jquery_1.default(base_1.default.Window); // Jquery的Window元素
-        this.$D = jquery_1.default(base_1.default.Document); // Jquery的Document元素
+        this.$W = jquery_1.default(Function_1.default.window); // Jquery的Window元素
+        this.$D = jquery_1.default(Function_1.default.document); // Jquery的Document元素
         var _this = this;
         _this.config = {
             projectID: config.projectID,
@@ -60,21 +60,23 @@ var Flip = /** @class */ (function () {
      * @return {void}
      */
     Flip.prototype.getData = function () {
-        var _this = this;
+        var _this = this, config = _this.config;
+        if (!config)
+            return;
         if (_this.isNet)
             return;
         _this.isNet = true;
-        _this.config.type === 'scroll' && _this.config.$dom.$scroll.addClass('loading');
+        config.type === 'scroll' && config.$dom.$scroll.addClass('loading');
         var a = {
             url: _this.network.domain + _this.network.getList,
             data: {
-                project_id: _this.config.projectID,
+                project_id: config.projectID,
                 taxonomy: 'category',
-                termStr: _this.config.group,
+                termStr: config.group,
                 resourceType: 'post',
-                page: _this.config.page,
-                limit: _this.config.limit,
-                lang: _this.config.language
+                page: config.page,
+                limit: config.limit,
+                lang: config.language
             },
             successCallback: function (result) {
                 _this.isNet = false;
@@ -83,31 +85,31 @@ var Flip = /** @class */ (function () {
                 _this.total = result.total;
                 // 创建列表
                 _this.creatList(result.data, function (dom) {
-                    if (_this.config.type === 'page') { // 翻页模式
-                        _this.config.$dom.$list.html(dom);
+                    if (config.type === 'page') { // 翻页模式
+                        config.$dom.$list.html(dom);
                     }
-                    else if (_this.config.type === 'scroll') { // 滚动模式
-                        var list = _this.config.$dom.$list.html();
-                        _this.config.$dom.$list.html(list + dom);
+                    else if (config.type === 'scroll') { // 滚动模式
+                        var list = config.$dom.$list.html();
+                        config.$dom.$list.html(list + dom);
                     }
                 });
-                if (_this.config.type === 'page') { // 翻页模式
-                    _this.config.$dom.$page.show();
-                    _this.config.$dom.$scroll.hide();
+                if (config.type === 'page') { // 翻页模式
+                    config.$dom.$page.show();
+                    config.$dom.$scroll.hide();
                     _this.creatPage();
                 }
-                else if (_this.config.type === 'scroll') { // 滚动模式
-                    _this.config.$dom.$page.hide();
-                    _this.config.$dom.$scroll.show();
-                    _this.config.page++;
-                    _this.config.$dom.$scroll.removeClass('loading');
+                else if (config.type === 'scroll') { // 滚动模式
+                    config.$dom.$page.hide();
+                    config.$dom.$scroll.show();
+                    config.page++;
+                    config.$dom.$scroll.removeClass('loading');
                     if ((result.data.length === 0) || // 滚到底
-                        (result.data.length < _this.config.limit)) {
+                        (result.data.length < config.limit)) {
                         _this.isNet = true;
-                        _this.config.$dom.$scroll.addClass('over');
+                        config.$dom.$scroll.addClass('over');
                     }
                 }
-                _this.config.callback && _this.config.callback(result);
+                config.callback && config.callback(result);
             },
             errorCallback: function () {
                 _this.isNet = false;
@@ -128,10 +130,12 @@ var Flip = /** @class */ (function () {
      * @return {void}
      */
     Flip.prototype.creatList = function (array, callback) {
-        var _this = this;
+        var _this = this, config = _this.config;
         var dom = '';
-        base_1.default.traversingArray(array, function (k, v) {
-            dom += _this.config.createDom(k, v);
+        if (!config)
+            return;
+        Function_1.default.traversingArray(array, function (k, v) {
+            dom += config.createDom(k, v);
         });
         callback && callback(dom);
     };
@@ -140,7 +144,10 @@ var Flip = /** @class */ (function () {
      * @return {void}
      */
     Flip.prototype.creatPage = function () {
-        var _this = this, page = _this.config.page, total = _this.total, limit = _this.config.limit, showPage = _this.config.showPage, maxPage = Math.ceil(total / limit);
+        var _this = this, config = _this.config;
+        if (!config)
+            return;
+        var page = config.page, total = _this.total, limit = config.limit, showPage = config.showPage, maxPage = Math.ceil(total / limit);
         var prevDom = page - 1, prevDisabled = '', prevMore = '', nextDom = page + 1, nextDisabled = '', nextMore = '', dom = "<button class=\"active\" data-page=\"" + page + "\"><span>" + page + "<span></button>";
         // 约束最小值最大值
         if (prevDom <= 0)
@@ -168,10 +175,10 @@ var Flip = /** @class */ (function () {
         if (page + showPage < maxPage)
             nextMore = "<button class=\"more\">...</button>";
         dom =
-            "<button class=\"first " + prevDisabled + "\" data-page=\"1\">" + _this.config.button.first + "</button>\n            <button class=\"prev " + prevDisabled + "\" data-page=\"" + prevDom + "\">" + _this.config.button.prev + "</button>\n            " + prevMore + dom + nextMore + "\n            <button class=\"next " + nextDisabled + "\" data-page=\"" + nextDom + "\">" + _this.config.button.next + "</button>\n            <button class=\"last #{nextDisabled}\" data-page=\"" + maxPage + "\">" + _this.config.button.last + "</button>";
-        _this.config.$dom.$page.html(dom);
-        _this.config.$dom.$page.children('button').on('click', function (e) {
-            _this.config.page = parseInt(jquery_1.default(e.currentTarget).attr('data-page'), 10);
+            "<button class=\"first " + prevDisabled + "\" data-page=\"1\">" + config.button.first + "</button>\n            <button class=\"prev " + prevDisabled + "\" data-page=\"" + prevDom + "\">" + config.button.prev + "</button>\n            " + prevMore + dom + nextMore + "\n            <button class=\"next " + nextDisabled + "\" data-page=\"" + nextDom + "\">" + config.button.next + "</button>\n            <button class=\"last #{nextDisabled}\" data-page=\"" + maxPage + "\">" + config.button.last + "</button>";
+        config.$dom.$page.html(dom);
+        config.$dom.$page.children('button').on('click', function (e) {
+            config.page = parseInt(jquery_1.default(e.currentTarget).attr('data-page'), 10);
             _this.getData();
         });
     };
@@ -181,7 +188,7 @@ var Flip = /** @class */ (function () {
      */
     Flip.prototype.scrollFun = function () {
         var _this = this, top = _this.$W.scrollTop(), winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * base_1.default.rem.get())
+        if (top < winHeight - _this.$W.height() - 2 * Function_1.default.rem.get())
             return;
         _this.getData();
     };

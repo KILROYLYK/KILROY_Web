@@ -2,13 +2,13 @@
  * 适配
  */
 export default class Adaptation {
-    readonly W: Window = window;
-    readonly D: Document = document;
-    readonly psdWidth: number = 750; // PSD宽度
-    readonly scale: boolean = true; // 是否在大屏开启缩放
-    private setTime: number = 0; // 定时器
-    private waitTime: number = 300; // 等待时间
-    private regMobile: RegExp = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
+    static readonly W: Window = window;
+    static readonly D: Document = document;
+    static readonly psdWidth: number = 750; // PSD宽度
+    static readonly scale: boolean = true; // 是否在大屏开启缩放
+    private static setTime: number = 0; // 定时器
+    private static waitTime: number = 300; // 等待时间
+    private static regMobile: RegExp = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
     
     /**
      * 构造函数
@@ -23,7 +23,7 @@ export default class Adaptation {
      * @param {string} position 移动端地址
      * @return {void}
      */
-    public jumpMobile(position: string = ''): void {
+    public static jumpMobile(position: string = ''): void {
         const _this = this;
         
         _this.regMobile.test(_this.W.navigator.userAgent) && (
@@ -39,7 +39,7 @@ export default class Adaptation {
      * 监听屏幕
      * @return {void}
      */
-    public openRem(): void {
+    public static openRem(): void {
         const _this = this;
         
         // 开启监听
@@ -58,7 +58,7 @@ export default class Adaptation {
      * 定时修改Rem
      * @return {void}
      */
-    private setTimeChangeRem(): void {
+    private static setTimeChangeRem(): void {
         const _this = this;
         
         clearTimeout(_this.setTime);
@@ -71,7 +71,7 @@ export default class Adaptation {
      * 改变Rem
      * @return {void}
      */
-    private changeRem(): void {
+    private static changeRem(): void {
         const _this = this,
             width = _this.W.innerWidth,
             height = _this.W.innerHeight;

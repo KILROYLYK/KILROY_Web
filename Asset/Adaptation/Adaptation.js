@@ -9,13 +9,6 @@ var Adaptation = /** @class */ (function () {
      * @constructor Rem
      */
     function Adaptation() {
-        this.W = window;
-        this.D = document;
-        this.psdWidth = 750; // PSD宽度
-        this.scale = true; // 是否在大屏开启缩放
-        this.setTime = 0; // 定时器
-        this.waitTime = 300; // 等待时间
-        this.regMobile = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
         var _this = this;
     }
     /**
@@ -23,7 +16,7 @@ var Adaptation = /** @class */ (function () {
      * @param {string} position 移动端地址
      * @return {void}
      */
-    Adaptation.prototype.jumpMobile = function (position) {
+    Adaptation.jumpMobile = function (position) {
         if (position === void 0) { position = ''; }
         var _this = this;
         _this.regMobile.test(_this.W.navigator.userAgent) && (_this.W.location.href =
@@ -36,7 +29,7 @@ var Adaptation = /** @class */ (function () {
      * 监听屏幕
      * @return {void}
      */
-    Adaptation.prototype.openRem = function () {
+    Adaptation.openRem = function () {
         var _this = this;
         // 开启监听
         _this.D.addEventListener('DOMContentLoaded', function () {
@@ -54,7 +47,7 @@ var Adaptation = /** @class */ (function () {
      * 定时修改Rem
      * @return {void}
      */
-    Adaptation.prototype.setTimeChangeRem = function () {
+    Adaptation.setTimeChangeRem = function () {
         var _this = this;
         clearTimeout(_this.setTime);
         _this.setTime = setTimeout(function () {
@@ -65,7 +58,7 @@ var Adaptation = /** @class */ (function () {
      * 改变Rem
      * @return {void}
      */
-    Adaptation.prototype.changeRem = function () {
+    Adaptation.changeRem = function () {
         var _this = this, width = _this.W.innerWidth, height = _this.W.innerHeight;
         var fontSize = width / _this.psdWidth * 100;
         if (fontSize > 100)
@@ -74,6 +67,13 @@ var Adaptation = /** @class */ (function () {
             fontSize = 75;
         _this.D.documentElement.style.fontSize = fontSize + 'px';
     };
+    Adaptation.W = window;
+    Adaptation.D = document;
+    Adaptation.psdWidth = 750; // PSD宽度
+    Adaptation.scale = true; // 是否在大屏开启缩放
+    Adaptation.setTime = 0; // 定时器
+    Adaptation.waitTime = 300; // 等待时间
+    Adaptation.regMobile = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
     return Adaptation;
 }());
 exports.default = Adaptation;

@@ -1,8 +1,21 @@
-// @ts-nocheck
+import '@types/node';
 
+/**
+ * Base
+ */
 export const
-    W = window,
-    D = document;
+    Window = window,
+    Document = document;
+
+/**
+ * Plugin
+ * NodePath：/usr/local/lib/node_modules/
+ */
+export const
+    $ = require('jquery'), // JQuery
+    VConsole = require('vconsole'), // Console显示器
+    GSAP = require('gsap'), // 动效
+    Tween = require('@tweenjs/tween.js'); // 过渡
 
 /**
  * SDK
@@ -10,29 +23,24 @@ export const
 export const
     FN = require('../Function/Function').default, // 函数
     Algorithm = require('../Algorithm/algorithm').default, // 算法
-    Adaptation = require('../Adaptation/adaptation.ts').default, // 适配
-    Preload = require('../Preload/preload.ts').default, // 预加载
-    Ajax = require('../Ajax/ajax.ts').default, // 远程请求
-    Popup = require('../Popup/popup.ts').default, // 弹窗
-    Flip = require('../Flip/flip.ts').default, // 翻页
-    Authorization = require('../Authorization/authorization.ts').default; // 授权
-
-/**
- * Plugin
- * NodePath：/usr/local/lib/node_modules/
- */
-export const
-    $ = require('/usr/local/lib/node_modules/jquery'), // JQuery
-    VConsole = require('/usr/local/lib/node_modules/vconsole'), // Console显示器
-    GSAP = require('/usr/local/lib/node_modules/gsap'), // 动效
-    Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js').default; // 过渡
+    Adaptation = require('../Adaptation/adaptation').default, // 适配
+    Preload = require('../Preload/preload').default, // 预加载
+    Ajax = require('../Ajax/ajax').default, // 远程请求
+    Popup = require('../Popup/popup').default, // 弹窗
+    Flip = require('../Flip/flip').default, // 翻页
+    Authorization = require('../Authorization/authorization').default; // 授权
 
 /**
  * Global
  */
 export default class Global {
-    public static readonly W: Window = W;
-    public static readonly D: Document = D;
+    public static readonly W: Window = Window;
+    public static readonly D: Document = Document;
+    
+    public static readonly $: any = $;
+    public static readonly VConsole: any = VConsole;
+    public static readonly GSAP: any = GSAP;
+    public static readonly Tween: any = Tween;
     
     public static readonly FN: any = FN;
     // public static readonly Algorithm: any = Algorithm;
@@ -42,9 +50,4 @@ export default class Global {
     public static readonly Popup: any = Popup;
     public static readonly Flip: any = Flip;
     // public static readonly Authorization: any = Authorization;
-    
-    public static readonly $: any = $;
-    public static readonly VConsole: any = VConsole;
-    public static readonly GSAP: any = GSAP;
-    public static readonly Tween: any = Tween;
 }

@@ -1,7 +1,7 @@
-// @ts-nocheck
-import $ from '/usr/local/lib/node_modules/jquery';
-
+import '@types/node';
 import './popup.less';
+
+const $ = require('jquery');
 
 interface PopupConfig { // 弹窗配置
     content?: any // 内容
@@ -27,8 +27,8 @@ export default class Popup {
     private $close: any = null;
     
     private readonly setTime = { // 定时控制器
-        open: 0 as number,
-        close: 0 as number
+        open: 0 as any,
+        close: 0 as any
     };
     
     /**

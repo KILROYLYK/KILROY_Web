@@ -1,11 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-nocheck
-var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
+require("@types/node");
 require("./popup.less");
+var $ = require('jquery');
 /**
  * 弹窗
  */
@@ -23,7 +20,7 @@ var Popup = /** @class */ (function () {
         this.finishCallback = null; // 完成回调
         this.openCallback = null; // 打开回调
         this.closeCallback = null; // 关闭回调
-        this.$B = jquery_1.default('body'); // Jquery的Body元素
+        this.$B = $('body'); // Jquery的Body元素
         this.$id = null;
         this.$content = null;
         this.$close = null;
@@ -38,7 +35,7 @@ var Popup = /** @class */ (function () {
             return;
         }
         _this.id = id || 'popup';
-        _this.$id = jquery_1.default('#' + _this.id);
+        _this.$id = $('#' + _this.id);
         _this.config = config || {
             content: '',
             finishCallback: null,
@@ -69,7 +66,7 @@ var Popup = /** @class */ (function () {
         var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"box_content\">" + _this.content + "</div>\n                    <button class=\"btn_close\"><i /></button>\n                </div></div>";
         _this.$id.remove();
         _this.$B.append(template);
-        _this.$id = jquery_1.default('#' + _this.id);
+        _this.$id = $('#' + _this.id);
         _this.$content = _this.$id.find('.box_content');
         _this.$close = _this.$id.find('.btn_close');
     };

@@ -77,4 +77,4 @@ var Adaptation = /** @class */ (function () {
     return Adaptation;
 }());
 exports.default = Adaptation;
-//# sourceMappingURL=Adaptation.js.map
+//# sourceMappingURL=adaptation.js.map

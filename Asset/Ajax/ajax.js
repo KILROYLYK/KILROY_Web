@@ -1,11 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-nocheck
-var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
-var crypto_js_1 = __importDefault(require("/usr/local/lib/node_modules/crypto-js"));
+require("@types/node");
+var $ = require('jquery'), CryptoJS = require('crypto-js');
 /**
  * 远程请求
  */
@@ -19,7 +15,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.commonAjax = function (config) {
         var _this = this;
-        jquery_1.default.ajax({
+        $.ajax({
             url: config.url,
             data: config.data,
             dataType: 'json',
@@ -42,7 +38,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.crossAjax = function (config) {
         var _this = this;
-        jquery_1.default.ajax({
+        $.ajax({
             xhrFields: {
                 withCredentials: true
             },
@@ -69,7 +65,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.jsonpAjax = function (config) {
         var _this = this;
-        jquery_1.default.ajax({
+        $.ajax({
             url: config.url,
             data: config.data,
             dataType: 'jsonp',
@@ -92,7 +88,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.encryptAjax = function (config) {
         var _this = this;
-        jquery_1.default.ajax({
+        $.ajax({
             url: _this.randomEncrypt(config.url, config.data),
             data: {},
             dataType: 'jsonp',
@@ -115,7 +111,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.encryptKeyAjax = function (config) {
         var _this = this;
-        jquery_1.default.ajax({
+        $.ajax({
             url: _this.specialEncrypt(config.preid || '', config.key || '', config.url, config.data),
             data: {},
             dataType: 'jsonp',
@@ -156,7 +152,7 @@ var Ajax = /** @class */ (function () {
      * @return {string} 加密后的Url
      */
     Ajax.randomEncrypt = function (url, data) {
-        var _this = this, key = _this.createKey(16), encryptKey = crypto_js_1.default.enc.Utf8.parse(key), newData = _this.encryptData(encryptKey, JSON.stringify(data)), newUrl = url + '?encryptedData=' + newData + '&key=' + key;
+        var _this = this, key = _this.createKey(16), encryptKey = CryptoJS.enc.Utf8.parse(key), newData = _this.encryptData(encryptKey, JSON.stringify(data)), newUrl = url + '?encryptedData=' + newData + '&key=' + key;
         return newUrl.replace(/\+/g, '%2B');
     };
     /**
@@ -168,7 +164,7 @@ var Ajax = /** @class */ (function () {
      * @return {string} 加密后的Url
      */
     Ajax.specialEncrypt = function (preID, key, url, data) {
-        var _this = this, encryptKey = crypto_js_1.default.enc.Utf8.parse(key);
+        var _this = this, encryptKey = CryptoJS.enc.Utf8.parse(key);
         var newData = _this.encryptData(encryptKey, JSON.stringify(data));
         newData = newData.replace(/\+/g, '-');
         newData = newData.replace(/\//g, '_');
@@ -183,10 +179,10 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.encryptData = function (key, data) {
         var _this = this;
-        return crypto_js_1.default.AES.encrypt(data, key, {
+        return CryptoJS.AES.encrypt(data, key, {
             iv: key,
-            mode: crypto_js_1.default.mode.CBC,
-            padding: crypto_js_1.default.pad.ZeroPadding
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.ZeroPadding
         });
     };
     return Ajax;

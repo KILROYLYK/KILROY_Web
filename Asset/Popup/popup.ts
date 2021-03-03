@@ -1,7 +1,7 @@
 import '@types/node';
 import './popup.less';
 
-const $ = require('/usr/local/lib/node_modules/jquery');
+const $ = require('jquery');
 
 interface PopupConfig { // 弹窗配置
     content?: any // 内容

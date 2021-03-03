@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("@types/node");
 require("./popup.less");
-var $ = require('/usr/local/lib/node_modules/jquery');
+var $ = require('jquery');
 /**
  * 弹窗
  */

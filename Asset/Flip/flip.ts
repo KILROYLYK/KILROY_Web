@@ -3,7 +3,7 @@ import './flip.less';
 import FN from '../Function/Function';
 import Ajax from '../Ajax/ajax';
 
-const $ = require('/usr/local/lib/node_modules/jquery');
+const $ = require('jquery');
 
 interface FlipConfig { // 翻页配置
     projectID: number // CMS项目ID

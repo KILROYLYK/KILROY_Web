@@ -12,10 +12,10 @@ export const
  * NodePath：/usr/local/lib/node_modules/
  */
 export const
-    $ = require('/usr/local/lib/node_modules/jquery'), // JQuery
-    VConsole = require('/usr/local/lib/node_modules/vconsole'), // Console显示器
-    GSAP = require('/usr/local/lib/node_modules/gsap'), // 动效
-    Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
+    $ = require('jquery'), // JQuery
+    VConsole = require('vconsole'), // Console显示器
+    GSAP = require('gsap'), // 动效
+    Tween = require('@tweenjs/tween.js'); // 过渡
 
 /**
  * SDK

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("@types/node");
-var $ = require('/usr/local/lib/node_modules/jquery'), CryptoJS = require('/usr/local/lib/node_modules/crypto-js');
+var $ = require('/usr/local/lib/node_modules/jquery'), CryptoJS = require('crypto-js');
 /**
  * 远程请求
  */

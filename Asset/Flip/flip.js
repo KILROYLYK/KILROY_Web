@@ -7,7 +7,7 @@ require("@types/node");
 require("./flip.less");
 var Function_1 = __importDefault(require("../Function/Function"));
 var ajax_1 = __importDefault(require("../Ajax/ajax"));
-var $ = require('/usr/local/lib/node_modules/jquery');
+var $ = require('jquery');
 /**
  * 翻页
  */

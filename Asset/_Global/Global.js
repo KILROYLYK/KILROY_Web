@@ -10,7 +10,7 @@ exports.W = window, exports.D = document;
  * Plugin
  * NodePath：/usr/local/lib/node_modules/
  */
-exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.VConsole = require('/usr/local/lib/node_modules/vconsole'), exports.GSAP = require('/usr/local/lib/node_modules/gsap'), exports.Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
+exports.$ = require('jquery'), exports.VConsole = require('vconsole'), exports.GSAP = require('gsap'), exports.Tween = require('@tweenjs/tween.js'); // 过渡
 /**
  * SDK
  */

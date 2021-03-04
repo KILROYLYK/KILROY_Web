@@ -1,5 +1,5 @@
 // @ts-nocheck
-import $ from '/usr/local/lib/node_modules/jquery';
+// import $ from '/usr/local/lib/node_modules/jquery';
 import CryptoJS from '/usr/local/lib/node_modules/crypto-js';
 
 interface AjaxConfig { // 请求配置

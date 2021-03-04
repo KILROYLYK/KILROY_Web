@@ -31,9 +31,10 @@ var Global = /** @class */ (function () {
     // public static readonly Algorithm: any = Algorithm;
     Global.Adaptation = exports.Adaptation;
     // public static readonly Preload: any = Preload;
-    Global.Ajax = exports.Ajax;
+    // public static readonly Ajax: any = Ajax;
     Global.Popup = exports.Popup;
-    Global.Flip = exports.Flip;
+    // public static readonly Flip: any = Flip;
+    Global.Authorization = exports.Authorization;
     return Global;
 }());
 exports.default = Global;

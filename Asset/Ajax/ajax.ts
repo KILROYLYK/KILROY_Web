@@ -6,6 +6,7 @@ interface AjaxConfig { // 请求配置
     type?: string // 请求类型
     url: string // 接口地址
     data: object // 数据对象
+    beforeSend?: Function // 发送前操作
     successCallback?: Function // 成功回调
     errorCallback?: Function // 失败回调
     cache?: false // 开关缓存

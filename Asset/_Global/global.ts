@@ -13,6 +13,7 @@ export const
  */
 export const
     $ = require('/usr/local/lib/node_modules/jquery'), // JQuery
+    CryptoJS = require('/usr/local/lib/node_modules/crypto-js'), // 加密
     VConsole = require('/usr/local/lib/node_modules/vconsole'), // Console显示器
     GSAP = require('/usr/local/lib/node_modules/gsap'), // 动效
     Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
@@ -38,6 +39,7 @@ export default class Global {
     public static readonly D: Document = D;
     
     public static readonly $: any = $;
+    public static readonly CryptoJS: any = CryptoJS;
     public static readonly VConsole: any = VConsole;
     public static readonly GSAP: any = GSAP;
     public static readonly Tween: any = Tween;

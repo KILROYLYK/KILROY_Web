@@ -527,7 +527,7 @@ var FN = /** @class */ (function () {
          * @param {boolean} hasHeader 是否添加？
          * @return {string} Url参数
          */
-        Conversion: function (object, hasHeader) {
+        conversion: function (object, hasHeader) {
             if (hasHeader === void 0) { hasHeader = false; }
             var _this = FN;
             var param = '';

@@ -276,7 +276,7 @@ export default class FN {
          * @param {boolean} hasHeader 是否添加？
          * @return {string} Url参数
          */
-        Conversion: (object: any, hasHeader: boolean = false): string => {
+        conversion: (object: any, hasHeader: boolean = false): string => {
             const _this = FN;
             
             let param = '';

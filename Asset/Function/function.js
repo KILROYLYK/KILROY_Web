@@ -53,11 +53,11 @@ var FN = /** @class */ (function () {
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
     };
     /**
-     * 取消对象关联
+     * 复制对象
      * @param {object} object 对象
      * @return {object} 新对象
      */
-    FN.unlinkObject = function (object) {
+    FN.copyObject = function (object) {
         var _this = this;
         return JSON.parse(JSON.stringify(object));
     };

@@ -501,11 +501,11 @@ export default class FN {
     }
     
     /**
-     * 取消对象关联
+     * 复制对象
      * @param {object} object 对象
      * @return {object} 新对象
      */
-    public static unlinkObject(object: Object): Object {
+    public static copyObject(object: Object): Object {
         const _this = this;
         return JSON.parse(JSON.stringify(object));
     }

@@ -103,6 +103,18 @@ var FN = /** @class */ (function () {
         });
     };
     /**
+     * 排序对象
+     * @param {object} object 对象
+     * @return {object} 返回排序后对象
+     */
+    FN.sortObject = function (object) {
+        var _this = this, newObject = {};
+        Object.keys(object).sort().forEach(function (key) {
+            newObject[key] = object[key];
+        });
+        return newObject;
+    };
+    /**
      * 乱序数组
      * @param {array} array 数组
      * @return {array} 返回乱序后数组

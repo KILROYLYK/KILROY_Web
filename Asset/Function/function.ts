@@ -269,7 +269,7 @@ export default class FN {
                 hash = decodeURIComponent(_this.window.location.hash);
             return hash.substring(1, hash.length);
         },
-    
+        
         /**
          * 对象转Url参数
          * @param {any} object 对象
@@ -552,6 +552,22 @@ export default class FN {
         return array.sort((x, y) => {
             return x[name] > y[name] ? 1 : -1;
         });
+    }
+    
+    /**
+     * 排序对象
+     * @param {object} object 对象
+     * @return {object} 返回排序后对象
+     */
+    public static sortObject(object: any): any[] {
+        const _this = this,
+            newObject: any = {};
+        
+        Object.keys(object).sort().forEach((key: string) => {
+            newObject[key] = object[key];
+        });
+        
+        return newObject;
     }
     
     /**

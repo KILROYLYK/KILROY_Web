@@ -520,6 +520,23 @@ var FN = /** @class */ (function () {
         getHash: function () {
             var _this = FN, hash = decodeURIComponent(_this.window.location.hash);
             return hash.substring(1, hash.length);
+        },
+        /**
+         * 对象转Url参数
+         * @param {any} object 对象
+         * @param {boolean} hasHeader 是否添加？
+         * @return {string} Url参数
+         */
+        Conversion: function (object, hasHeader) {
+            if (hasHeader === void 0) { hasHeader = false; }
+            var _this = FN;
+            var param = '';
+            for (var key in object) {
+                param += (param === '' ? '' : '&') + key + '=' + object[key];
+            }
+            if (hasHeader)
+                param = '?' + param;
+            return param;
         }
     };
     FN.rem = {
@@ -654,4 +671,4 @@ var FN = /** @class */ (function () {
     return FN;
 }());
 exports.default = FN;
-//# sourceMappingURL=Function.js.map
+//# sourceMappingURL=function.js.map

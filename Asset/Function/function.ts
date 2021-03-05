@@ -268,6 +268,26 @@ export default class FN {
             const _this = FN,
                 hash = decodeURIComponent(_this.window.location.hash);
             return hash.substring(1, hash.length);
+        },
+    
+        /**
+         * 对象转Url参数
+         * @param {any} object 对象
+         * @param {boolean} hasHeader 是否添加？
+         * @return {string} Url参数
+         */
+        Conversion: (object: any, hasHeader: boolean = false): string => {
+            const _this = FN;
+            
+            let param = '';
+            
+            for (const key in object) {
+                param += (param === '' ? '' : '&') + key + '=' + object[key];
+            }
+            
+            if (hasHeader) param = '?' + param;
+            
+            return param;
         }
     };
     public static readonly rem: any = { // 操作Rem

@@ -7,6 +7,13 @@ var FN = /** @class */ (function () {
     function FN() {
     }
     /**
+     * 获取当前时间戳
+     * @return {number} 时间戳
+     */
+    FN.getTimestamp = function () {
+        return Date.parse(new Date().toString()) / 1000;
+    };
+    /**
      * 获取数据类型
      * @param {*} param 参数
      * @return {string} 数据类型

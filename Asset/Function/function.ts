@@ -449,6 +449,14 @@ export default class FN {
     };
     
     /**
+     * 获取当前时间戳
+     * @return {number} 时间戳
+     */
+    public static getTimestamp(): number {
+        return Date.parse(new Date().toString()) / 1000;
+    }
+    
+    /**
      * 获取数据类型
      * @param {*} param 参数
      * @return {string} 数据类型
@@ -559,7 +567,7 @@ export default class FN {
      * @param {object} object 对象
      * @return {object} 返回排序后对象
      */
-    public static sortObject(object: any): any[] {
+    public static sortObject(object: any): any {
         const _this = this,
             newObject: any = {};
         

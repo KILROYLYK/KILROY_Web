@@ -23,10 +23,7 @@ export default class Ajax {
     public static baseAjax(config: any, expand?: Function): void {
         const _this = this;
         
-        console.log('expand:' + expand);
         expand && expand(config);
-        console.log(config);
-        
         _this.$.ajax(config);
     }
     

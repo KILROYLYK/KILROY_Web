@@ -20,9 +20,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.baseAjax = function (config, expand) {
         var _this = this;
-        console.log('expand:' + expand);
         expand && expand(config);
-        console.log(config);
         _this.$.ajax(config);
     };
     /**

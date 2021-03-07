@@ -1,19 +1,16 @@
 "use strict";
 // @ts-nocheck
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.CryptoJS = exports.$ = exports.D = exports.W = exports.Path = void 0;
-exports.Path = {
-    npm: '/usr/local/lib/node_modules/',
-    sdk: '../' // SDK
-}, exports.W = window, exports.D = document;
+exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.CryptoJS = exports.$ = exports.D = exports.W = void 0;
+exports.W = window, exports.D = document;
 /**
  * Plugin
  */
-exports.$ = require(exports.Path.npm + 'jquery'), exports.CryptoJS = require(exports.Path.npm + 'crypto-js'), exports.VConsole = require(exports.Path.npm + 'vconsole'), exports.GSAP = require(exports.Path.npm + 'gsap'), exports.Tween = require(exports.Path.npm + '@tweenjs/tween.js'); // 过渡
+exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.CryptoJS = require('/usr/local/lib/node_modules/crypto-js'), exports.VConsole = require('/usr/local/lib/node_modules/vconsole'), exports.GSAP = require('/usr/local/lib/node_modules/gsap'), exports.Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
 /**
  * SDK
  */
-exports.FN = require(exports.Path.npm + 'Function/function'), exports.Algorithm = require(exports.Path.npm + 'Algorithm/algorithm'), exports.Adaptation = require(exports.Path.npm + 'Adaptation/adaptation'), exports.Preload = require(exports.Path.npm + 'Preload/preload'), exports.Ajax = require(exports.Path.npm + 'Ajax/ajax'), exports.Popup = require(exports.Path.npm + 'Popup/popup'), exports.Flip = require(exports.Path.npm + 'Flip/flip'), exports.Authorization = require(exports.Path.npm + 'Authorization/authorization'); // 授权
+exports.FN = require('../Function/function'), exports.Algorithm = require('../Algorithm/algorithm'), exports.Adaptation = require('../Adaptation/adaptation'), exports.Preload = require('../Preload/preload'), exports.Ajax = require('../Ajax/ajax'), exports.Popup = require('../Popup/popup'), exports.Flip = require('../Flip/flip'), exports.Authorization = require('../Authorization/authorization'); // 授权
 /**
  * Global
  */
@@ -22,7 +19,6 @@ var Global = /** @class */ (function () {
     }
     Global.W = exports.W;
     Global.D = exports.D;
-    Global.Path = exports.Path;
     Global.$ = exports.$;
     Global.CryptoJS = exports.CryptoJS;
     Global.VConsole = exports.VConsole;

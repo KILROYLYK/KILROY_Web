@@ -1,4 +1,4 @@
-import Ajax from "../Ajax/ajax";
+import Ajax from '../Ajax/ajax';
 
 /**
  * 授权
@@ -8,7 +8,7 @@ export default class Authorization {
     
     /**
      * 构造函数
-     * @constructor Page
+     * @constructor Authorization
      */
     constructor() {
         const _this = this;

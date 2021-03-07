@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Authorization = /** @class */ (function () {
     /**
      * 构造函数
-     * @constructor Page
+     * @constructor Authorization
      */
     function Authorization() {
         this.WX = null;

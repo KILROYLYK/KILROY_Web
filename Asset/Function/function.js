@@ -685,4 +685,4 @@ var FN = /** @class */ (function () {
     return FN;
 }());
 exports.default = FN;
-//# sourceMappingURL=function.js.map
+//# sourceMappingURL=Function.js.map

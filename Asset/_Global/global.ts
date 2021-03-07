@@ -18,14 +18,14 @@ export const
  * SDK
  */
 export const
-    FN = require('../Function/function.ts').default, // 函数
-    Algorithm = require('../Algorithm/algorithm.ts').default, // 算法
-    Adaptation = require('../Adaptation/adaptation.ts').default, // 适配
-    Preload = require('../Preload/preload.ts').default, // 预加载
-    Ajax = require('../Ajax/ajax.ts').default, // 远程请求
-    Popup = require('../Popup/popup.ts').default, // 弹窗
-    Flip = require('../Flip/flip.ts').default, // 翻页
-    Authorization = require('../Authorization/authorization.ts').default; // 授权
+    FN = require('../Function/function').default, // 函数
+    Algorithm = require('../Algorithm/algorithm').default, // 算法
+    Adaptation = require('../Adaptation/adaptation').default, // 适配
+    Preload = require('../Preload/preload').default, // 预加载
+    Ajax = require('../Ajax/ajax').default, // 远程请求
+    Popup = require('../Popup/popup').default, // 弹窗
+    Flip = require('../Flip/flip').default, // 翻页
+    Authorization = require('../Authorization/authorization').default; // 授权
 
 /**
  * Global

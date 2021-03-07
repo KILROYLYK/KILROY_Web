@@ -10,7 +10,7 @@ exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.CryptoJS = re
 /**
  * SDK
  */
-exports.FN = require('../Function/function.ts').default, exports.Algorithm = require('../Algorithm/algorithm.ts').default, exports.Adaptation = require('../Adaptation/adaptation.ts').default, exports.Preload = require('../Preload/preload.ts').default, exports.Ajax = require('../Ajax/ajax.ts').default, exports.Popup = require('../Popup/popup.ts').default, exports.Flip = require('../Flip/flip.ts').default, exports.Authorization = require('../Authorization/authorization.ts').default; // 授权
+exports.FN = require('../Function/function').default, exports.Algorithm = require('../Algorithm/algorithm').default, exports.Adaptation = require('../Adaptation/adaptation').default, exports.Preload = require('../Preload/preload').default, exports.Ajax = require('../Ajax/ajax').default, exports.Popup = require('../Popup/popup').default, exports.Flip = require('../Flip/flip').default, exports.Authorization = require('../Authorization/authorization').default; // 授权
 /**
  * Global
  */

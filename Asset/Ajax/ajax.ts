@@ -24,7 +24,7 @@ export default class Ajax {
         const _this = this;
         
         expand && expand(config);
-        _this.$.ajax(config);
+        $.ajax(config);
     }
     
     /**

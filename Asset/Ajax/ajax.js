@@ -173,7 +173,7 @@ var Ajax = /** @class */ (function () {
      */
     Ajax.encryptMD5 = function (key, data) {
         var _this = this, sortData = _this.sortObject(data), paramData = _this.paramObject(sortData);
-        return _this.Crypto.MD5(paramData + '&key=' + key);
+        return _this.Crypto.MD5(paramData + '&key=' + key).toString();
     };
     /**
      * AES加密

@@ -217,7 +217,7 @@ export default class Ajax {
             sortData = _this.sortObject(data),
             paramData = _this.paramObject(sortData);
         
-        return _this.Crypto.MD5(paramData + '&key=' + key);
+        return _this.Crypto.MD5(paramData + '&key=' + key).toString();
     }
     
     /**

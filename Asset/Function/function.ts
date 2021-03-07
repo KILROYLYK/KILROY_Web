@@ -14,14 +14,14 @@ export default class FN {
          */
         platform: (): string => {
             const _this = FN,
-                platform = {
-                    PC: /Windows|Mac|Linux/i as RegExp,
-                    Mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i as RegExp
+                reg = {
+                    pc: /Windows|Mac|Linux/i as RegExp,
+                    mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i as RegExp
                 };
             
-            if (platform.Mobile.test(_this.agent)) { // Mobile（优先判断）
+            if (reg.mobile.test(_this.agent)) { // Mobile
                 return 'Mobile';
-            } else if (platform.PC.test(_this.agent)) { // PC
+            } else if (reg.pc.test(_this.agent)) { // PC
                 return 'PC';
             }
             
@@ -268,26 +268,6 @@ export default class FN {
             const _this = FN,
                 hash = decodeURIComponent(_this.window.location.hash);
             return hash.substring(1, hash.length);
-        },
-        
-        /**
-         * 对象转Url参数
-         * @param {any} object 对象
-         * @param {boolean} hasHeader 是否添加？
-         * @return {string} Url参数
-         */
-        conversion: (object: any, hasHeader: boolean = false): string => {
-            const _this = FN;
-            
-            let param = '';
-            
-            for (const key in object) {
-                param += (param === '' ? '' : '&') + key + '=' + object[key];
-            }
-            
-            if (hasHeader) param = '?' + param;
-            
-            return param;
         }
     };
     public static readonly rem: any = { // 操作Rem
@@ -509,16 +489,6 @@ export default class FN {
     }
     
     /**
-     * 复制对象
-     * @param {object} object 对象
-     * @return {object} 新对象
-     */
-    public static copyObject(object: Object): Object {
-        const _this = this;
-        return JSON.parse(JSON.stringify(object));
-    }
-    
-    /**
      * 遍历数组
      * @param {array} array 数组
      * @param {function} callback 回调
@@ -528,19 +498,6 @@ export default class FN {
         const _this = this;
         for (const key of array) {
             callback(key, array[key]);
-        }
-    }
-    
-    /**
-     * 遍历对象
-     * @param {object} object 对象
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    public static traversingObject(object: any, callback: Function): void {
-        const _this = this;
-        for (const key in object) {
-            callback(key, object[key]);
         }
     }
     
@@ -560,22 +517,6 @@ export default class FN {
         return array.sort((x, y) => {
             return x[name] > y[name] ? 1 : -1;
         });
-    }
-    
-    /**
-     * 排序对象
-     * @param {object} object 对象
-     * @return {object} 返回排序后对象
-     */
-    public static sortObject(object: any): any {
-        const _this = this,
-            newObject: any = {};
-        
-        Object.keys(object).sort().forEach((key: string) => {
-            newObject[key] = object[key];
-        });
-        
-        return newObject;
     }
     
     /**
@@ -611,6 +552,60 @@ export default class FN {
         }
         
         return newArray;
+    }
+    
+    /**
+     * 遍历对象
+     * @param {object} object 对象
+     * @param {function} callback 回调
+     * @return {void}
+     */
+    public static traversingObject(object: any, callback: Function): void {
+        const _this = this;
+        for (const key in object) {
+            callback(key, object[key]);
+        }
+    }
+    
+    /**
+     * 排序对象
+     * @param {object} object 对象
+     * @return {object} 返回排序后对象
+     */
+    public static sortObject(object: any): any {
+        const _this = this,
+            newObject: any = {};
+        
+        Object.keys(object).sort().forEach((key: string) => {
+            newObject[key] = object[key];
+        });
+        
+        return newObject;
+    }
+    
+    /**
+     * 复制对象
+     * @param {object} object 对象
+     * @return {object} 新建的对象
+     */
+    public static copyObject(object: Object): Object {
+        const _this = this;
+        return JSON.parse(JSON.stringify(object));
+    }
+    
+    /**
+     * 参数化对象
+     * @param {any} object 对象
+     * @return {string} 参数
+     */
+    public static paramObject(object: any): string {
+        const _this = this;
+        
+        let param = '';
+        
+        for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
+        
+        return param;
     }
     
     /**

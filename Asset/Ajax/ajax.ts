@@ -2,149 +2,190 @@
 import $ from '/usr/local/lib/node_modules/jquery';
 import CryptoJS from '/usr/local/lib/node_modules/crypto-js';
 
-interface AjaxConfig { // 请求配置
-    type?: string // 请求类型
-    url: string // 接口地址
-    data: object // 数据对象
-    beforeSend?: Function // 发送前操作
-    successCallback?: Function // 成功回调
-    errorCallback?: Function // 失败回调
-    cache?: false // 开关缓存
-    async?: true // 开关同步
-    preid?: string // 加密ID
-    key?: string // 加密Key
+interface EncryptInfo { // 加密信息
+    key?: string, // 加密key
+    length?: number // 随机key长度
 }
 
 /**
  * 远程请求
  */
 export default class Ajax {
+    private static readonly $: any = $;
+    private static readonly Crypto: any = CryptoJS;
+    
     /**
-     * 通用Ajax请求
-     * @param {object} config 配置
+     * 基础请求
+     * @param {any} config 配置
+     * @param {Function} expand 拓展
      * @return {void}
      */
-    public static commonAjax(config: AjaxConfig): void {
+    public static baseAjax(config: any, expand?: Function): void {
         const _this = this;
-        $.ajax({
-            url: config.url,
-            data: config.data,
-            dataType: 'json',
-            type: config.type,
-            cache: config.cache,
-            async: config.async,
-            success: (result: any) => {
-                config.successCallback && config.successCallback(result);
-            },
-            error: (e: Event) => {
-                console.log(e);
-                config.errorCallback && config.errorCallback(e);
-            }
+        
+        console.log('expand:' + expand);
+        expand && expand(config);
+        console.log(config);
+        
+        _this.$.ajax(config);
+    }
+    
+    /**
+     * 跨域请求
+     * @param {any} config 配置
+     * @param {Function} expand 拓展
+     * @return {void}
+     */
+    public static crossAjax(config: any, expand?: Function): void {
+        const _this = this;
+        
+        _this.baseAjax(config, (ajaxConfig: any) => {
+            Object.assign(ajaxConfig, {
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true
+            });
+            expand && expand(ajaxConfig);
         });
     }
     
     /**
-     * 跨域Ajax请求
-     * @param {object} config 配置
+     * Jsonp请求
+     * @param {any} config 配置
+     * @param {Function} expand 拓展
      * @return {void}
      */
-    public static crossAjax(config: AjaxConfig): void {
+    public static jsonpAjax(config: any, expand?: Function): void {
         const _this = this;
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
-            url: config.url,
-            data: config.data,
-            dataType: 'json',
-            type: config.type,
-            cache: config.cache,
-            async: config.async,
-            success: (result: any) => {
-                config.successCallback && config.successCallback(result);
-            },
-            error: (e: Event) => {
-                console.log(e);
-                config.errorCallback && config.errorCallback(e);
-            }
+        
+        _this.baseAjax(config, (ajaxConfig: any) => {
+            Object.assign(ajaxConfig, {
+                dataType: 'jsonp',
+                jsonp: 'jsoncallback'
+            });
+            expand && expand(ajaxConfig);
         });
     }
     
     /**
-     * Jsonp跨域Ajax请求
-     * @param {object} config 配置
+     * MD5加密
+     * @param {any} config 配置
+     * @param {EncryptInfo} encrypt 密钥
+     * @param {Function} expand 拓展
      * @return {void}
      */
-    public static jsonpAjax(config: AjaxConfig): void {
+    public static encryptMD5Ajax(config: any, encrypt: EncryptInfo, expand?: Function): void {
         const _this = this;
-        $.ajax({
-            url: config.url,
-            data: config.data,
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback',
-            cache: config.cache,
-            async: config.async,
-            success: (result: any) => {
-                config.successCallback && config.successCallback(result);
-            },
-            error: (e: Event) => {
-                console.log(e);
-                config.errorCallback && config.errorCallback(e);
-            }
+        
+        _this.baseAjax(config, (ajaxConfig: any) => {
+            const key = encrypt.key || _this.createKey(encrypt.length || 0),
+                sortData = _this.sortObject(ajaxConfig.data),
+                sign = _this.encryptMD5(key, sortData);
+            
+            ajaxConfig.data = Object.assign(sortData, { sign });
+            
+            expand && expand(ajaxConfig);
         });
     }
     
     /**
-     * 随机Key加密Ajax请求
-     * @param {object} config 配置
+     * AES加密请求
+     * @param {any} config 配置
+     * @param {EncryptInfo} encrypt 密钥
+     * @param {Function} expand 拓展
      * @return {void}
      */
-    public static encryptAjax(config: AjaxConfig): void {
+    public static encryptAESAjax(config: any, encrypt: EncryptInfo, expand?: Function): void {
         const _this = this;
-        $.ajax({
-            url: _this.randomEncrypt(config.url, config.data),
-            data: {},
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback',
-            cache: config.cache,
-            async: config.async,
-            success: (result: any) => {
-                config.successCallback && config.successCallback(result);
-            },
-            error: (e: Event) => {
-                console.log(e);
-                config.errorCallback && config.errorCallback(e);
-            }
+        
+        _this.baseAjax(config, (ajaxConfig: any) => {
+            const key = encrypt.key || _this.createKey(encrypt.length || 0),
+                data = _this.encryptAES(key, ajaxConfig.data);
+            
+            ajaxConfig.data = { data, key };
+            
+            expand && expand(ajaxConfig);
         });
     }
     
     /**
-     * 指定Key加密Ajax请求
-     * @param {object} config 配置
+     * CMSAES请求
+     * @param {any} config 配置
+     * @param {Function} expand 拓展
      * @return {void}
      */
-    public static encryptKeyAjax(config: AjaxConfig): void {
+    private static CMSAESAjax(config: any, expand?: Function): void {
         const _this = this;
-        $.ajax({
-            url: _this.specialEncrypt(config.preid || '', config.key || '', config.url, config.data),
-            data: {},
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback',
-            cache: config.cache,
-            async: config.async,
-            success: (result: any) => {
-                config.successCallback && config.successCallback(result);
-            },
-            error: (e: Event) => {
-                console.log(e);
-                config.errorCallback && config.errorCallback(e);
-            }
+        
+        _this.encryptAESAjax(config, { length: 16 }, (ajaxConfig: any) => {
+            const data = ajaxConfig.data;
+            
+            ajaxConfig.data = {
+                encryptedData: data.data,
+                key: data.key
+            };
+            
+            expand && expand(ajaxConfig);
         });
     }
     
     /**
-     * 构造length长度的Key
+     * 活动AES请求
+     * @param {any} config 配置
+     * @param {string} id 通行证
+     * @param {string} key 密钥
+     * @param {Function} expand 拓展
+     * @return {void}
+     */
+    private static activityAESAjax(config: any, id: string, key: string, expand?: Function): void {
+        const _this = this;
+        
+        _this.encryptAESAjax(config, { key }, (ajaxConfig: any) => {
+            const data = ajaxConfig.data;
+            
+            ajaxConfig.data = {
+                data: data.data,
+                preid: id
+            };
+            
+            expand && expand(ajaxConfig);
+        });
+    }
+    
+    /**
+     * 排序对象
+     * @param {object} object 对象
+     * @return {object} 返回排序后对象
+     */
+    private static sortObject(object: any): any {
+        const _this = this,
+            newObject: any = {};
+        
+        Object.keys(object).sort().forEach((key: string) => {
+            newObject[key] = object[key];
+        });
+        
+        return newObject;
+    }
+    
+    /**
+     * 参数化对象
+     * @param {any} object 对象
+     * @return {string} 参数
+     */
+    public static paramObject(object: any): string {
+        const _this = this;
+        
+        let param = '';
+        
+        for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
+        
+        return param;
+    }
+    
+    /**
+     * 构造一定长度的Key
      * @param {number} length Key长度
      * @return {string} 返回Key
      */
@@ -153,70 +194,56 @@ export default class Ajax {
             time = Math.floor(length / 8),
             remainder = length % 8;
         
-        let k = '';
+        let key = '';
         
         for (let i = 0; i < time; i++) {
-            k += Math.random()
+            key += Math.random()
                 .toString(36)
                 .slice(2, 10);
         }
         
-        k += Math.random()
+        key += Math.random()
             .toString(36)
             .slice(2, 2 - remainder);
         
-        return k;
+        return CryptoJS.enc.Utf8.parse(key);
     }
     
     /**
-     * 随机Key加密
-     * @param {string} url 接口Url
-     * @param {object} data 数据
-     * @return {string} 加密后的Url
-     */
-    private static randomEncrypt(url: string, data: any): string {
-        const _this = this,
-            key = _this.createKey(16),
-            encryptKey = CryptoJS.enc.Utf8.parse(key),
-            newData = _this.encryptData(encryptKey, JSON.stringify(data)),
-            newUrl = url + '?encryptedData=' + newData + '&key=' + key;
-        
-        return newUrl.replace(/\+/g, '%2B');
-    }
-    
-    /**
-     * 指定Key加密
-     * @param {string} preID 通行证
+     * MD5加密
      * @param {string} key 加密的Key
-     * @param {string} url 接口Url
-     * @param {object} data 数据
-     * @return {string} 加密后的Url
-     */
-    private static specialEncrypt(preID: string, key: string, url: string, data: object): string {
-        const _this = this,
-            encryptKey = CryptoJS.enc.Utf8.parse(key);
-        
-        let newData = _this.encryptData(encryptKey, JSON.stringify(data));
-        
-        newData = newData.replace(/\+/g, '-');
-        newData = newData.replace(/\//g, '_');
-        newData = newData.replace(/\=/g, '');
-        
-        return url + '?data=' + newData + '&preid=' + preID;
-    }
-    
-    /**
-     * 加密数据
-     * @param {string} data 数据
-     * @param {string} key 加密的Key
+     * @param {any} data 数据
      * @return {string} 加密后的数据字符串
      */
-    private static encryptData(key: string, data: string): string {
+    private static encryptMD5(key: string, data: any): string {
+        const _this = this,
+            sortData = _this.sortObject(data),
+            paramData = _this.paramObject(sortData);
+        
+        return _this.Crypto.MD5(paramData + '&key=' + key);
+    }
+    
+    /**
+     * AES加密
+     * @param {string} key 加密的Key
+     * @param {any} data 数据
+     * @return {string} 加密后的数据字符串
+     */
+    private static encryptAES(key: string, data: any): string {
         const _this = this;
-        return CryptoJS.AES.encrypt(data, key, {
-            iv: key,
-            mode: CryptoJS.mode.CBC,
-            padding: CryptoJS.pad.ZeroPadding
-        });
+        
+        let encryptData = _this.Crypto.AES.encrypt(
+            JSON.stringify(data), key,
+            {
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.ZeroPadding,
+                iv: key
+            });
+        
+        encryptData = encryptData.replace(/\+/g, '-');
+        encryptData = encryptData.replace(/\//g, '_');
+        encryptData = encryptData.replace(/\=/g, '');
+        
+        return encryptData;
     }
 }

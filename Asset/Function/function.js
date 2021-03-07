@@ -60,15 +60,6 @@ var FN = /** @class */ (function () {
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
     };
     /**
-     * 复制对象
-     * @param {object} object 对象
-     * @return {object} 新对象
-     */
-    FN.copyObject = function (object) {
-        var _this = this;
-        return JSON.parse(JSON.stringify(object));
-    };
-    /**
      * 遍历数组
      * @param {array} array 数组
      * @param {function} callback 回调
@@ -79,18 +70,6 @@ var FN = /** @class */ (function () {
         for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
             var key = array_1[_i];
             callback(key, array[key]);
-        }
-    };
-    /**
-     * 遍历对象
-     * @param {object} object 对象
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    FN.traversingObject = function (object, callback) {
-        var _this = this;
-        for (var key in object) {
-            callback(key, object[key]);
         }
     };
     /**
@@ -108,18 +87,6 @@ var FN = /** @class */ (function () {
         return array.sort(function (x, y) {
             return x[name] > y[name] ? 1 : -1;
         });
-    };
-    /**
-     * 排序对象
-     * @param {object} object 对象
-     * @return {object} 返回排序后对象
-     */
-    FN.sortObject = function (object) {
-        var _this = this, newObject = {};
-        Object.keys(object).sort().forEach(function (key) {
-            newObject[key] = object[key];
-        });
-        return newObject;
     };
     /**
      * 乱序数组
@@ -149,6 +116,51 @@ var FN = /** @class */ (function () {
             newArray.push(array[i]);
         }
         return newArray;
+    };
+    /**
+     * 遍历对象
+     * @param {object} object 对象
+     * @param {function} callback 回调
+     * @return {void}
+     */
+    FN.traversingObject = function (object, callback) {
+        var _this = this;
+        for (var key in object) {
+            callback(key, object[key]);
+        }
+    };
+    /**
+     * 排序对象
+     * @param {object} object 对象
+     * @return {object} 返回排序后对象
+     */
+    FN.sortObject = function (object) {
+        var _this = this, newObject = {};
+        Object.keys(object).sort().forEach(function (key) {
+            newObject[key] = object[key];
+        });
+        return newObject;
+    };
+    /**
+     * 复制对象
+     * @param {object} object 对象
+     * @return {object} 新建的对象
+     */
+    FN.copyObject = function (object) {
+        var _this = this;
+        return JSON.parse(JSON.stringify(object));
+    };
+    /**
+     * 参数化对象
+     * @param {any} object 对象
+     * @return {string} 参数
+     */
+    FN.paramObject = function (object) {
+        var _this = this;
+        var param = '';
+        for (var key in object)
+            param += (param === '' ? '' : '&') + key + '=' + object[key];
+        return param;
     };
     /**
      * 记忆函数
@@ -285,14 +297,14 @@ var FN = /** @class */ (function () {
          * @return {string} 返回平台信息
          */
         platform: function () {
-            var _this = FN, platform = {
-                PC: /Windows|Mac|Linux/i,
-                Mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
+            var _this = FN, reg = {
+                pc: /Windows|Mac|Linux/i,
+                mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
             };
-            if (platform.Mobile.test(_this.agent)) { // Mobile（优先判断）
+            if (reg.mobile.test(_this.agent)) { // Mobile
                 return 'Mobile';
             }
-            else if (platform.PC.test(_this.agent)) { // PC
+            else if (reg.pc.test(_this.agent)) { // PC
                 return 'PC';
             }
             console.log('未知平台：' + _this.agent);
@@ -539,23 +551,6 @@ var FN = /** @class */ (function () {
         getHash: function () {
             var _this = FN, hash = decodeURIComponent(_this.window.location.hash);
             return hash.substring(1, hash.length);
-        },
-        /**
-         * 对象转Url参数
-         * @param {any} object 对象
-         * @param {boolean} hasHeader 是否添加？
-         * @return {string} Url参数
-         */
-        conversion: function (object, hasHeader) {
-            if (hasHeader === void 0) { hasHeader = false; }
-            var _this = FN;
-            var param = '';
-            for (var key in object) {
-                param += (param === '' ? '' : '&') + key + '=' + object[key];
-            }
-            if (hasHeader)
-                param = '?' + param;
-            return param;
         }
     };
     FN.rem = {

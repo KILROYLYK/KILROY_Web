@@ -19,7 +19,7 @@ var Adaptation = /** @class */ (function () {
     Adaptation.jumpMobile = function (position) {
         if (position === void 0) { position = ''; }
         var _this = this;
-        _this.regMobile.test(_this.W.navigator.userAgent) && (_this.W.location.href =
+        _this.reg.mobile.test(_this.W.navigator.userAgent) && (_this.W.location.href =
             _this.W.location.origin + position +
                 _this.W.location.pathname +
                 _this.W.location.search +
@@ -69,11 +69,14 @@ var Adaptation = /** @class */ (function () {
     };
     Adaptation.W = window;
     Adaptation.D = document;
-    Adaptation.psdWidth = 750; // PSD宽度
+    Adaptation.reg = {
+        PC: /Windows|Mac|Linux/i,
+        mobile: /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i
+    };
     Adaptation.scale = true; // 是否在大屏开启缩放
-    Adaptation.setTime = 0; // 定时器
+    Adaptation.psdWidth = 750; // PSD宽度
     Adaptation.waitTime = 300; // 等待时间
-    Adaptation.regMobile = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
+    Adaptation.setTime = 0; // 定时器
     return Adaptation;
 }());
 exports.default = Adaptation;

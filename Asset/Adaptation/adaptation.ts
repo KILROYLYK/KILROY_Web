@@ -2,13 +2,17 @@
  * 适配
  */
 export default class Adaptation {
-    static readonly W: Window = window;
-    static readonly D: Document = document;
-    static readonly psdWidth: number = 750; // PSD宽度
-    static readonly scale: boolean = true; // 是否在大屏开启缩放
+    private static readonly W: Window = window;
+    private static readonly D: Document = document;
+    
+    private static readonly reg: any = { // 正则
+        PC: /Windows|Mac|Linux/i as RegExp,
+        mobile: /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i as RegExp
+    };
+    private static readonly scale: boolean = true; // 是否在大屏开启缩放
+    private static readonly psdWidth: number = 750; // PSD宽度
+    private static readonly waitTime: number = 300; // 等待时间
     private static setTime: number = 0; // 定时器
-    private static waitTime: number = 300; // 等待时间
-    private static regMobile: RegExp = /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i;
     
     /**
      * 构造函数
@@ -26,7 +30,7 @@ export default class Adaptation {
     public static jumpMobile(position: string = ''): void {
         const _this = this;
         
-        _this.regMobile.test(_this.W.navigator.userAgent) && (
+        _this.reg.mobile.test(_this.W.navigator.userAgent) && (
             _this.W.location.href =
                 _this.W.location.origin + position +
                 _this.W.location.pathname +

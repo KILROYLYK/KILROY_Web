@@ -44,7 +44,7 @@ export default class Global {
     // public static readonly Algorithm: any = Algorithm;
     public static readonly Adaptation: any = Adaptation;
     // public static readonly Preload: any = Preload;
-    // public static readonly Ajax: any = Ajax;
+    public static readonly Ajax: any = Ajax;
     public static readonly Popup: any = Popup;
     // public static readonly Flip: any = Flip;
     public static readonly Authorization: any = Authorization;

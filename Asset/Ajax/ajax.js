@@ -21,7 +21,7 @@ var Ajax = /** @class */ (function () {
     Ajax.baseAjax = function (config, expand) {
         var _this = this;
         expand && expand(config);
-        _this.$.ajax(config);
+        jquery_1.default.ajax(config);
     };
     /**
      * 跨域请求

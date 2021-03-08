@@ -2,7 +2,7 @@
 import $ from '/usr/local/lib/node_modules/jquery';
 
 import './flip.less';
-import FN from '../Function/Function';
+import FN from '../Function/function';
 import Ajax from '../Ajax/ajax';
 
 interface FlipConfig { // 翻页配置

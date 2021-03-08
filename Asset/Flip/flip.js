@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-nocheck
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./flip.less");
-var Function_1 = __importDefault(require("../Function/Function"));
+var function_1 = __importDefault(require("../Function/function"));
 var ajax_1 = __importDefault(require("../Ajax/ajax"));
 /**
  * 翻页
@@ -25,8 +25,8 @@ var Flip = /** @class */ (function () {
             domain: 'https://cms.gaeamobile.net',
             getList: '/api/get-posts-list'
         };
-        this.$W = jquery_1.default(Function_1.default.window); // Jquery的Window元素
-        this.$D = jquery_1.default(Function_1.default.document); // Jquery的Document元素
+        this.$W = jquery_1.default(function_1.default.window); // Jquery的Window元素
+        this.$D = jquery_1.default(function_1.default.document); // Jquery的Document元素
         var _this = this;
         _this.config = {
             projectID: config.projectID,
@@ -134,7 +134,7 @@ var Flip = /** @class */ (function () {
         var dom = '';
         if (!config)
             return;
-        Function_1.default.traversingArray(array, function (k, v) {
+        function_1.default.traversingArray(array, function (k, v) {
             dom += config.createDom(k, v);
         });
         callback && callback(dom);
@@ -188,7 +188,7 @@ var Flip = /** @class */ (function () {
      */
     Flip.prototype.scrollFun = function () {
         var _this = this, top = _this.$W.scrollTop(), winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * Function_1.default.rem.get())
+        if (top < winHeight - _this.$W.height() - 2 * function_1.default.rem.get())
             return;
         _this.getData();
     };

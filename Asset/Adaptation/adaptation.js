@@ -56,14 +56,19 @@ var Adaptation = /** @class */ (function () {
     };
     /**
      * 改变Rem
+     * @param {boolean} isMax 是否限制最大值
+     * @param {boolean} isScale 是否在大屏开启缩放
      * @return {void}
      */
-    Adaptation.changeRem = function () {
+    Adaptation.changeRem = function (isMax, isScale) {
+        if (isMax === void 0) { isMax = false; }
+        if (isScale === void 0) { isScale = false; }
         var _this = this, width = _this.W.innerWidth, height = _this.W.innerHeight;
         var fontSize = width / _this.psdWidth * 100;
-        if (fontSize > 100)
+        if (isMax && fontSize > 100)
             fontSize = 100;
-        // if (_this.scale && width / height >= 0.75) fontSize = 75;
+        if (isScale && width / height >= 0.75)
+            fontSize = 75;
         _this.D.documentElement.style.fontSize = fontSize + 'px';
     };
     Adaptation.W = window;
@@ -72,7 +77,6 @@ var Adaptation = /** @class */ (function () {
         PC: /Windows|Mac|Linux/i,
         mobile: /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i
     };
-    Adaptation.scale = true; // 是否在大屏开启缩放
     Adaptation.psdWidth = 750; // PSD宽度
     Adaptation.waitTime = 300; // 等待时间
     Adaptation.setTime = 0; // 定时器

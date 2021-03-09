@@ -9,7 +9,6 @@ export default class Adaptation {
         PC: /Windows|Mac|Linux/i as RegExp,
         mobile: /Mobile|Windows Phone|Android|iPhone|iPod|BlackBerry|SymbianOS|webOS/i as RegExp
     };
-    private static readonly scale: boolean = true; // 是否在大屏开启缩放
     private static readonly psdWidth: number = 750; // PSD宽度
     private static readonly waitTime: number = 300; // 等待时间
     private static setTime: number = 0; // 定时器
@@ -73,17 +72,19 @@ export default class Adaptation {
     
     /**
      * 改变Rem
+     * @param {boolean} isMax 是否限制最大值
+     * @param {boolean} isScale 是否在大屏开启缩放
      * @return {void}
      */
-    private static changeRem(): void {
+    private static changeRem(isMax: boolean = false, isScale: boolean = false): void {
         const _this = this,
             width = _this.W.innerWidth,
             height = _this.W.innerHeight;
         
         let fontSize = width / _this.psdWidth * 100;
         
-        if (fontSize > 100) fontSize = 100;
-        // if (_this.scale && width / height >= 0.75) fontSize = 75;
+        if (isMax && fontSize > 100) fontSize = 100;
+        if (isScale && width / height >= 0.75) fontSize = 75;
         
         _this.D.documentElement.style.fontSize = fontSize + 'px';
     }

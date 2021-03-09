@@ -1,12 +1,12 @@
 "use strict";
 // @ts-nocheck
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.VConsole = exports.CryptoJS = exports.$ = exports.D = exports.W = void 0;
+exports.Authorization = exports.Flip = exports.Popup = exports.Ajax = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.Crypto = exports.Console = exports.$ = exports.D = exports.W = void 0;
 exports.W = window, exports.D = document;
 /**
  * Plugin
  */
-exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.CryptoJS = require('/usr/local/lib/node_modules/crypto-js'), exports.VConsole = require('/usr/local/lib/node_modules/vconsole'), exports.GSAP = require('/usr/local/lib/node_modules/gsap'), exports.Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
+exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.Console = require('/usr/local/lib/node_modules/vconsole'), exports.Crypto = require('/usr/local/lib/node_modules/crypto-js'), exports.GSAP = require('/usr/local/lib/node_modules/gsap'), exports.Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
 /**
  * SDK
  */
@@ -20,8 +20,8 @@ var Global = /** @class */ (function () {
     Global.W = exports.W;
     Global.D = exports.D;
     Global.$ = exports.$;
-    Global.CryptoJS = exports.CryptoJS;
-    Global.VConsole = exports.VConsole;
+    Global.Console = exports.Console;
+    Global.Crypto = exports.Crypto;
     Global.GSAP = exports.GSAP;
     Global.Tween = exports.Tween;
     Global.FN = exports.FN;

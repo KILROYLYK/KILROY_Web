@@ -83,7 +83,7 @@ export default class Adaptation {
         let fontSize = width / _this.psdWidth * 100;
         
         if (fontSize > 100) fontSize = 100;
-        if (_this.scale && width / height >= 0.75) fontSize = 75;
+        // if (_this.scale && width / height >= 0.75) fontSize = 75;
         
         _this.D.documentElement.style.fontSize = fontSize + 'px';
     }

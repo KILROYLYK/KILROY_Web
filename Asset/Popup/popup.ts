@@ -22,9 +22,9 @@ export default class Popup {
     private closeCallback: Function | null = null; // 关闭回调
     
     private readonly $B: any = $('body'); // Jquery的Body元素
-    private $id: any = null;
-    private $content: any = null;
-    private $close: any = null;
+    public $id: any = null;
+    public $content: any = null;
+    public $close: any = null;
     
     private readonly setTime = { // 定时控制器
         open: 0 as any,

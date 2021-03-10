@@ -68,8 +68,8 @@ var FN = /** @class */ (function () {
     FN.traversingArray = function (array, callback) {
         var _this = this;
         for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
-            var key = array_1[_i];
-            callback(key, array[key]);
+            var value = array_1[_i];
+            callback(array[value], value);
         }
     };
     /**
@@ -182,7 +182,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.scroll = function (id, config) {
-        var _this = this, dom = _this.document.getElementById(id), scrollFun = function (e) {
+        var _this = this, dom = document.getElementById(id), scrollFun = function (e) {
             var event = e;
             var detail = 0;
             if (_this.isPSB.system() === 'Mac')
@@ -219,11 +219,11 @@ var FN = /** @class */ (function () {
         var resizeSetTime = 0;
         callback();
         // 监听屏幕
-        _this.window.addEventListener('onorientationchange' in _this.window ? 'orientationchange' : 'resize', function () {
+        window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', function () {
             clearTimeout(resizeSetTime);
             resizeSetTime = setTimeout(callback, time);
         }, false);
-        _this.window.addEventListener('pageshow', function (e) {
+        window.addEventListener('pageshow', function (e) {
             if (e.persisted) {
                 clearTimeout(resizeSetTime);
                 resizeSetTime = setTimeout(callback, time);
@@ -249,7 +249,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.linkAddParam = function () {
-        var _this = this, array = _this.document.getElementsByTagName('a'), length = array.length;
+        var _this = this, array = document.getElementsByTagName('a'), length = array.length;
         var _loop_1 = function (i) {
             array[i].addEventListener('click', function () {
                 var a = array[i];
@@ -260,16 +260,16 @@ var FN = /** @class */ (function () {
                 // 忽略非跳转当前域名链接
                 if ((href.indexOf('http://') > -1 ||
                     href.indexOf('https://') > -1) &&
-                    href.indexOf(_this.window.location.hostname) === -1) {
+                    href.indexOf(window.location.hostname) === -1) {
                     return;
                 }
                 // 添加Hash
                 href = href.split('#');
                 if (href.length > 1) {
-                    src = href[0] + _this.window.location.search + '#' + href[1];
+                    src = href[0] + window.location.search + '#' + href[1];
                 }
                 else {
-                    src = href[0] + _this.window.location.search;
+                    src = href[0] + window.location.search;
                 }
                 a.setAttribute('href', src);
             }, false);
@@ -288,8 +288,6 @@ var FN = /** @class */ (function () {
         console[type] = function () {
         };
     };
-    FN.window = window; // 全局对象
-    FN.document = document; // 文档对象
     FN.agent = window.navigator.userAgent.toLowerCase(); // 代理信息
     FN.isPSB = {
         /**
@@ -382,7 +380,7 @@ var FN = /** @class */ (function () {
             else if ((/Edge/i).test(_this.agent)) {
                 return 'Edge';
             }
-            else if (_this.window.ActiveXObject || 'ActiveXObject' in _this.window) {
+            else if (window.ActiveXObject || 'ActiveXObject' in window) {
                 return 'IE';
             }
             console.log('未知浏览器：' + _this.agent);
@@ -408,7 +406,7 @@ var FN = /** @class */ (function () {
                 time.setTime(time + day * 24 * 60 * 60 * 1000);
                 time = 'expires=' + time.toUTCString() + ';';
             }
-            _this.document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
+            document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
         },
         /**
          * 获取Cookie
@@ -416,7 +414,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回value|null
          */
         get: function (name) {
-            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = _this.document.cookie.match(reg);
+            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = document.cookie.match(reg);
             if (value !== null)
                 return decodeURIComponent(value[2]);
             else
@@ -433,7 +431,7 @@ var FN = /** @class */ (function () {
             var _this = FN, exp = new Date(), value = _this.cookie.get(name);
             exp.setTime(exp.getTime() - 1);
             if (value !== null)
-                _this.document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
+                document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
         }
     };
     FN.url = {
@@ -444,7 +442,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回Url参数的value
          */
         getParam: function (name, url) {
-            if (url === void 0) { url = FN.window.location.search.substr(1); }
+            if (url === void 0) { url = window.location.search.substr(1); }
             var _this = FN, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             var param = null;
             if ((/\?/i).test(url))
@@ -461,7 +459,7 @@ var FN = /** @class */ (function () {
          * @return {array|null} 返回Url参数数组
          */
         getAllParam: function (url) {
-            if (url === void 0) { url = FN.window.location.search.substr(1); }
+            if (url === void 0) { url = window.location.search.substr(1); }
             var _this = FN, param = [];
             var u = '';
             if ((/\?/i).test(url))
@@ -483,7 +481,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         addParam: function (object, url) {
-            if (url === void 0) { url = FN.window.location.href; }
+            if (url === void 0) { url = window.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
             if (Object.keys(object).length === 0)
@@ -523,7 +521,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         delParam: function (array, url) {
-            if (url === void 0) { url = FN.window.location.href; }
+            if (url === void 0) { url = window.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '';
             if (array.length === 0)
@@ -549,7 +547,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url的hash值
          */
         getHash: function () {
-            var _this = FN, hash = decodeURIComponent(_this.window.location.hash);
+            var _this = FN, hash = decodeURIComponent(window.location.hash);
             return hash.substring(1, hash.length);
         }
     };
@@ -567,13 +565,13 @@ var FN = /** @class */ (function () {
             if (scale === void 0) { scale = false; }
             var _this = FN;
             _this.resize(function () {
-                var width = _this.document.documentElement.clientWidth, height = _this.document.documentElement.clientHeight;
+                var width = document.documentElement.clientWidth, height = document.documentElement.clientHeight;
                 var fontSize = width / psdWidth * 100;
                 if (fontSize > 100)
                     fontSize = 100;
                 if (scale && width / height >= 0.75)
                     fontSize = 85;
-                _this.document.documentElement.style.fontSize = fontSize + 'px';
+                document.documentElement.style.fontSize = fontSize + 'px';
             }, time);
         },
         /**
@@ -581,7 +579,7 @@ var FN = /** @class */ (function () {
          * @return {number} Rem
          */
         get: function () {
-            var _this = FN, size = _this.document.documentElement.style.fontSize;
+            var _this = FN, size = document.documentElement.style.fontSize;
             return Number(size.replace(/px/g, ''));
         }
     };

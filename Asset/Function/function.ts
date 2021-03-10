@@ -2,9 +2,6 @@
  * 函数
  */
 export default class FN {
-    public static readonly window: Window = window; // 全局对象
-    public static readonly document: Document = document; // 文档对象
-    
     public static readonly agent: string = window.navigator.userAgent.toLowerCase(); // 代理信息
     
     public static readonly isPSB: any = { // 判断设备信息
@@ -88,7 +85,7 @@ export default class FN {
                 return 'Safari';
             } else if ((/Edge/i).test(_this.agent)) {
                 return 'Edge';
-            } else if ((_this.window as any).ActiveXObject || 'ActiveXObject' in _this.window) {
+            } else if ((window as any).ActiveXObject || 'ActiveXObject' in window) {
                 return 'IE';
             }
             
@@ -115,7 +112,7 @@ export default class FN {
                 time = 'expires=' + time.toUTCString() + ';';
             }
             
-            _this.document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
+            document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
         },
         
         /**
@@ -126,7 +123,7 @@ export default class FN {
         get: (name: string): string | null => {
             const _this = FN,
                 reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
-                value = _this.document.cookie.match(reg);
+                value = document.cookie.match(reg);
             if (value !== null) return decodeURIComponent(value[2]); else return null;
         },
         
@@ -142,7 +139,7 @@ export default class FN {
                 value = _this.cookie.get(name);
             
             exp.setTime(exp.getTime() - 1);
-            if (value !== null) _this.document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
+            if (value !== null) document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
         }
     };
     public static readonly url: any = { // 操作Url
@@ -152,7 +149,7 @@ export default class FN {
          * @param {string} url Url
          * @return {string|null} 返回Url参数的value
          */
-        getParam: (name: string, url: string = FN.window.location.search.substr(1)): string | null => {
+        getParam: (name: string, url: string = window.location.search.substr(1)): string | null => {
             const _this = FN,
                 reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             let param = null;
@@ -168,7 +165,7 @@ export default class FN {
          * @param {string} url Url
          * @return {array|null} 返回Url参数数组
          */
-        getAllParam: (url: string = FN.window.location.search.substr(1)): string[] | null => {
+        getAllParam: (url: string = window.location.search.substr(1)): string[] | null => {
             const _this = FN,
                 param = [];
             let u = '' as any;
@@ -191,7 +188,7 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        addParam: (object: any, url: string = FN.window.location.href): string => {
+        addParam: (object: any, url: string = window.location.href): string => {
             const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
@@ -234,7 +231,7 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        delParam: (array: string[], url = FN.window.location.href): string => {
+        delParam: (array: string[], url = window.location.href): string => {
             const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
@@ -266,7 +263,7 @@ export default class FN {
          */
         getHash: (): string => {
             const _this = FN,
-                hash = decodeURIComponent(_this.window.location.hash);
+                hash = decodeURIComponent(window.location.hash);
             return hash.substring(1, hash.length);
         }
     };
@@ -281,15 +278,15 @@ export default class FN {
         set: (psdWidth: number = 750, time: number = 300, scale: boolean = false): void => {
             const _this = FN;
             _this.resize(() => {
-                const width = _this.document.documentElement.clientWidth,
-                    height = _this.document.documentElement.clientHeight;
+                const width = document.documentElement.clientWidth,
+                    height = document.documentElement.clientHeight;
                 
                 let fontSize = width / psdWidth * 100;
                 
                 if (fontSize > 100) fontSize = 100;
                 if (scale && width / height >= 0.75) fontSize = 85;
                 
-                _this.document.documentElement.style.fontSize = fontSize + 'px';
+                document.documentElement.style.fontSize = fontSize + 'px';
             }, time);
         },
         
@@ -299,7 +296,7 @@ export default class FN {
          */
         get: (): number => {
             const _this = FN,
-                size = _this.document.documentElement.style.fontSize;
+                size = document.documentElement.style.fontSize;
             return Number(size.replace(/px/g, ''));
         }
     };
@@ -496,8 +493,8 @@ export default class FN {
      */
     public static traversingArray(array: any[], callback: Function): void {
         const _this = this;
-        for (const key of array) {
-            callback(key, array[key]);
+        for (const value of array) {
+            callback(array[value], value);
         }
     }
     
@@ -633,7 +630,7 @@ export default class FN {
         bottomCallback?: Function
     }): void {
         const _this = this,
-            dom = _this.document.getElementById(id),
+            dom = document.getElementById(id),
             scrollFun = (e: Event) => { // 判断方向
                 const event = e as any;
                 
@@ -670,11 +667,11 @@ export default class FN {
         callback();
         
         // 监听屏幕
-        _this.window.addEventListener('onorientationchange' in _this.window ? 'orientationchange' : 'resize', () => {
+        window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', () => {
             clearTimeout(resizeSetTime);
             resizeSetTime = setTimeout(callback, time);
         }, false);
-        _this.window.addEventListener('pageshow', (e) => {
+        window.addEventListener('pageshow', (e) => {
             if (e.persisted) {
                 clearTimeout(resizeSetTime);
                 resizeSetTime = setTimeout(callback, time);
@@ -703,7 +700,7 @@ export default class FN {
      */
     public static linkAddParam(): void {
         const _this = this,
-            array = _this.document.getElementsByTagName('a'),
+            array = document.getElementsByTagName('a'),
             length = array.length;
         
         for (let i = 0; i < length; i++) {
@@ -719,16 +716,16 @@ export default class FN {
                 // 忽略非跳转当前域名链接
                 if ((href.indexOf('http://') > -1 ||
                     href.indexOf('https://') > -1) &&
-                    href.indexOf(_this.window.location.hostname) === -1) {
+                    href.indexOf(window.location.hostname) === -1) {
                     return;
                 }
                 
                 // 添加Hash
                 href = href.split('#');
                 if (href.length > 1) {
-                    src = href[0] + _this.window.location.search + '#' + href[1];
+                    src = href[0] + window.location.search + '#' + href[1];
                 } else {
-                    src = href[0] + _this.window.location.search;
+                    src = href[0] + window.location.search;
                 }
                 
                 a.setAttribute('href', src);

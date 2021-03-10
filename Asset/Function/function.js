@@ -67,10 +67,8 @@ var FN = /** @class */ (function () {
      */
     FN.traversingArray = function (array, callback) {
         var _this = this;
-        for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
-            var value = array_1[_i];
-            callback(array[value], value);
-        }
+        for (var i = 0, n = array.length; i < n; i++)
+            callback(i, array[i]);
     };
     /**
      * 排序数组
@@ -460,18 +458,20 @@ var FN = /** @class */ (function () {
          */
         getAllParam: function (url) {
             if (url === void 0) { url = window.location.search.substr(1); }
-            var _this = FN, param = [];
+            var _this = FN, param = {};
             var u = '';
+            if (!url)
+                return param;
             if ((/\?/i).test(url))
                 u = url.split('?')[1];
+            if (!u)
+                return param;
             u = u.split('&');
-            for (var _i = 0, u_1 = u; _i < u_1.length; _i++) {
-                var key = u_1[_i];
-                var p = u[key].split('=');
-                if (p[0]) {
+            _this.traversingArray(u, function (key, value) {
+                var p = value.split('=');
+                if (p[0])
                     param[p[0]] = decodeURIComponent(p[1]);
-                }
-            }
+            });
             return param;
         },
         /**

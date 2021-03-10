@@ -165,19 +165,22 @@ export default class FN {
          * @param {string} url Url
          * @return {array|null} 返回Url参数数组
          */
-        getAllParam: (url: string = window.location.search.substr(1)): string[] | null => {
+        getAllParam: (url: string = window.location.search.substr(1)): any => {
             const _this = FN,
-                param = [];
+                param = {} as any;
+            
             let u = '' as any;
             
+            if (!url) return param;
             if ((/\?/i).test(url)) u = url.split('?')[1];
+            if (!u) return param;
+            
             u = u.split('&');
-            for (const key of u) {
-                const p = u[key].split('=');
-                if (p[0]) {
-                    param[p[0]] = decodeURIComponent(p[1]);
-                }
-            }
+            
+            _this.traversingArray(u, (key: number, value: string) => {
+                const p = value.split('=');
+                if (p[0]) param[p[0]] = decodeURIComponent(p[1]);
+            })
             
             return param;
         },
@@ -493,9 +496,7 @@ export default class FN {
      */
     public static traversingArray(array: any[], callback: Function): void {
         const _this = this;
-        for (const value of array) {
-            callback(array[value], value);
-        }
+        for (let i = 0, n = array.length; i < n; i++) callback(i, array[i]);
     }
     
     /**

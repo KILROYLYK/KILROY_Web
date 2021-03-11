@@ -1,7 +1,8 @@
-import jquery from 'jquery'; // JQuery
-import vConsole from 'vconsole'; // 日志
-import gsap from 'gsap'; // 动效
-import tweenJS from '@tweenjs/tween.js'; // 过渡
+// @ts-nocheck
+import jquery from '/usr/local/lib/node_modules/jquery'; // JQuery
+import vConsole from '/usr/local/lib/node_modules/vconsole'; // 日志
+import gsap from '/usr/local/lib/node_modules/gsap'; // 动效
+import tweenJS from '/usr/local/lib/node_modules/@tweenjs/tween.js'; // 过渡
 
 import fn from '../SDK/Function/function'; // 函数
 import algorithm from '../SDK/Algorithm/algorithm'; // 算法

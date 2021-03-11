@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var jquery_1 = __importDefault(require("jquery"));
+// @ts-ignore
+var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./flip.less");
 var function_1 = __importDefault(require("../../SDK/Function/function"));
 var ajax_1 = __importDefault(require("../../SDK/Ajax/ajax"));

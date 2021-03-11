@@ -1,4 +1,5 @@
-import $ from 'jquery';
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
 
 import FN from '../Function/function'; // 函数
 import Crypto from'../Crypto/crypto'; // 加密

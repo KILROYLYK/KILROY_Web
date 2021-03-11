@@ -1,7 +1,11 @@
-// @ts-nocheck
+
+// @ts-ignore
 import jquery from '/usr/local/lib/node_modules/jquery'; // JQuery
+// @ts-ignore
 import vConsole from '/usr/local/lib/node_modules/vconsole'; // 日志
+// @ts-ignore
 import gsap from '/usr/local/lib/node_modules/gsap'; // 动效
+// @ts-ignore
 import tweenJS from '/usr/local/lib/node_modules/@tweenjs/tween.js'; // 过渡
 
 import fn from '../SDK/Function/function'; // 函数

@@ -1,4 +1,5 @@
-import $ from 'jquery';
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
 
 import './popup.less';
 

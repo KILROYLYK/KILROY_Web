@@ -4,10 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.Console = exports.$ = exports.D = exports.W = void 0;
-// @ts-nocheck
+// @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery")); // JQuery
+// @ts-ignore
 var vconsole_1 = __importDefault(require("/usr/local/lib/node_modules/vconsole")); // 日志
+// @ts-ignore
 var gsap_1 = __importDefault(require("/usr/local/lib/node_modules/gsap")); // 动效
+// @ts-ignore
 var tween_js_1 = __importDefault(require("/usr/local/lib/node_modules/@tweenjs/tween.js")); // 过渡
 var function_1 = __importDefault(require("../SDK/Function/function")); // 函数
 var algorithm_1 = __importDefault(require("../SDK/Algorithm/algorithm")); // 算法

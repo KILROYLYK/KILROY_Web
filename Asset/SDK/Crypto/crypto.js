@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// @ts-nocheck
+// @ts-ignore
 var crypto_js_1 = __importDefault(require("/usr/local/lib/node_modules/crypto-js"));
 var function_1 = __importDefault(require("../Function/function"));
 /**

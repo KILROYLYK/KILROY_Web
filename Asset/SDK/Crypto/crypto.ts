@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-ignore
 import Crypto from '/usr/local/lib/node_modules/crypto-js';
 
 import FN from '../Function/function';

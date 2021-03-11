@@ -1,4 +1,19 @@
-// @ts-nocheck
+import jquery from 'jquery'; // JQuery
+import vConsole from 'vconsole'; // 日志
+import gsap from 'gsap'; // 动效
+import tweenJS from '@tweenjs/tween.js'; // 过渡
+
+import fn from '../SDK/Function/function'; // 函数
+import algorithm from '../SDK/Algorithm/algorithm'; // 算法
+import adaptation from '../SDK/Adaptation/adaptation'; // 适配
+import crypto from'../SDK/Crypto/crypto'; // 加密
+import ajax from'../SDK/Ajax/ajax'; // 远程请求
+
+import preload from'../Component/Preload/preload'; // 预加载
+import popup from'../Component/Popup/popup'; // 弹窗
+import flip from'../Component/Flip/flip'; // 翻页
+import share from '../Component/Share/share'; // 分享
+import authorize from '../Component/Authorize/authorize'; // 授权
 
 /**
  * Base
@@ -11,24 +26,30 @@ export const
  * Plugin
  */
 export const
-    $: any = require('/usr/local/lib/node_modules/jquery'), // JQuery
-    Console: any = require('/usr/local/lib/node_modules/vconsole'), // 日志
-    GSAP: any = require('/usr/local/lib/node_modules/gsap'), // 动效
-    Tween: any = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
+    $: any = jquery,
+    Console: any = vConsole,
+    GSAP: any = gsap,
+    Tween: any = tweenJS;
 
 /**
  * SDK
  */
 export const
-    FN: any = require('../Function/function.ts').default, // 函数
-    Algorithm: any = require('../Algorithm/algorithm.ts').default, // 算法
-    Adaptation: any = require('../Adaptation/adaptation.ts').default, // 适配
-    Preload: any = require('../Preload/preload.ts').default, // 预加载
-    Crypto: any = require('../Crypto/crypto.ts').default, // 加密
-    Ajax: any = require('../Ajax/ajax.ts').default, // 远程请求
-    Popup: any = require('../Popup/popup.ts').default, // 弹窗
-    Flip: any = require('../Flip/flip.ts').default, // 翻页
-    Authorize: any = require('../Authorize/authorize.ts').default; // 授权
+    FN: any = fn,
+    Algorithm: any = algorithm,
+    Adaptation: any = adaptation,
+    Crypto: any = crypto,
+    Ajax: any = ajax;
+
+/**
+ * Component
+ */
+export const
+    Preload: any = preload,
+    Popup: any = popup,
+    Flip: any = flip,
+    Share: any = share,
+    Authorize: any = authorize;
 
 /**
  * Global
@@ -45,10 +66,12 @@ export default class Global {
     public static readonly FN: typeof FN = FN;
     public static readonly Algorithm: typeof Algorithm = Algorithm;
     public static readonly Adaptation: typeof Adaptation = Adaptation;
-    public static readonly Preload: typeof Preload = Preload;
     public static readonly Crypto: typeof Crypto = Crypto;
     public static readonly Ajax: typeof Ajax = Ajax;
+    
+    public static readonly Preload: typeof Preload = Preload;
     public static readonly Popup: typeof Popup = Popup;
     public static readonly Flip: typeof Flip = Flip;
+    public static readonly Share: typeof Share = Share;
     public static readonly Authorize: typeof Authorize = Authorize;
 }

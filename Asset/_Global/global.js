@@ -1,7 +1,23 @@
 "use strict";
-// @ts-nocheck
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorize = exports.Flip = exports.Popup = exports.Ajax = exports.Crypto = exports.Preload = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.Console = exports.$ = exports.D = exports.W = void 0;
+exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.Console = exports.$ = exports.D = exports.W = void 0;
+var jquery_1 = __importDefault(require("jquery")); // JQuery
+var vconsole_1 = __importDefault(require("vconsole")); // 日志
+var gsap_1 = __importDefault(require("gsap")); // 动效
+var tween_js_1 = __importDefault(require("@tweenjs/tween.js")); // 过渡
+var function_1 = __importDefault(require("../SDK/Function/function")); // 函数
+var algorithm_1 = __importDefault(require("../SDK/Algorithm/algorithm")); // 算法
+var adaptation_1 = __importDefault(require("../SDK/Adaptation/adaptation")); // 适配
+var crypto_1 = __importDefault(require("../SDK/Crypto/crypto")); // 加密
+var ajax_1 = __importDefault(require("../SDK/Ajax/ajax")); // 远程请求
+var preload_1 = __importDefault(require("../Component/Preload/preload")); // 预加载
+var popup_1 = __importDefault(require("../Component/Popup/popup")); // 弹窗
+var flip_1 = __importDefault(require("../Component/Flip/flip")); // 翻页
+var share_1 = __importDefault(require("../Component/Share/share")); // 分享
+var authorize_1 = __importDefault(require("../Component/Authorize/authorize")); // 授权
 /**
  * Base
  */
@@ -9,11 +25,15 @@ exports.W = window, exports.D = document;
 /**
  * Plugin
  */
-exports.$ = require('/usr/local/lib/node_modules/jquery'), exports.Console = require('/usr/local/lib/node_modules/vconsole'), exports.GSAP = require('/usr/local/lib/node_modules/gsap'), exports.Tween = require('/usr/local/lib/node_modules/@tweenjs/tween.js'); // 过渡
+exports.$ = jquery_1.default, exports.Console = vconsole_1.default, exports.GSAP = gsap_1.default, exports.Tween = tween_js_1.default;
 /**
  * SDK
  */
-exports.FN = require('../Function/function.ts').default, exports.Algorithm = require('../Algorithm/algorithm.ts').default, exports.Adaptation = require('../Adaptation/adaptation.ts').default, exports.Preload = require('../Preload/preload.ts').default, exports.Crypto = require('../Crypto/crypto.ts').default, exports.Ajax = require('../Ajax/ajax.ts').default, exports.Popup = require('../Popup/popup.ts').default, exports.Flip = require('../Flip/flip.ts').default, exports.Authorize = require('../Authorize/authorize.ts').default; // 授权
+exports.FN = function_1.default, exports.Algorithm = algorithm_1.default, exports.Adaptation = adaptation_1.default, exports.Crypto = crypto_1.default, exports.Ajax = ajax_1.default;
+/**
+ * Component
+ */
+exports.Preload = preload_1.default, exports.Popup = popup_1.default, exports.Flip = flip_1.default, exports.Share = share_1.default, exports.Authorize = authorize_1.default;
 /**
  * Global
  */
@@ -29,11 +49,12 @@ var Global = /** @class */ (function () {
     Global.FN = exports.FN;
     Global.Algorithm = exports.Algorithm;
     Global.Adaptation = exports.Adaptation;
-    Global.Preload = exports.Preload;
     Global.Crypto = exports.Crypto;
     Global.Ajax = exports.Ajax;
+    Global.Preload = exports.Preload;
     Global.Popup = exports.Popup;
     Global.Flip = exports.Flip;
+    Global.Share = exports.Share;
     Global.Authorize = exports.Authorize;
     return Global;
 }());

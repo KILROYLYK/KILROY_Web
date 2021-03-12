@@ -1,6 +1,7 @@
 // @ts-ignore
 import $ from '/usr/local/lib/node_modules/jquery';
 
+import './share.less';
 import FN from '../../SDK/Function/function';
 import Ajax from '../../SDK/Ajax/ajax';
 
@@ -16,6 +17,7 @@ export interface ShareConfig { // 分享配置
     isCallApp?: boolean; // 是否开启调起App
     appId?: string; // 调起App的ID
     appButtonId?: string; // 调起App按钮ID
+    appExtinfo?: string; // 调起App参数
     
     success?(result: any): void; // 分享成功处理
     cancel?(result: any): void; // 分享取消处理
@@ -41,6 +43,33 @@ export default class Share {
         img: '',
         url: ''
     };
+    private readonly template: any = { // 模板
+        callApp: `<div class="box_call_app">
+            <wx-open-launch-app
+                id=""
+                appid=""
+                extinfo="">
+                <!-- 微信内置窗口 Start -->
+                <template>
+                    <style>
+                    div {
+                      padding: 0;
+                    }
+                    .button {
+                      position: relative;
+                      width: 100px;
+                      height: 100px;
+                      padding: 0;
+                      background-color: transparent;
+                      border: none;
+                    }
+                    </style>
+                    <button class="button"></button>
+                </template>
+                <!-- 微信内置窗口 End -->
+            </wx-open-launch-app>
+            </div>`
+    };
     private success: Function = (result: any) => { // 分享成功处理
         console.log(result);
     };
@@ -63,7 +92,7 @@ export default class Share {
         _this.shareInfo.description = config.description;
         _this.shareInfo.img = config.img;
         _this.shareInfo.url = config.url;
-    
+        
         config.success && (_this.success = config.success);
         config.cancel && (_this.cancel = config.cancel);
         

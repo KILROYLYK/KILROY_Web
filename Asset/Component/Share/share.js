@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
+require("./share.less");
 var function_1 = __importDefault(require("../../SDK/Function/function"));
 var ajax_1 = __importDefault(require("../../SDK/Ajax/ajax"));
 var W = window;
@@ -27,6 +28,9 @@ var Share = /** @class */ (function () {
             description: '',
             img: '',
             url: ''
+        };
+        this.template = {
+            callApp: "<div class=\"box_call_app\">\n            <wx-open-launch-app\n                id=\"\"\n                appid=\"\"\n                extinfo=\"\">\n                <!-- \u5FAE\u4FE1\u5185\u7F6E\u7A97\u53E3 Start -->\n                <template>\n                    <style>\n                    div {\n                      padding: 0;\n                    }\n                    .button {\n                      position: relative;\n                      width: 100px;\n                      height: 100px;\n                      padding: 0;\n                      background-color: transparent;\n                      border: none;\n                    }\n                    </style>\n                    <button class=\"button\"></button>\n                </template>\n                <!-- \u5FAE\u4FE1\u5185\u7F6E\u7A97\u53E3 End -->\n            </wx-open-launch-app>\n            </div>"
         };
         this.success = function (result) {
             console.log(result);

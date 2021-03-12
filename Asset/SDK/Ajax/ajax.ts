@@ -97,7 +97,7 @@ export default class Ajax {
         
         _this.baseAjax(config, (ajaxConfig: AjaxConfig) => {
             const key = encrypt.key || Crypto.createKey(encrypt.length || 0),
-                sortData = FN.sortObject(ajaxConfig.data),
+                sortData = FN.object.sort(ajaxConfig.data),
                 sign = Crypto.encryptMD5(key, sortData);
             
             ajaxConfig.data = Object.assign(sortData, { sign });

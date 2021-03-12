@@ -1,5 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+// @ts-ignore
+var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 var W = window, D = document;
 /**
  * 函数
@@ -8,20 +13,20 @@ var FN = /** @class */ (function () {
     function FN() {
     }
     /**
+     * 获取当前Rem
+     * @return {number} rem
+     */
+    FN.getRem = function () {
+        var _this = this, reg = /px/g, size = jquery_1.default('html').css('font-size');
+        return Number(size.replace(reg, ''));
+    };
+    /**
      * 获取当前时间戳
      * @return {number} 时间戳
      */
     FN.getTimestamp = function () {
-        return Date.parse(new Date().toString()) / 1000;
-    };
-    /**
-     * 获取数据类型
-     * @param {*} param 参数
-     * @return {string} 数据类型
-     */
-    FN.getRawType = function (param) {
         var _this = this;
-        return Object.prototype.toString.call(param).slice(8, -1);
+        return Date.parse(new Date().toString()) / 1000;
     };
     /**
      * 获取时间
@@ -51,6 +56,15 @@ var FN = /** @class */ (function () {
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
     };
     /**
+     * 获取数据类型
+     * @param {*} param 参数
+     * @return {string} 数据类型
+     */
+    FN.getRawType = function (param) {
+        var _this = this;
+        return Object.prototype.toString.call(param).slice(8, -1);
+    };
+    /**
      * 获取随机整数
      * @param {number} n1 范围1
      * @param {number} n2 范围2
@@ -59,107 +73,6 @@ var FN = /** @class */ (function () {
     FN.getRandomInt = function (n1, n2) {
         var _this = this;
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
-    };
-    /**
-     * 遍历数组
-     * @param {array} array 数组
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    FN.traversingArray = function (array, callback) {
-        var _this = this;
-        for (var i = 0, n = array.length; i < n; i++)
-            callback(i, array[i]);
-    };
-    /**
-     * 排序数组
-     * @param {array} array 数组
-     * @param {string} name 根据属性名称排序（只对对象数组有效）
-     * @return {array} 返回排序后数组
-     */
-    FN.sortArray = function (array, name) {
-        var _this = this;
-        if (array.length === 0)
-            return [];
-        if (!(array[0] instanceof Object) || !name)
-            return array.sort(); // 非对象数组
-        return array.sort(function (x, y) {
-            return x[name] > y[name] ? 1 : -1;
-        });
-    };
-    /**
-     * 乱序数组
-     * @param {array} array 数组
-     * @return {array} 返回乱序后数组
-     */
-    FN.randomArray = function (array) {
-        var _this = this;
-        return array.sort(function (x, y) {
-            return Math.random() > 0.5 ? -1 : 1;
-        });
-    };
-    /**
-     * 数组去重
-     * @param {array} array 数组
-     * @return {array} 新数组
-     */
-    FN.uniqArray = function (array) {
-        var _this = this, newArray = [], length = array.length;
-        for (var i = 0; i < length; i++) {
-            for (var j = i + 1; j < length; j++) {
-                if (array[i] === array[j]) {
-                    i++;
-                    j = i;
-                }
-            }
-            newArray.push(array[i]);
-        }
-        return newArray;
-    };
-    /**
-     * 遍历对象
-     * @param {object} object 对象
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    FN.traversingObject = function (object, callback) {
-        var _this = this;
-        for (var key in object) {
-            callback(key, object[key]);
-        }
-    };
-    /**
-     * 排序对象
-     * @param {object} object 对象
-     * @return {object} 返回排序后对象
-     */
-    FN.sortObject = function (object) {
-        var _this = this, newObject = {};
-        Object.keys(object).sort().forEach(function (key) {
-            newObject[key] = object[key];
-        });
-        return newObject;
-    };
-    /**
-     * 复制对象
-     * @param {object} object 对象
-     * @return {object} 新建的对象
-     */
-    FN.copyObject = function (object) {
-        var _this = this;
-        return JSON.parse(JSON.stringify(object));
-    };
-    /**
-     * 参数化对象
-     * @param {*} object 对象
-     * @return {string} 参数
-     */
-    FN.paramObject = function (object) {
-        var _this = this;
-        var param = '';
-        for (var key in object)
-            param += (param === '' ? '' : '&') + key + '=' + object[key];
-        return param;
     };
     /**
      * 记忆函数
@@ -175,38 +88,6 @@ var FN = /** @class */ (function () {
         };
     };
     /**
-     * 监听滑轮事件
-     * @param {string} id 节点id
-     * @param {object} config 上下滚动回调
-     * @return {void}
-     */
-    FN.scroll = function (id, config) {
-        var _this = this, dom = D.getElementById(id), scrollFun = function (e) {
-            var event = e;
-            var detail = 0;
-            if (_this.isPSB.system() === 'Mac')
-                detail = 30; // Mac兼容,降低灵敏度
-            if (!config)
-                return;
-            if (event.wheelDelta) { // 默认
-                if (event.wheelDelta > detail && config.topCallback)
-                    config.topCallback(); // 当滑轮向上滚动时
-                if (event.wheelDelta < -detail && config.bottomCallback)
-                    config.bottomCallback(); // 当滑轮向下滚动时
-            }
-            else if (event.detail) { // Firefox兼容
-                if (event.detail > detail && config.bottomCallback)
-                    config.bottomCallback(); // 当滑轮向上滚动时
-                if (event.detail < -detail && config.topCallback)
-                    config.topCallback(); // 当滑轮向下滚动时
-            }
-        };
-        var type = 'mousewheel';
-        if (_this.isPSB.browser() === 'Firefox')
-            type = 'DOMMouseScroll';
-        dom && dom.addEventListener(type, scrollFun, false);
-    };
-    /**
      * 监听屏幕变化
      * @param {function} callback 回调
      * @param {number} time 间隔时间
@@ -214,20 +95,43 @@ var FN = /** @class */ (function () {
      */
     FN.resize = function (callback, time) {
         if (time === void 0) { time = 300; }
-        var _this = this;
-        var resizeSetTime = 0;
-        callback();
-        // 监听屏幕
-        W.addEventListener('onorientationchange' in W ? 'orientationchange' : 'resize', function () {
-            clearTimeout(resizeSetTime);
-            resizeSetTime = setTimeout(callback, time);
-        }, false);
-        W.addEventListener('pageshow', function (e) {
-            if (e.persisted) {
+        var _this = this, $W = jquery_1.default(W), resize = function () {
+            if (resizeSetTime)
                 clearTimeout(resizeSetTime);
-                resizeSetTime = setTimeout(callback, time);
+            resizeSetTime = setTimeout(callback, time);
+        };
+        var resizeSetTime = 0;
+        resize();
+        $W.bind('pageshow', function (e) {
+            if (e.persisted)
+                resize();
+        }); // 屏幕显示
+        $W.bind('resize', resize); // 屏幕尺寸变化
+        W.onorientationchange && $W.bind('orientationchange', resize); // 屏幕旋转
+    };
+    /**
+     * 监听滑轮事件
+     * @param {string} id 节点id
+     * @param {function} top 向上滚动回调
+     * @param {function} bottom 向下滚动回调
+     * @return {void}
+     */
+    FN.scroll = function (id, top, bottom) {
+        var _this = this, $dom = jquery_1.default('#' + id), detail = _this.isPSB.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+        $dom.bind(_this.isPSB.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
+            if (e.wheelDelta) { // 默认
+                if (e.wheelDelta > detail)
+                    top(); // 当滑轮向上滚动时
+                if (e.wheelDelta < -detail)
+                    bottom(); // 当滑轮向下滚动时
             }
-        }, false);
+            else if (e.detail) { // Firefox兼容
+                if (e.detail > detail)
+                    bottom(); // 当滑轮向上滚动时
+                if (e.detail < -detail)
+                    top(); // 当滑轮向下滚动时
+            }
+        });
     };
     /**
      * 元素添加Transform
@@ -236,45 +140,50 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.transform = function (element, style) {
-        var _this = this;
-        element.style.setProperty('-webkit-transform', style);
-        element.style.setProperty('-moz-transform', style);
-        element.style.setProperty('-o-transform', style);
-        element.style.setProperty('-ms-transform', style);
-        element.style.setProperty('transform', style);
+        var _this = this, $dom = jquery_1.default(element);
+        $dom.css({
+            '-webkit-transform': style,
+            '-moz-transform': style,
+            '-o-transform': style,
+            '-ms-transform': style,
+            transform: style
+        });
     };
     /**
-     * 当前域名内跳转携带Url参数
+     * 内链跳转保留参数
      * @return {void}
      */
-    FN.linkAddParam = function () {
-        var _this = this, array = D.getElementsByTagName('a'), length = array.length;
-        var _loop_1 = function (i) {
-            array[i].addEventListener('click', function () {
-                var a = array[i];
-                var src = '', href = a.getAttribute('href');
-                // 忽略非跳转链接
-                if (href.indexOf('void(0)') !== -1)
-                    return;
-                // 忽略非跳转当前域名链接
-                if ((href.indexOf('http://') > -1 ||
-                    href.indexOf('https://') > -1) &&
-                    href.indexOf(W.location.hostname) === -1) {
-                    return;
-                }
-                // 添加Hash
-                href = href.split('#');
+    FN.innerChainSaveParam = function () {
+        var _this = this, reg = {
+            void: 'void(0)',
+            http: 'http://',
+            https: 'https://'
+        }, $aList = jquery_1.default('a');
+        var _loop_1 = function (i, n) {
+            var a = $aList[i], $a = jquery_1.default(a), href = $a.attr('href');
+            if (href.indexOf(reg.void) !== -1)
+                return { value: void 0 }; // 忽略非跳转链接
+            if ((href.indexOf(reg.http) > -1 ||
+                href.indexOf(reg.https) > -1) &&
+                href.indexOf(W.location.hostname) === -1) { // 忽略外链
+                return { value: void 0 };
+            }
+            $a.click(function () {
+                var hash = href.split('#');
+                var src = '';
                 if (href.length > 1) {
-                    src = href[0] + W.location.search + '#' + href[1];
+                    src = hash[0] + W.location.search + '#' + hash[1];
                 }
                 else {
-                    src = href[0] + W.location.search;
+                    src = hash[0] + W.location.search;
                 }
-                a.setAttribute('href', src);
-            }, false);
+                $a.attr('href', src);
+            });
         };
-        for (var i = 0; i < length; i++) {
-            _loop_1(i);
+        for (var i = 0, n = $aList.length; i < n; i++) {
+            var state_1 = _loop_1(i, n);
+            if (typeof state_1 === "object")
+                return state_1.value;
         }
     };
     /**
@@ -285,7 +194,60 @@ var FN = /** @class */ (function () {
     FN.disableConsole = function (type) {
         var _this = this;
         console[type] = function () {
+            return;
         };
+    };
+    FN.calc = {
+        /**
+         * 加法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        add: function (n1, n2, decimal) {
+            var _this = FN, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
+            return Number(result.toFixed(decimal));
+        },
+        /**
+         * 减法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        sub: function (n1, n2, decimal) {
+            var _this = FN;
+            return _this.calc.add(n1, -Number(n2), decimal);
+        },
+        /**
+         * 乘法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        mul: function (n1, n2, decimal) {
+            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
+                (r2.split('.')[1] ? r2.split('.')[1].length : 0), result = Number(r1.replace('.', '')) *
+                Number(r2.replace('.', '')) /
+                Math.pow(10, m);
+            return Number(result.toFixed(decimal));
+        },
+        /**
+         * 除法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        div: function (n1, n2, decimal) {
+            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
+                (r1.split('.')[1] ? r1.split('.')[1].length : 0), result = Number(r1.replace('.', '')) /
+                Number(r2.replace('.', '')) *
+                Math.pow(10, m);
+            return Number(result.toFixed(decimal));
+        }
     };
     FN.isPSB = {
         /**
@@ -293,10 +255,10 @@ var FN = /** @class */ (function () {
          * @return {string} 返回平台信息
          */
         platform: function () {
-            var _this = FN, agent = W.navigator.userAgent.toLowerCase(), reg = {
+            var _this = FN, reg = {
                 pc: /Windows|Mac|Linux/i,
                 mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
-            };
+            }, agent = W.navigator.userAgent.toLowerCase();
             if (reg.mobile.test(agent)) { // Mobile
                 return 'Mobile';
             }
@@ -467,7 +429,7 @@ var FN = /** @class */ (function () {
             if (!u)
                 return param;
             u = u.split('&');
-            _this.traversingArray(u, function (key, value) {
+            _this.array.traversing(u, function (key, value) {
                 var p = value.split('=');
                 if (p[0])
                     param[p[0]] = decodeURIComponent(p[1]);
@@ -488,7 +450,7 @@ var FN = /** @class */ (function () {
                 return url;
             if (hash)
                 search = search.replace('#' + hash, '');
-            _this.traversingObject(object, function (key, value) {
+            _this.object.traversing(object, function (key, value) {
                 var reg = new RegExp('(^|\\?|&)' + key + '=([^&]*)(&|$)', 'i');
                 var hasParam = '';
                 if (search)
@@ -528,7 +490,7 @@ var FN = /** @class */ (function () {
                 return url;
             if (hash)
                 search = search.replace('#' + hash, '');
-            _this.traversingArray(array, function (key, value) {
+            _this.array.traversing(array, function (key, value) {
                 var reg = new RegExp('(^|\\?|&)' + value + '=([^&]*)(&|$)', 'i');
                 var hasParam = '';
                 if (search)
@@ -549,38 +511,6 @@ var FN = /** @class */ (function () {
         getHash: function () {
             var _this = FN, hash = decodeURIComponent(W.location.hash);
             return hash.substring(1, hash.length);
-        }
-    };
-    FN.rem = {
-        /**
-         * 设置标准Rem
-         * @param {number} psdWidth PSD宽度
-         * @param {number} time 间隔时间
-         * @param {boolean} scale 是否缩放
-         * @return {void}
-         */
-        set: function (psdWidth, time, scale) {
-            if (psdWidth === void 0) { psdWidth = 750; }
-            if (time === void 0) { time = 300; }
-            if (scale === void 0) { scale = false; }
-            var _this = FN;
-            _this.resize(function () {
-                var width = D.documentElement.clientWidth, height = D.documentElement.clientHeight;
-                var fontSize = width / psdWidth * 100;
-                if (fontSize > 100)
-                    fontSize = 100;
-                if (scale && width / height >= 0.75)
-                    fontSize = 85;
-                D.documentElement.style.fontSize = fontSize + 'px';
-            }, time);
-        },
-        /**
-         * 获取Rem
-         * @return {number} Rem
-         */
-        get: function () {
-            var _this = FN, size = D.documentElement.style.fontSize;
-            return Number(size.replace(/px/g, ''));
         }
     };
     FN.class = {
@@ -616,11 +546,10 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         removeClass: function (element, name) {
-            var _this = FN;
+            var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
+            reg2 = /^\s+|\s+$/g; // 查询空格
             if (!_this.class.hasClass(element, name))
                 return;
-            var reg1 = /[\t\r\n]/g, // 查询空格
-            reg2 = /^\s+|\s+$/g; // 查询空格
             var newClass = ' ' + element.className.replace(reg1, '') + ' ';
             while (newClass.indexOf(' ' + name + ' ') >= 0) {
                 newClass = newClass.replace(' ' + name + ' ', ' ');
@@ -628,56 +557,109 @@ var FN = /** @class */ (function () {
             element.className = newClass.replace(reg2, '');
         }
     };
-    FN.calc = {
+    FN.array = {
         /**
-         * 加法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 遍历
+         * @param {array} array 数组
+         * @param {function} callback 回调
+         * @return {void}
          */
-        add: function (n1, n2, decimal) {
-            var _this = FN, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
-            return Number(result.toFixed(decimal));
+        traversing: function (array, callback) {
+            var _this = this;
+            for (var i = 0, n = array.length; i < n; i++)
+                callback(i, array[i]);
         },
         /**
-         * 减法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 排序
+         * @param {array} array 数组
+         * @param {string} name 根据属性名称排序（只对对象数组有效）
+         * @return {array} 返回排序后数组
          */
-        sub: function (n1, n2, decimal) {
-            var _this = FN;
-            return _this.calc.add(n1, -Number(n2), decimal);
+        sort: function (array, name) {
+            var _this = this;
+            if (array.length === 0)
+                return [];
+            if (!(array[0] instanceof Object) || !name)
+                return array.sort(); // 非对象数组
+            return array.sort(function (x, y) {
+                return x[name] > y[name] ? 1 : -1;
+            });
         },
         /**
-         * 乘法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 乱序
+         * @param {array} array 数组
+         * @return {array} 返回乱序后数组
          */
-        mul: function (n1, n2, decimal) {
-            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
-                (r2.split('.')[1] ? r2.split('.')[1].length : 0), result = Number(r1.replace('.', '')) *
-                Number(r2.replace('.', '')) /
-                Math.pow(10, m);
-            return Number(result.toFixed(decimal));
+        random: function (array) {
+            var _this = this;
+            return array.sort(function (x, y) {
+                return Math.random() > 0.5 ? -1 : 1;
+            });
         },
         /**
-         * 除法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 去重
+         * @param {array} array 数组
+         * @return {array} 新数组
          */
-        div: function (n1, n2, decimal) {
-            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
-                (r1.split('.')[1] ? r1.split('.')[1].length : 0), result = Number(r1.replace('.', '')) /
-                Number(r2.replace('.', '')) *
-                Math.pow(10, m);
-            return Number(result.toFixed(decimal));
+        uniq: function (array) {
+            var _this = this, newArray = [], length = array.length;
+            for (var i = 0; i < length; i++) {
+                for (var j = i + 1; j < length; j++) {
+                    if (array[i] === array[j]) {
+                        i++;
+                        j = i;
+                    }
+                }
+                newArray.push(array[i]);
+            }
+            return newArray;
+        }
+    };
+    FN.object = {
+        /**
+         * 遍历
+         * @param {object} object 对象
+         * @param {function} callback 回调
+         * @return {void}
+         */
+        traversing: function (object, callback) {
+            var _this = this;
+            for (var key in object) {
+                callback(key, object[key]);
+            }
+        },
+        /**
+         * 排序
+         * @param {object} object 对象
+         * @return {object} 返回排序后对象
+         */
+        sort: function (object) {
+            var _this = this, newObject = {};
+            Object.keys(object).sort().forEach(function (key) {
+                newObject[key] = object[key];
+            });
+            return newObject;
+        },
+        /**
+         * 复制
+         * @param {object} object 对象
+         * @return {object} 新建的对象
+         */
+        copy: function (object) {
+            var _this = this;
+            return JSON.parse(JSON.stringify(object));
+        },
+        /**
+         * 参数化
+         * @param {*} object 对象
+         * @return {string} 参数
+         */
+        param: function (object) {
+            var _this = this;
+            var param = '';
+            for (var key in object)
+                param += (param === '' ? '' : '&') + key + '=' + object[key];
+            return param;
         }
     };
     return FN;

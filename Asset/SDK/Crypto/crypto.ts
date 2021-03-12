@@ -51,8 +51,8 @@ export default class Crypto {
      */
     public static encryptMD5(key: string, data: any): string {
         const _this = this,
-            sortData = FN.sortObject(data),
-            paramData = FN.paramObject(sortData);
+            sortData = FN.object.sort(data),
+            paramData = FN.object.param(sortData);
         
         return cryptoJS.MD5(paramData + '&key=' + key).toString();
     }

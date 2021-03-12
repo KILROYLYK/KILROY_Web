@@ -8,6 +8,81 @@ const W: Window = window,
  * 函数
  */
 export default class FN {
+    public static readonly calc: any = { // 精准计算
+        /**
+         * 加法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        add: (n1: number, n2: number, decimal: number): number => {
+            const _this = FN,
+                arg1 = n1.toString(),
+                arg2 = n2.toString(),
+                arg1Arr = arg1.split('.'),
+                arg2Arr = arg2.split('.'),
+                d1 = arg1Arr.length === 2 ? arg1Arr[1] : '',
+                d2 = arg2Arr.length === 2 ? arg2Arr[1] : '',
+                maxLen = Math.max(d1.length, d2.length),
+                m = Math.pow(10, maxLen),
+                result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
+            
+            return Number(result.toFixed(decimal));
+        },
+        
+        /**
+         * 减法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        sub: (n1: number, n2: number, decimal: number): number => {
+            const _this = FN;
+            return _this.calc.add(n1, -Number(n2), decimal);
+        },
+        
+        /**
+         * 乘法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        mul: (n1: number, n2: number, decimal: number): number => {
+            const _this = FN,
+                r1 = n1.toString(),
+                r2 = n2.toString(),
+                m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
+                    (r2.split('.')[1] ? r2.split('.')[1].length : 0),
+                result = Number(r1.replace('.', '')) *
+                    Number(r2.replace('.', '')) /
+                    Math.pow(10, m);
+            
+            return Number(result.toFixed(decimal));
+        },
+        
+        /**
+         * 除法
+         * @param {number} n1 数字1
+         * @param {number} n2 数字2
+         * @param {number} decimal 小数位数
+         * @return {number} 结果
+         */
+        div: (n1: number, n2: number, decimal: number): number => {
+            const _this = FN,
+                r1 = n1.toString(),
+                r2 = n2.toString(),
+                m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
+                    (r1.split('.')[1] ? r1.split('.')[1].length : 0),
+                result = Number(r1.replace('.', '')) /
+                    Number(r2.replace('.', '')) *
+                    Math.pow(10, m);
+            
+            return Number(result.toFixed(decimal));
+        }
+    };
     public static readonly isPSB: any = { // 判断设备信息
         /**
          * 判断Platform
@@ -15,11 +90,11 @@ export default class FN {
          */
         platform: (): string => {
             const _this = FN,
-                agent = W.navigator.userAgent.toLowerCase(),
                 reg = {
-                    pc: /Windows|Mac|Linux/i as RegExp,
-                    mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i as RegExp
-                };
+                    pc: /Windows|Mac|Linux/i,
+                    mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
+                },
+                agent = W.navigator.userAgent.toLowerCase();
             
             if (reg.mobile.test(agent)) { // Mobile
                 return 'Mobile';
@@ -111,6 +186,7 @@ export default class FN {
          */
         set: (name: string, value: string, day: number = 0, domain: string = '/'): void => {
             const _this = FN;
+            
             let time = '' as any;
             
             if (day > 0) {
@@ -118,7 +194,7 @@ export default class FN {
                 time.setTime(time + day * 24 * 60 * 60 * 1000);
                 time = 'expires=' + time.toUTCString() + ';';
             }
-    
+            
             D.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
         },
         
@@ -131,6 +207,7 @@ export default class FN {
             const _this = FN,
                 reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
                 value = D.cookie.match(reg);
+            
             if (value !== null) return decodeURIComponent(value[2]); else return null;
         },
         
@@ -186,7 +263,7 @@ export default class FN {
             
             u = u.split('&');
             
-            _this.traversingArray(u, (key: number, value: string) => {
+            _this.array.traversing(u, (key: number, value: string) => {
                 const p = value.split('=');
                 if (p[0]) param[p[0]] = decodeURIComponent(p[1]);
             })
@@ -212,7 +289,7 @@ export default class FN {
             
             if (hash) search = search.replace('#' + hash, '');
             
-            _this.traversingObject(object, (key: string, value: string) => {
+            _this.object.traversing(object, (key: string, value: string) => {
                 const reg = new RegExp('(^|\\?|&)' + key + '=([^&]*)(&|$)', 'i');
                 let hasParam = '' as any;
                 
@@ -254,7 +331,7 @@ export default class FN {
             
             if (hash) search = search.replace('#' + hash, '');
             
-            _this.traversingArray(array, (key: string, value: string) => {
+            _this.array.traversing(array, (key: string, value: string) => {
                 const reg = new RegExp('(^|\\?|&)' + value + '=([^&]*)(&|$)', 'i');
                 let hasParam = '' as any;
                 
@@ -276,40 +353,8 @@ export default class FN {
         getHash: (): string => {
             const _this = FN,
                 hash = decodeURIComponent(W.location.hash);
+            
             return hash.substring(1, hash.length);
-        }
-    };
-    public static readonly rem: any = { // 操作Rem
-        /**
-         * 设置标准Rem
-         * @param {number} psdWidth PSD宽度
-         * @param {number} time 间隔时间
-         * @param {boolean} scale 是否缩放
-         * @return {void}
-         */
-        set: (psdWidth: number = 750, time: number = 300, scale: boolean = false): void => {
-            const _this = FN;
-            _this.resize(() => {
-                const width = D.documentElement.clientWidth,
-                    height = D.documentElement.clientHeight;
-                
-                let fontSize = width / psdWidth * 100;
-                
-                if (fontSize > 100) fontSize = 100;
-                if (scale && width / height >= 0.75) fontSize = 85;
-    
-                D.documentElement.style.fontSize = fontSize + 'px';
-            }, time);
-        },
-        
-        /**
-         * 获取Rem
-         * @return {number} Rem
-         */
-        get: (): number => {
-            const _this = FN,
-                size = D.documentElement.style.fontSize;
-            return Number(size.replace(/px/g, ''));
         }
     };
     public static readonly class: any = { // 操作Class
@@ -336,6 +381,7 @@ export default class FN {
          */
         addClass: (element: HTMLElement, name: string): void => {
             const _this = FN;
+            
             if (_this.class.hasClass(element, name)) return;
             element.className = element.className === '' ? name : element.className + ' ' + name;
         },
@@ -347,12 +393,12 @@ export default class FN {
          * @return {void}
          */
         removeClass: (element: HTMLElement, name: string): void => {
-            const _this = FN;
+            const _this = FN,
+                reg1 = /[\t\r\n]/g, // 查询空格
+                reg2 = /^\s+|\s+$/g; // 查询空格
             
             if (!_this.class.hasClass(element, name)) return;
             
-            const reg1 = /[\t\r\n]/g, // 查询空格
-                reg2 = /^\s+|\s+$/g; // 查询空格
             let newClass = ' ' + element.className.replace(reg1, '') + ' ';
             
             while (newClass.indexOf(' ' + name + ' ') >= 0) {
@@ -361,98 +407,151 @@ export default class FN {
             element.className = newClass.replace(reg2, '');
         }
     };
-    public static readonly calc: any = { // 精准计算
+    public static readonly array: any = { // 操作数组
         /**
-         * 加法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 遍历
+         * @param {array} array 数组
+         * @param {function} callback 回调
+         * @return {void}
          */
-        add: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
-                arg1 = n1.toString(),
-                arg2 = n2.toString(),
-                arg1Arr = arg1.split('.'),
-                arg2Arr = arg2.split('.'),
-                d1 = arg1Arr.length === 2 ? arg1Arr[1] : '',
-                d2 = arg2Arr.length === 2 ? arg2Arr[1] : '',
-                maxLen = Math.max(d1.length, d2.length),
-                m = Math.pow(10, maxLen),
-                result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
+        traversing(array: any[], callback: Function): void {
+            const _this = this;
             
-            return Number(result.toFixed(decimal));
+            for (let i = 0, n = array.length; i < n; i++) callback(i, array[i]);
         },
         
         /**
-         * 减法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 排序
+         * @param {array} array 数组
+         * @param {string} name 根据属性名称排序（只对对象数组有效）
+         * @return {array} 返回排序后数组
          */
-        sub: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN;
-            return _this.calc.add(n1, -Number(n2), decimal);
+        sort(array: any[], name?: string): any[] {
+            const _this = this;
+            
+            if (array.length === 0) return [];
+            
+            if (!(array[0] instanceof Object) || !name) return array.sort() // 非对象数组
+            
+            return array.sort((x, y) => {
+                return x[name] > y[name] ? 1 : -1;
+            });
         },
         
         /**
-         * 乘法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 乱序
+         * @param {array} array 数组
+         * @return {array} 返回乱序后数组
          */
-        mul: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
-                r1 = n1.toString(),
-                r2 = n2.toString(),
-                m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
-                    (r2.split('.')[1] ? r2.split('.')[1].length : 0),
-                result = Number(r1.replace('.', '')) *
-                    Number(r2.replace('.', '')) /
-                    Math.pow(10, m);
+        random(array: any[]): any[] {
+            const _this = this;
             
-            return Number(result.toFixed(decimal));
+            return array.sort((x, y) => {
+                return Math.random() > 0.5 ? -1 : 1;
+            });
         },
         
         /**
-         * 除法
-         * @param {number} n1 数字1
-         * @param {number} n2 数字2
-         * @param {number} decimal 小数位数
-         * @return {number} 结果
+         * 去重
+         * @param {array} array 数组
+         * @return {array} 新数组
          */
-        div: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
-                r1 = n1.toString(),
-                r2 = n2.toString(),
-                m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
-                    (r1.split('.')[1] ? r1.split('.')[1].length : 0),
-                result = Number(r1.replace('.', '')) /
-                    Number(r2.replace('.', '')) *
-                    Math.pow(10, m);
+        uniq(array: any[]): any[] {
+            const _this = this,
+                newArray = [] as any[],
+                length = array.length;
             
-            return Number(result.toFixed(decimal));
+            for (let i = 0; i < length; i++) {
+                for (let j = i + 1; j < length; j++) {
+                    if (array[i] === array[j]) {
+                        i++;
+                        j = i;
+                    }
+                }
+                newArray.push(array[i]);
+            }
+            
+            return newArray;
         }
     };
+    public static readonly object: any = { // 操作数组
+        /**
+         * 遍历
+         * @param {object} object 对象
+         * @param {function} callback 回调
+         * @return {void}
+         */
+        traversing(object: any, callback: Function): void {
+            const _this = this;
+            
+            for (const key in object) {
+                callback(key, object[key]);
+            }
+        },
+        
+        /**
+         * 排序
+         * @param {object} object 对象
+         * @return {object} 返回排序后对象
+         */
+        sort(object: any): any {
+            const _this = this,
+                newObject: any = {};
+            
+            Object.keys(object).sort().forEach((key: string) => {
+                newObject[key] = object[key];
+            });
+            
+            return newObject;
+        },
+        
+        /**
+         * 复制
+         * @param {object} object 对象
+         * @return {object} 新建的对象
+         */
+        copy(object: Object): Object {
+            const _this = this;
+            
+            return JSON.parse(JSON.stringify(object));
+        },
+        
+        /**
+         * 参数化
+         * @param {*} object 对象
+         * @return {string} 参数
+         */
+        param(object: any): string {
+            const _this = this;
+            
+            let param = '';
+            
+            for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
+            
+            return param;
+        }
+    };
+    
+    /**
+     * 获取当前Rem
+     * @return {number} rem
+     */
+    public static getRem(): number {
+        const _this = this,
+            reg = /px/g,
+            size = $('html').css('font-size');
+        
+        return Number(size.replace(reg, ''));
+    }
     
     /**
      * 获取当前时间戳
      * @return {number} 时间戳
      */
     public static getTimestamp(): number {
-        return Date.parse(new Date().toString()) / 1000;
-    }
-    
-    /**
-     * 获取数据类型
-     * @param {*} param 参数
-     * @return {string} 数据类型
-     */
-    public static getRawType(param: any): string {
         const _this = this;
-        return Object.prototype.toString.call(param).slice(8, -1);
+        
+        return Date.parse(new Date().toString()) / 1000;
     }
     
     /**
@@ -487,6 +586,17 @@ export default class FN {
     }
     
     /**
+     * 获取数据类型
+     * @param {*} param 参数
+     * @return {string} 数据类型
+     */
+    public static getRawType(param: any): string {
+        const _this = this;
+        
+        return Object.prototype.toString.call(param).slice(8, -1);
+    }
+    
+    /**
      * 获取随机整数
      * @param {number} n1 范围1
      * @param {number} n2 范围2
@@ -494,125 +604,8 @@ export default class FN {
      */
     public static getRandomInt(n1: number, n2: number): number {
         const _this = this;
+        
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
-    }
-    
-    /**
-     * 遍历数组
-     * @param {array} array 数组
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    public static traversingArray(array: any[], callback: Function): void {
-        const _this = this;
-        for (let i = 0, n = array.length; i < n; i++) callback(i, array[i]);
-    }
-    
-    /**
-     * 排序数组
-     * @param {array} array 数组
-     * @param {string} name 根据属性名称排序（只对对象数组有效）
-     * @return {array} 返回排序后数组
-     */
-    public static sortArray(array: any[], name?: string): any[] {
-        const _this = this;
-        
-        if (array.length === 0) return [];
-        
-        if (!(array[0] instanceof Object) || !name) return array.sort() // 非对象数组
-        
-        return array.sort((x, y) => {
-            return x[name] > y[name] ? 1 : -1;
-        });
-    }
-    
-    /**
-     * 乱序数组
-     * @param {array} array 数组
-     * @return {array} 返回乱序后数组
-     */
-    public static randomArray(array: any[]): any[] {
-        const _this = this;
-        return array.sort((x, y) => {
-            return Math.random() > 0.5 ? -1 : 1;
-        });
-    }
-    
-    /**
-     * 数组去重
-     * @param {array} array 数组
-     * @return {array} 新数组
-     */
-    public static uniqArray(array: any[]): any[] {
-        const _this = this,
-            newArray = [] as any[],
-            length = array.length;
-        
-        for (let i = 0; i < length; i++) {
-            for (let j = i + 1; j < length; j++) {
-                if (array[i] === array[j]) {
-                    i++;
-                    j = i;
-                }
-            }
-            newArray.push(array[i]);
-        }
-        
-        return newArray;
-    }
-    
-    /**
-     * 遍历对象
-     * @param {object} object 对象
-     * @param {function} callback 回调
-     * @return {void}
-     */
-    public static traversingObject(object: any, callback: Function): void {
-        const _this = this;
-        for (const key in object) {
-            callback(key, object[key]);
-        }
-    }
-    
-    /**
-     * 排序对象
-     * @param {object} object 对象
-     * @return {object} 返回排序后对象
-     */
-    public static sortObject(object: any): any {
-        const _this = this,
-            newObject: any = {};
-        
-        Object.keys(object).sort().forEach((key: string) => {
-            newObject[key] = object[key];
-        });
-        
-        return newObject;
-    }
-    
-    /**
-     * 复制对象
-     * @param {object} object 对象
-     * @return {object} 新建的对象
-     */
-    public static copyObject(object: Object): Object {
-        const _this = this;
-        return JSON.parse(JSON.stringify(object));
-    }
-    
-    /**
-     * 参数化对象
-     * @param {*} object 对象
-     * @return {string} 参数
-     */
-    public static paramObject(object: any): string {
-        const _this = this;
-        
-        let param = '';
-        
-        for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
-        
-        return param;
     }
     
     /**
@@ -622,46 +615,13 @@ export default class FN {
      */
     public static cached(callback: Function): Function {
         const _this = this;
+        
         let cache: any = null;
+        
         return (param: any) => {
             !cache && (cache = callback(param));
             return cache;
         }
-    }
-    
-    /**
-     * 监听滑轮事件
-     * @param {string} id 节点id
-     * @param {object} config 上下滚动回调
-     * @return {void}
-     */
-    public static scroll(id: string, config?: {
-        topCallback?: Function,
-        bottomCallback?: Function
-    }): void {
-        const _this = this,
-            dom = D.getElementById(id),
-            scrollFun = (e: Event) => { // 判断方向
-                const event = e as any;
-                
-                let detail = 0;
-                
-                if (_this.isPSB.system() === 'Mac') detail = 30; // Mac兼容,降低灵敏度
-                
-                if (!config) return;
-                
-                if (event.wheelDelta) { // 默认
-                    if (event.wheelDelta > detail && config.topCallback) config.topCallback(); // 当滑轮向上滚动时
-                    if (event.wheelDelta < -detail && config.bottomCallback) config.bottomCallback(); // 当滑轮向下滚动时
-                } else if (event.detail) { // Firefox兼容
-                    if (event.detail > detail && config.bottomCallback) config.bottomCallback(); // 当滑轮向上滚动时
-                    if (event.detail < -detail && config.topCallback) config.topCallback(); // 当滑轮向下滚动时
-                }
-            }
-        
-        let type = 'mousewheel';
-        if (_this.isPSB.browser() === 'Firefox') type = 'DOMMouseScroll';
-        dom && dom.addEventListener(type, scrollFun, false);
     }
     
     /**
@@ -671,22 +631,44 @@ export default class FN {
      * @return {void}
      */
     public static resize(callback: Function, time: number = 300): void {
-        const _this = this;
+        const _this = this,
+            $W = $(W),
+            resize = () => {
+                if (resizeSetTime) clearTimeout(resizeSetTime);
+                resizeSetTime = setTimeout(callback, time);
+            };
+        
         let resizeSetTime = 0;
         
-        callback();
+        resize();
+        $W.bind('pageshow', (e: PageTransitionEvent) => {
+            if (e.persisted) resize();
+        }); // 屏幕显示
+        $W.bind('resize', resize); // 屏幕尺寸变化
+        W.onorientationchange && $W.bind('orientationchange', resize); // 屏幕旋转
+    }
+    
+    /**
+     * 监听滑轮事件
+     * @param {string} id 节点id
+     * @param {function} top 向上滚动回调
+     * @param {function} bottom 向下滚动回调
+     * @return {void}
+     */
+    public static scroll(id: string, top: Function, bottom: Function): void {
+        const _this = this,
+            $dom = $('#' + id),
+            detail = _this.isPSB.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         
-        // 监听屏幕
-        W.addEventListener('onorientationchange' in W ? 'orientationchange' : 'resize', () => {
-            clearTimeout(resizeSetTime);
-            resizeSetTime = setTimeout(callback, time);
-        }, false);
-        W.addEventListener('pageshow', (e) => {
-            if (e.persisted) {
-                clearTimeout(resizeSetTime);
-                resizeSetTime = setTimeout(callback, time);
+        $dom.bind(_this.isPSB.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
+            if (e.wheelDelta) { // 默认
+                if (e.wheelDelta > detail) top(); // 当滑轮向上滚动时
+                if (e.wheelDelta < -detail) bottom(); // 当滑轮向下滚动时
+            } else if (e.detail) { // Firefox兼容
+                if (e.detail > detail) bottom(); // 当滑轮向上滚动时
+                if (e.detail < -detail) top(); // 当滑轮向下滚动时
             }
-        }, false);
+        });
     }
     
     /**
@@ -696,50 +678,56 @@ export default class FN {
      * @return {void}
      */
     public static transform(element: HTMLElement, style: string): void {
-        const _this = this;
-        element.style.setProperty('-webkit-transform', style);
-        element.style.setProperty('-moz-transform', style);
-        element.style.setProperty('-o-transform', style);
-        element.style.setProperty('-ms-transform', style);
-        element.style.setProperty('transform', style);
+        const _this = this,
+            $dom = $(element);
+        
+        $dom.css({
+            '-webkit-transform': style,
+            '-moz-transform': style,
+            '-o-transform': style,
+            '-ms-transform': style,
+            transform: style
+        });
     }
     
     /**
-     * 当前域名内跳转携带Url参数
+     * 内链跳转保留参数
      * @return {void}
      */
-    public static linkAddParam(): void {
+    public static innerChainSaveParam(): void {
         const _this = this,
-            array = D.getElementsByTagName('a'),
-            length = array.length;
+            reg = {
+                void: 'void(0)',
+                http: 'http://',
+                https: 'https://'
+            },
+            $aList = $('a');
         
-        for (let i = 0; i < length; i++) {
-            array[i].addEventListener('click', () => {
-                const a = array[i];
+        for (let i = 0, n = $aList.length; i < n; i++) {
+            const a = $aList[i],
+                $a = $(a),
+                href = $a.attr('href');
+            
+            if (href.indexOf(reg.void) !== -1) return; // 忽略非跳转链接
+            if ((href.indexOf(reg.http) > -1 ||
+                href.indexOf(reg.https) > -1) &&
+                href.indexOf(W.location.hostname) === -1) { // 忽略外链
+                return;
+            }
+            
+            $a.click(() => {
+                const hash = href.split('#');
                 
-                let src = '',
-                    href = a.getAttribute('href') as any;
+                let src = '';
                 
-                // 忽略非跳转链接
-                if (href.indexOf('void(0)') !== -1) return;
-                
-                // 忽略非跳转当前域名链接
-                if ((href.indexOf('http://') > -1 ||
-                    href.indexOf('https://') > -1) &&
-                    href.indexOf(W.location.hostname) === -1) {
-                    return;
-                }
-                
-                // 添加Hash
-                href = href.split('#');
                 if (href.length > 1) {
-                    src = href[0] + W.location.search + '#' + href[1];
+                    src = hash[0] + W.location.search + '#' + hash[1];
                 } else {
-                    src = href[0] + W.location.search;
+                    src = hash[0] + W.location.search;
                 }
                 
-                a.setAttribute('href', src);
-            }, false);
+                $a.attr('href', src);
+            });
         }
     }
     
@@ -750,7 +738,9 @@ export default class FN {
      */
     public static disableConsole(type: 'log' | 'assert' | 'warn' | 'error'): void {
         const _this = this;
+        
         console[type] = () => {
+            return;
         };
     }
 }

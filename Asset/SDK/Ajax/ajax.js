@@ -68,7 +68,7 @@ var Ajax = /** @class */ (function () {
     Ajax.encryptMD5Ajax = function (config, encrypt, expand) {
         var _this = this;
         _this.baseAjax(config, function (ajaxConfig) {
-            var key = encrypt.key || crypto_1.default.createKey(encrypt.length || 0), sortData = function_1.default.sortObject(ajaxConfig.data), sign = crypto_1.default.encryptMD5(key, sortData);
+            var key = encrypt.key || crypto_1.default.createKey(encrypt.length || 0), sortData = function_1.default.object.sort(ajaxConfig.data), sign = crypto_1.default.encryptMD5(key, sortData);
             ajaxConfig.data = Object.assign(sortData, { sign: sign });
             expand && expand(ajaxConfig);
         });

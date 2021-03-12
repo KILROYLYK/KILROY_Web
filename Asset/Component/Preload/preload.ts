@@ -10,8 +10,8 @@ export interface PreloadConfig { // 预加载配置
  */
 export default class Preload {
     private config: PreloadConfig = {}; // 配置
-    private loaded: Function | null = null; // 加载单独文件完成回调
-    private finish: Function | null = null; // 加载全部文件完成回调
+    private loaded: Function = null; // 加载单独文件完成回调
+    private finish: Function = null; // 加载全部文件完成回调
     private list: string[] = []; // 文件列表
     private index: number = 0; // 文件下标
     private total: number = 0; // 文件总数

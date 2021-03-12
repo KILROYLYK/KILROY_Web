@@ -1,6 +1,6 @@
 export class ListNode { // 链表（Linked-list）
     public val: any = 0;
-    public next: ListNode | null = null;
+    public next: ListNode = null;
     
     /**
      * 构造函数 ListNode

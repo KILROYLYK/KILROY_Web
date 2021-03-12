@@ -16,26 +16,26 @@ var Preload = /** @class */ (function () {
      */
     function Preload(list, config) {
         if (config === void 0) { config = {}; }
-        this.config = null; // 配置
-        this.loadedCallback = null; // 加载单独文件完成回调
-        this.finishCallback = null; // 加载全部文件完成回调
+        this.config = {}; // 配置
+        this.loaded = null; // 加载单独文件完成回调
+        this.finish = null; // 加载全部文件完成回调
         this.list = []; // 文件列表
         this.index = 0; // 文件下标
         this.total = 0; // 文件总数
         var _this = this;
         _this.config = config;
-        _this.loadedCallback = _this.config.loadedCallback || (function (index, total, progress) {
+        _this.loaded = _this.config.loaded || (function (index, total, progress) {
             console.log(index, total, progress + '%');
         });
-        _this.finishCallback = _this.config.finishCallback || (function () {
+        _this.finish = _this.config.finish || (function () {
             console.log('预加载完成');
         });
         _this.list = list;
         _this.index = 0;
         _this.total = list.length;
         if (!_this.list || length === 0) { // 文件列表为空
-            _this.loadedCallback && _this.loadedCallback(_this.index, _this.total, 100);
-            _this.finishCallback && _this.finishCallback();
+            _this.loaded && _this.loaded(_this.index, _this.total, 100);
+            _this.finish && _this.finish();
             return;
         }
         _this.fileType(_this.list[_this.index], _this.readSrc); // 开始加载第一个文件
@@ -104,10 +104,10 @@ var Preload = /** @class */ (function () {
     Preload.prototype.readSrc = function () {
         var _this = this;
         // 加载单个文件完成
-        _this.loadedCallback && _this.loadedCallback(_this.index, _this.total, parseInt(String((_this.index + 1) / length * 100), 10));
+        _this.loaded && _this.loaded(_this.index, _this.total, parseInt(String((_this.index + 1) / length * 100), 10));
         // 加载全部文件完成
         if (_this.index === length - 1) {
-            _this.finishCallback && _this.finishCallback();
+            _this.finish && _this.finish();
             return;
         }
         _this.index++;

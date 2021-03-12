@@ -9,15 +9,15 @@ var function_1 = __importDefault(require("../Function/function"));
 /**
  * 加密
  */
-var Ajax = /** @class */ (function () {
-    function Ajax() {
+var Crypto = /** @class */ (function () {
+    function Crypto() {
     }
     /**
      * 创建Key
      * @param {number} length Key长度
      * @return {string} 返回Key
      */
-    Ajax.createKey = function (length) {
+    Crypto.createKey = function (length) {
         var _this = this, time = Math.floor(length / 8), remainder = length % 8;
         var key = '';
         for (var i = 0; i < time; i++) {
@@ -35,7 +35,7 @@ var Ajax = /** @class */ (function () {
      * @param {*} data 数据
      * @return {string} 加密后的数据字符串
      */
-    Ajax.encryptBase64 = function (data) {
+    Crypto.encryptBase64 = function (data) {
         var content = crypto_js_1.default.enc.Utf8.parse(JSON.stringify(data)), encryptData = crypto_js_1.default.enc.Base64.stringify(content);
         return encodeURIComponent(encryptData);
     };
@@ -45,7 +45,7 @@ var Ajax = /** @class */ (function () {
      * @param {*} data 数据
      * @return {string} 加密后的数据字符串
      */
-    Ajax.encryptMD5 = function (key, data) {
+    Crypto.encryptMD5 = function (key, data) {
         var _this = this, sortData = function_1.default.sortObject(data), paramData = function_1.default.paramObject(sortData);
         return crypto_js_1.default.MD5(paramData + '&key=' + key).toString();
     };
@@ -55,7 +55,7 @@ var Ajax = /** @class */ (function () {
      * @param {*} data 数据
      * @return {string} 加密后的数据字符串
      */
-    Ajax.encryptAES = function (key, data) {
+    Crypto.encryptAES = function (key, data) {
         var _this = this;
         var encryptData = crypto_js_1.default.AES.encrypt(JSON.stringify(data), key, {
             mode: crypto_js_1.default.mode.CBC,
@@ -67,7 +67,7 @@ var Ajax = /** @class */ (function () {
         encryptData = encryptData.replace(/\=/g, '');
         return encryptData;
     };
-    return Ajax;
+    return Crypto;
 }());
-exports.default = Ajax;
+exports.default = Crypto;
 //# sourceMappingURL=crypto.js.map

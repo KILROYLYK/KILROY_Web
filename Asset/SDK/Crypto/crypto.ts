@@ -1,12 +1,12 @@
 // @ts-ignore
-import Crypto from '/usr/local/lib/node_modules/crypto-js';
+import cryptoJS from '/usr/local/lib/node_modules/crypto-js';
 
 import FN from '../Function/function';
 
 /**
  * 加密
  */
-export default class Ajax {
+export default class Crypto {
     /**
      * 创建Key
      * @param {number} length Key长度
@@ -29,7 +29,7 @@ export default class Ajax {
             .toString(36)
             .slice(2, 2 - remainder);
         
-        return Crypto.enc.Utf8.parse(key);
+        return cryptoJS.enc.Utf8.parse(key);
     }
     
     /**
@@ -38,8 +38,8 @@ export default class Ajax {
      * @return {string} 加密后的数据字符串
      */
     public static encryptBase64(data: any): string {
-        const content = Crypto.enc.Utf8.parse(JSON.stringify(data)),
-            encryptData = Crypto.enc.Base64.stringify(content);
+        const content = cryptoJS.enc.Utf8.parse(JSON.stringify(data)),
+            encryptData = cryptoJS.enc.Base64.stringify(content);
         return encodeURIComponent(encryptData);
     }
     
@@ -54,7 +54,7 @@ export default class Ajax {
             sortData = FN.sortObject(data),
             paramData = FN.paramObject(sortData);
         
-        return Crypto.MD5(paramData + '&key=' + key).toString();
+        return cryptoJS.MD5(paramData + '&key=' + key).toString();
     }
     
     /**
@@ -66,11 +66,11 @@ export default class Ajax {
     public static encryptAES(key: string, data: any): string {
         const _this = this;
         
-        let encryptData = Crypto.AES.encrypt(
+        let encryptData = cryptoJS.AES.encrypt(
             JSON.stringify(data), key,
             {
-                mode: Crypto.mode.CBC,
-                padding: Crypto.pad.ZeroPadding,
+                mode: cryptoJS.mode.CBC,
+                padding: cryptoJS.pad.ZeroPadding,
                 iv: key
             });
         

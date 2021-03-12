@@ -1,9 +1,13 @@
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
+
+const W: Window = window,
+    D: Document = document;
+
 /**
  * 函数
  */
 export default class FN {
-    public static readonly agent: string = window.navigator.userAgent.toLowerCase(); // 代理信息
-    
     public static readonly isPSB: any = { // 判断设备信息
         /**
          * 判断Platform
@@ -11,19 +15,20 @@ export default class FN {
          */
         platform: (): string => {
             const _this = FN,
+                agent = W.navigator.userAgent.toLowerCase(),
                 reg = {
                     pc: /Windows|Mac|Linux/i as RegExp,
                     mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i as RegExp
                 };
             
-            if (reg.mobile.test(_this.agent)) { // Mobile
+            if (reg.mobile.test(agent)) { // Mobile
                 return 'Mobile';
-            } else if (reg.pc.test(_this.agent)) { // PC
+            } else if (reg.pc.test(agent)) { // PC
                 return 'PC';
             }
             
-            console.log('未知平台：' + _this.agent);
-            return _this.agent;
+            console.log('未知平台：' + agent);
+            return agent;
         },
         
         /**
@@ -31,26 +36,27 @@ export default class FN {
          * @return {string} 返回系统信息
          */
         system: (): string => {
-            const _this = FN;
+            const _this = FN,
+                agent = W.navigator.userAgent.toLowerCase();
             
-            if ((/Android/i).test(_this.agent) || (/Adr/i).test(_this.agent)) {
+            if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
                 return 'Android';
-            } else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(_this.agent)) {
+            } else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(agent)) {
                 return 'iOS';
-            } else if ((/BlackBerry/i).test(_this.agent)) {
+            } else if ((/BlackBerry/i).test(agent)) {
                 return 'BlackBerry';
-            } else if ((/SymbianOS/i).test(_this.agent)) {
+            } else if ((/SymbianOS/i).test(agent)) {
                 return 'SymbianOS';
-            } else if ((/Windows/i).test(_this.agent)) {
+            } else if ((/Windows/i).test(agent)) {
                 return 'Windows';
-            } else if ((/Mac/i).test(_this.agent)) {
+            } else if ((/Mac/i).test(agent)) {
                 return 'Mac';
-            } else if ((/Linux/i).test(_this.agent)) {
+            } else if ((/Linux/i).test(agent)) {
                 return 'Linux';
             }
             
-            console.log('未知系统：' + _this.agent);
-            return _this.agent;
+            console.log('未知系统：' + agent);
+            return agent;
         },
         
         /**
@@ -58,39 +64,40 @@ export default class FN {
          * @return {string} 返回浏览器信息
          */
         browser: (): string => {
-            const _this = FN;
+            const _this = FN,
+                agent = W.navigator.userAgent.toLowerCase();
             
-            if ((/Huawei/i).test(_this.agent)) {
+            if ((/Huawei/i).test(agent)) {
                 // Huawei 特殊判断
-                if ((/MicroMessenger/i).test(_this.agent)) {
+                if ((/MicroMessenger/i).test(agent)) {
                     return 'WeChat';
-                } else if ((/pixel|statusbar/i).test(_this.agent)) {
+                } else if ((/pixel|statusbar/i).test(agent)) {
                     return 'HuaWei';
                 } else {
                     return 'QQBrowser';
                 }
-            } else if ((/MQQBrowser/i).test(_this.agent)) {
+            } else if ((/MQQBrowser/i).test(agent)) {
                 return 'QQBrowser';
-            } else if ((/QQ/i).test(_this.agent)) {
+            } else if ((/QQ/i).test(agent)) {
                 return 'QQ';
-            } else if ((/MicroMessenger/i).test(_this.agent)) {
+            } else if ((/MicroMessenger/i).test(agent)) {
                 return 'WeChat';
-            } else if ((/WeiBo/).test(_this.agent)) {
+            } else if ((/WeiBo/).test(agent)) {
                 return 'WeiBo';
-            } else if ((/Chrome/i).test(_this.agent)) {
+            } else if ((/Chrome/i).test(agent)) {
                 return 'Chrome';
-            } else if ((/Firefox/i).test(_this.agent)) {
+            } else if ((/Firefox/i).test(agent)) {
                 return 'Firefox';
-            } else if ((/Safari/i).test(_this.agent)) {
+            } else if ((/Safari/i).test(agent)) {
                 return 'Safari';
-            } else if ((/Edge/i).test(_this.agent)) {
+            } else if ((/Edge/i).test(agent)) {
                 return 'Edge';
-            } else if ((window as any).ActiveXObject || 'ActiveXObject' in window) {
+            } else if ((W as any).ActiveXObject || 'ActiveXObject' in W) {
                 return 'IE';
             }
             
-            console.log('未知浏览器：' + _this.agent);
-            return _this.agent;
+            console.log('未知浏览器：' + agent);
+            return agent;
         }
     };
     public static readonly cookie: any = { // 操作Cookie
@@ -111,8 +118,8 @@ export default class FN {
                 time.setTime(time + day * 24 * 60 * 60 * 1000);
                 time = 'expires=' + time.toUTCString() + ';';
             }
-            
-            document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
+    
+            D.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
         },
         
         /**
@@ -123,7 +130,7 @@ export default class FN {
         get: (name: string): string | null => {
             const _this = FN,
                 reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
-                value = document.cookie.match(reg);
+                value = D.cookie.match(reg);
             if (value !== null) return decodeURIComponent(value[2]); else return null;
         },
         
@@ -139,7 +146,7 @@ export default class FN {
                 value = _this.cookie.get(name);
             
             exp.setTime(exp.getTime() - 1);
-            if (value !== null) document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
+            if (value !== null) D.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
         }
     };
     public static readonly url: any = { // 操作Url
@@ -149,7 +156,7 @@ export default class FN {
          * @param {string} url Url
          * @return {string|null} 返回Url参数的value
          */
-        getParam: (name: string, url: string = window.location.search.substr(1)): string | null => {
+        getParam: (name: string, url: string = W.location.search.substr(1)): string | null => {
             const _this = FN,
                 reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             
@@ -167,7 +174,7 @@ export default class FN {
          * @param {string} url Url
          * @return {array|null} 返回Url参数数组
          */
-        getAllParam: (url: string = window.location.search.substr(1)): any => {
+        getAllParam: (url: string = W.location.search.substr(1)): any => {
             const _this = FN,
                 param = {} as any;
             
@@ -193,7 +200,7 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        addParam: (object: any, url: string = window.location.href): string => {
+        addParam: (object: any, url: string = W.location.href): string => {
             const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
@@ -236,7 +243,7 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        delParam: (array: string[], url = window.location.href): string => {
+        delParam: (array: string[], url = W.location.href): string => {
             const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
@@ -268,7 +275,7 @@ export default class FN {
          */
         getHash: (): string => {
             const _this = FN,
-                hash = decodeURIComponent(window.location.hash);
+                hash = decodeURIComponent(W.location.hash);
             return hash.substring(1, hash.length);
         }
     };
@@ -283,15 +290,15 @@ export default class FN {
         set: (psdWidth: number = 750, time: number = 300, scale: boolean = false): void => {
             const _this = FN;
             _this.resize(() => {
-                const width = document.documentElement.clientWidth,
-                    height = document.documentElement.clientHeight;
+                const width = D.documentElement.clientWidth,
+                    height = D.documentElement.clientHeight;
                 
                 let fontSize = width / psdWidth * 100;
                 
                 if (fontSize > 100) fontSize = 100;
                 if (scale && width / height >= 0.75) fontSize = 85;
-                
-                document.documentElement.style.fontSize = fontSize + 'px';
+    
+                D.documentElement.style.fontSize = fontSize + 'px';
             }, time);
         },
         
@@ -301,7 +308,7 @@ export default class FN {
          */
         get: (): number => {
             const _this = FN,
-                size = document.documentElement.style.fontSize;
+                size = D.documentElement.style.fontSize;
             return Number(size.replace(/px/g, ''));
         }
     };
@@ -633,7 +640,7 @@ export default class FN {
         bottomCallback?: Function
     }): void {
         const _this = this,
-            dom = document.getElementById(id),
+            dom = D.getElementById(id),
             scrollFun = (e: Event) => { // 判断方向
                 const event = e as any;
                 
@@ -670,11 +677,11 @@ export default class FN {
         callback();
         
         // 监听屏幕
-        window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', () => {
+        W.addEventListener('onorientationchange' in W ? 'orientationchange' : 'resize', () => {
             clearTimeout(resizeSetTime);
             resizeSetTime = setTimeout(callback, time);
         }, false);
-        window.addEventListener('pageshow', (e) => {
+        W.addEventListener('pageshow', (e) => {
             if (e.persisted) {
                 clearTimeout(resizeSetTime);
                 resizeSetTime = setTimeout(callback, time);
@@ -703,7 +710,7 @@ export default class FN {
      */
     public static linkAddParam(): void {
         const _this = this,
-            array = document.getElementsByTagName('a'),
+            array = D.getElementsByTagName('a'),
             length = array.length;
         
         for (let i = 0; i < length; i++) {
@@ -719,16 +726,16 @@ export default class FN {
                 // 忽略非跳转当前域名链接
                 if ((href.indexOf('http://') > -1 ||
                     href.indexOf('https://') > -1) &&
-                    href.indexOf(window.location.hostname) === -1) {
+                    href.indexOf(W.location.hostname) === -1) {
                     return;
                 }
                 
                 // 添加Hash
                 href = href.split('#');
                 if (href.length > 1) {
-                    src = href[0] + window.location.search + '#' + href[1];
+                    src = href[0] + W.location.search + '#' + href[1];
                 } else {
-                    src = href[0] + window.location.search;
+                    src = href[0] + W.location.search;
                 }
                 
                 a.setAttribute('href', src);

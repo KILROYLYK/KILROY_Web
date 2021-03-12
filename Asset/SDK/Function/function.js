@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var W = window, D = document;
 /**
  * 函数
  */
@@ -180,7 +181,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.scroll = function (id, config) {
-        var _this = this, dom = document.getElementById(id), scrollFun = function (e) {
+        var _this = this, dom = D.getElementById(id), scrollFun = function (e) {
             var event = e;
             var detail = 0;
             if (_this.isPSB.system() === 'Mac')
@@ -217,11 +218,11 @@ var FN = /** @class */ (function () {
         var resizeSetTime = 0;
         callback();
         // 监听屏幕
-        window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', function () {
+        W.addEventListener('onorientationchange' in W ? 'orientationchange' : 'resize', function () {
             clearTimeout(resizeSetTime);
             resizeSetTime = setTimeout(callback, time);
         }, false);
-        window.addEventListener('pageshow', function (e) {
+        W.addEventListener('pageshow', function (e) {
             if (e.persisted) {
                 clearTimeout(resizeSetTime);
                 resizeSetTime = setTimeout(callback, time);
@@ -247,7 +248,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.linkAddParam = function () {
-        var _this = this, array = document.getElementsByTagName('a'), length = array.length;
+        var _this = this, array = D.getElementsByTagName('a'), length = array.length;
         var _loop_1 = function (i) {
             array[i].addEventListener('click', function () {
                 var a = array[i];
@@ -258,16 +259,16 @@ var FN = /** @class */ (function () {
                 // 忽略非跳转当前域名链接
                 if ((href.indexOf('http://') > -1 ||
                     href.indexOf('https://') > -1) &&
-                    href.indexOf(window.location.hostname) === -1) {
+                    href.indexOf(W.location.hostname) === -1) {
                     return;
                 }
                 // 添加Hash
                 href = href.split('#');
                 if (href.length > 1) {
-                    src = href[0] + window.location.search + '#' + href[1];
+                    src = href[0] + W.location.search + '#' + href[1];
                 }
                 else {
-                    src = href[0] + window.location.search;
+                    src = href[0] + W.location.search;
                 }
                 a.setAttribute('href', src);
             }, false);
@@ -286,103 +287,102 @@ var FN = /** @class */ (function () {
         console[type] = function () {
         };
     };
-    FN.agent = window.navigator.userAgent.toLowerCase(); // 代理信息
     FN.isPSB = {
         /**
          * 判断Platform
          * @return {string} 返回平台信息
          */
         platform: function () {
-            var _this = FN, reg = {
+            var _this = FN, agent = W.navigator.userAgent.toLowerCase(), reg = {
                 pc: /Windows|Mac|Linux/i,
                 mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
             };
-            if (reg.mobile.test(_this.agent)) { // Mobile
+            if (reg.mobile.test(agent)) { // Mobile
                 return 'Mobile';
             }
-            else if (reg.pc.test(_this.agent)) { // PC
+            else if (reg.pc.test(agent)) { // PC
                 return 'PC';
             }
-            console.log('未知平台：' + _this.agent);
-            return _this.agent;
+            console.log('未知平台：' + agent);
+            return agent;
         },
         /**
          * 判断System
          * @return {string} 返回系统信息
          */
         system: function () {
-            var _this = FN;
-            if ((/Android/i).test(_this.agent) || (/Adr/i).test(_this.agent)) {
+            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
+            if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
                 return 'Android';
             }
-            else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(_this.agent)) {
+            else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(agent)) {
                 return 'iOS';
             }
-            else if ((/BlackBerry/i).test(_this.agent)) {
+            else if ((/BlackBerry/i).test(agent)) {
                 return 'BlackBerry';
             }
-            else if ((/SymbianOS/i).test(_this.agent)) {
+            else if ((/SymbianOS/i).test(agent)) {
                 return 'SymbianOS';
             }
-            else if ((/Windows/i).test(_this.agent)) {
+            else if ((/Windows/i).test(agent)) {
                 return 'Windows';
             }
-            else if ((/Mac/i).test(_this.agent)) {
+            else if ((/Mac/i).test(agent)) {
                 return 'Mac';
             }
-            else if ((/Linux/i).test(_this.agent)) {
+            else if ((/Linux/i).test(agent)) {
                 return 'Linux';
             }
-            console.log('未知系统：' + _this.agent);
-            return _this.agent;
+            console.log('未知系统：' + agent);
+            return agent;
         },
         /**
          * 判断Browser
          * @return {string} 返回浏览器信息
          */
         browser: function () {
-            var _this = FN;
-            if ((/Huawei/i).test(_this.agent)) {
+            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
+            if ((/Huawei/i).test(agent)) {
                 // Huawei 特殊判断
-                if ((/MicroMessenger/i).test(_this.agent)) {
+                if ((/MicroMessenger/i).test(agent)) {
                     return 'WeChat';
                 }
-                else if ((/pixel|statusbar/i).test(_this.agent)) {
+                else if ((/pixel|statusbar/i).test(agent)) {
                     return 'HuaWei';
                 }
                 else {
                     return 'QQBrowser';
                 }
             }
-            else if ((/MQQBrowser/i).test(_this.agent)) {
+            else if ((/MQQBrowser/i).test(agent)) {
                 return 'QQBrowser';
             }
-            else if ((/QQ/i).test(_this.agent)) {
+            else if ((/QQ/i).test(agent)) {
                 return 'QQ';
             }
-            else if ((/MicroMessenger/i).test(_this.agent)) {
+            else if ((/MicroMessenger/i).test(agent)) {
                 return 'WeChat';
             }
-            else if ((/WeiBo/).test(_this.agent)) {
+            else if ((/WeiBo/).test(agent)) {
                 return 'WeiBo';
             }
-            else if ((/Chrome/i).test(_this.agent)) {
+            else if ((/Chrome/i).test(agent)) {
                 return 'Chrome';
             }
-            else if ((/Firefox/i).test(_this.agent)) {
+            else if ((/Firefox/i).test(agent)) {
                 return 'Firefox';
             }
-            else if ((/Safari/i).test(_this.agent)) {
+            else if ((/Safari/i).test(agent)) {
                 return 'Safari';
             }
-            else if ((/Edge/i).test(_this.agent)) {
+            else if ((/Edge/i).test(agent)) {
                 return 'Edge';
             }
-            else if (window.ActiveXObject || 'ActiveXObject' in window) {
+            else if (W.ActiveXObject || 'ActiveXObject' in W) {
                 return 'IE';
             }
-            console.log('未知浏览器：' + _this.agent);
-            return _this.agent;
+            console.log('未知浏览器：' + agent);
+            return agent;
         }
     };
     FN.cookie = {
@@ -404,7 +404,7 @@ var FN = /** @class */ (function () {
                 time.setTime(time + day * 24 * 60 * 60 * 1000);
                 time = 'expires=' + time.toUTCString() + ';';
             }
-            document.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
+            D.cookie = name + '=' + encodeURIComponent(value) + ';' + time + 'path=' + domain;
         },
         /**
          * 获取Cookie
@@ -412,7 +412,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回value|null
          */
         get: function (name) {
-            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = document.cookie.match(reg);
+            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = D.cookie.match(reg);
             if (value !== null)
                 return decodeURIComponent(value[2]);
             else
@@ -429,7 +429,7 @@ var FN = /** @class */ (function () {
             var _this = FN, exp = new Date(), value = _this.cookie.get(name);
             exp.setTime(exp.getTime() - 1);
             if (value !== null)
-                document.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
+                D.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
         }
     };
     FN.url = {
@@ -440,7 +440,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回Url参数的value
          */
         getParam: function (name, url) {
-            if (url === void 0) { url = window.location.search.substr(1); }
+            if (url === void 0) { url = W.location.search.substr(1); }
             var _this = FN, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             var param = null;
             if ((/\?/i).test(url))
@@ -457,7 +457,7 @@ var FN = /** @class */ (function () {
          * @return {array|null} 返回Url参数数组
          */
         getAllParam: function (url) {
-            if (url === void 0) { url = window.location.search.substr(1); }
+            if (url === void 0) { url = W.location.search.substr(1); }
             var _this = FN, param = {};
             var u = '';
             if (!url)
@@ -481,7 +481,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         addParam: function (object, url) {
-            if (url === void 0) { url = window.location.href; }
+            if (url === void 0) { url = W.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
             if (Object.keys(object).length === 0)
@@ -521,7 +521,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         delParam: function (array, url) {
-            if (url === void 0) { url = window.location.href; }
+            if (url === void 0) { url = W.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '';
             if (array.length === 0)
@@ -547,7 +547,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url的hash值
          */
         getHash: function () {
-            var _this = FN, hash = decodeURIComponent(window.location.hash);
+            var _this = FN, hash = decodeURIComponent(W.location.hash);
             return hash.substring(1, hash.length);
         }
     };
@@ -565,13 +565,13 @@ var FN = /** @class */ (function () {
             if (scale === void 0) { scale = false; }
             var _this = FN;
             _this.resize(function () {
-                var width = document.documentElement.clientWidth, height = document.documentElement.clientHeight;
+                var width = D.documentElement.clientWidth, height = D.documentElement.clientHeight;
                 var fontSize = width / psdWidth * 100;
                 if (fontSize > 100)
                     fontSize = 100;
                 if (scale && width / height >= 0.75)
                     fontSize = 85;
-                document.documentElement.style.fontSize = fontSize + 'px';
+                D.documentElement.style.fontSize = fontSize + 'px';
             }, time);
         },
         /**
@@ -579,7 +579,7 @@ var FN = /** @class */ (function () {
          * @return {number} Rem
          */
         get: function () {
-            var _this = FN, size = document.documentElement.style.fontSize;
+            var _this = FN, size = D.documentElement.style.fontSize;
             return Number(size.replace(/px/g, ''));
         }
     };

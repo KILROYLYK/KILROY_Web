@@ -26,11 +26,11 @@ var Flip = /** @class */ (function () {
             domain: 'https://cms.gaeamobile.net',
             getList: '/api/get-posts-list'
         };
-        this.$W = jquery_1.default(W); // Jquery的Window元素
-        this.$D = jquery_1.default(D); // Jquery的Document元素
+        this.$W = jquery_1.default(W);
+        this.$D = jquery_1.default(D);
         var _this = this;
         _this.config = {
-            projectID: config.projectID,
+            projectID: config.projectId,
             language: config.language || 'cn',
             group: config.group,
             type: config.type || 'page',
@@ -139,7 +139,7 @@ var Flip = /** @class */ (function () {
         var dom = '';
         if (!config)
             return;
-        function_1.default.traversingArray(array, function (k, v) {
+        function_1.default.array.traversing(array, function (k, v) {
             dom += config.createDom(k, v);
         });
         callback && callback(dom);
@@ -193,7 +193,7 @@ var Flip = /** @class */ (function () {
      */
     Flip.prototype.scrollFun = function () {
         var _this = this, top = _this.$W.scrollTop(), winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * function_1.default.rem.get())
+        if (top < winHeight - _this.$W.height() - 2 * function_1.default.getRem())
             return;
         _this.getData();
     };

@@ -9,7 +9,7 @@ const W: Window = window,
     D: Document = document;
 
 interface FlipConfig { // 翻页配置
-    projectID: number // CMS项目ID
+    projectId: number // CMS项目ID
     language?: string // 语言
     group: string
     type?: string
@@ -68,8 +68,8 @@ export default class Flip {
         getList: '/api/get-posts-list' as string
     };
     
-    private readonly $W: any = $(W); // Jquery的Window元素
-    private readonly $D: any = $(D); // Jquery的Document元素
+    private readonly $W: any = $(W);
+    private readonly $D: any = $(D);
     
     /**
      * 构造函数
@@ -80,7 +80,7 @@ export default class Flip {
         const _this = this;
         
         _this.config = {
-            projectID: config.projectID,
+            projectID: config.projectId,
             language: config.language || 'cn',
             group: config.group,
             type: config.type || 'page',
@@ -204,7 +204,7 @@ export default class Flip {
         
         if (!config) return;
         
-        FN.traversingArray(array, (k: number, v: string) => {
+        FN.array.traversing(array, (k: number, v: string) => {
             dom += config.createDom(k, v);
         });
         
@@ -279,7 +279,7 @@ export default class Flip {
         const _this = this,
             top = _this.$W.scrollTop(),
             winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * FN.rem.get()) return;
+        if (top < winHeight - _this.$W.height() - 2 * FN.getRem()) return;
         _this.getData();
     }
 }

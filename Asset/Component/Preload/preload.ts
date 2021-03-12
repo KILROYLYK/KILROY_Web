@@ -9,7 +9,7 @@ export interface PreloadConfig { // 预加载配置
  * Preload
  */
 export default class Preload {
-    private config: PreloadConfig = { }; // 配置
+    private config: PreloadConfig = {}; // 配置
     private loaded: Function | null = null; // 加载单独文件完成回调
     private finish: Function | null = null; // 加载全部文件完成回调
     private list: string[] = []; // 文件列表

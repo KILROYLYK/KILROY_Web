@@ -32,7 +32,7 @@ export default class Popup {
      * 构造函数
      * @constructor Popup
      * @param {string} id 弹窗ID
-     * @param {object} config 配置
+     * @param {PopupConfig} config 配置
      */
     constructor(id: string, config: PopupConfig) {
         const _this = this;

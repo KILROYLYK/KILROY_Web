@@ -20,7 +20,7 @@ export default class Preload {
      * 构造函数
      * @constructor Preload
      * @param {string[]} list 资源列表
-     * @param {object} config 配置
+     * @param {PreloadConfig} config 配置
      */
     constructor(list: string[], config: PreloadConfig = {}) {
         const _this = this;

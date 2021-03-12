@@ -12,7 +12,7 @@ var Preload = /** @class */ (function () {
      * 构造函数
      * @constructor Preload
      * @param {string[]} list 资源列表
-     * @param {object} config 配置
+     * @param {PreloadConfig} config 配置
      */
     function Preload(list, config) {
         if (config === void 0) { config = {}; }

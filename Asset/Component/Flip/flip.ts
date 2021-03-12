@@ -51,8 +51,8 @@ export default class Flip {
     
     /**
      * 构造函数
-     * @constructor Page
-     * @param {object} config 配置
+     * @constructor Flip
+     * @param {FlipConfig} config 配置
      */
     constructor(config: FlipConfig) {
         const _this = this;

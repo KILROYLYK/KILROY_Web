@@ -1,140 +1,214 @@
-/**
- * 授权
- */
-export default class Share {
-    private WX = null;
-    
-    /**
-     * 构造函数
-     * @constructor Share
-     */
-    constructor() {
-        const _this = this;
-        
-        
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
+
+import FN from '../../SDK/Function/function';
+import Ajax from '../../SDK/Ajax/ajax';
+
+declare global {
+    interface Window {
+        wx: any; // 微信分享SDK
     }
 }
 
+const W: Window = window;
+
+export interface ShareConfig { // 分享配置
+    isCallApp?: boolean; // 是否开启调起App
+    appId?: string; // 调起App的ID
+    appButtonId?: string; // 调起App按钮ID
+    
+    success?(result: any): void; // 分享成功处理
+    cancel?(result: any): void; // 分享取消处理
+    
+    interface: string; // 分享接口
+    title: string; // 分享标题
+    description: string; // 分享简介
+    img: string; // 分享图片
+    url: string; // 分享地址
+}
 
 /**
  * 分享
  */
-// (function () {
-//     /*global setShareInfo wx*/
-//     const share = {
-//         title: '盖娅互娱2020年校招开启',
-//         description: '解救伙伴，开启校招冒险之旅',
-//         img: 'https://image.gaeamobile.net/image/20190904/115559/slogan.png',
-//         url: location.href
-//     };
-//
-//     $.getScript('https://qzonestyle.gtimg.cn/qzone/qzact/common/share/share.js', () => {
-//         if (typeof setShareInfo === 'undefined') return;
-//
-//         setShareInfo({
-//             title: share.title,
-//             summary: share.description,
-//             pic: share.img,
-//             url: location.href
-//         });
-//     });
-//
-//     GaeaAjax.encryptAjax(
-//         'https://activity.gaeamobile.net/api/wechat-share',
-//         {
-//             gameId: '520017',
-//             url: location.href
-//         },
-//         (result) => {
-//             if (result.retCode !== 0) {
-//                 console.log(result.retMsg);
-//                 return;
-//             }
-//             $.getScript('https://res.wx.qq.com/open/js/jweixin-1.4.0.js', () => {
-//                 if (typeof wx === 'undefined') return;
-//
-//                 wx.config({
-//                     debug: false,
-//                     appId: result.appId,
-//                     timestamp: result.timestamp,
-//                     nonceStr: result.nonceStr,
-//                     signature: result.signature,
-//                     jsApiList: ['checkJsApi', 'onMenuShareAppMessage', 'onMenuShareTimeline']
-//                 });
-//
-//                 wx.ready(() => {
-//
-//                     //分享给好友
-//                     wx.onMenuShareAppMessage({
-//                         title: share.title,
-//                         desc: share.description,
-//                         link: share.url,
-//                         imgUrl: share.img,
-//                         type: 'link',
-//                         dataUrl: '',
-//                         success: function () {
-//                         },
-//                         cancel: function () {
-//                         }
-//                     });
-//
-//                     //分享至朋友圈
-//                     wx.onMenuShareTimeline({
-//                         title: share.title,
-//                         link: share.url,
-//                         imgUrl: share.img,
-//                         trigger: function (res) {
-//                         },
-//                         success: function (res) {
-//                         },
-//                         cancel: function (res) {
-//                         },
-//                         fail: function (res) {
-//                         }
-//                     });
-//
-//                     //分享至QQ
-//                     wx.onMenuShareQQ({
-//                         title: share.title,
-//                         desc: share.description,
-//                         link: share.url,
-//                         imgUrl: share.img,
-//                         success: function () {
-//                         },
-//                         cancel: function () {
-//                         }
-//                     });
-//
-//                     //分享至QQ空间
-//                     wx.onMenuShareQZone({
-//                         title: share.title,
-//                         desc: share.description,
-//                         link: share.url,
-//                         imgUrl: share.img,
-//                         success: function () {
-//                         },
-//                         cancel: function () {
-//                         }
-//                     });
-//
-//                     //分享至腾讯微博
-//                     wx.onMenuShareWeibo({
-//                         title: share.title,
-//                         desc: share.description,
-//                         link: share.url,
-//                         imgUrl: share.img,
-//                         success: function () {
-//                         },
-//                         cancel: function () {
-//                         }
-//                     });
-//
-//                     //报错
-//                     wx.error((res) => {
-//                         console.log(res);
-//                     });
-//                 });
-//             });
-//         }
-//     );
-// })();
+export default class Share {
+    private readonly serverInfo: any = { // 服务器信息
+        share: 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js', // 微信分享SDK
+        interface: '' // 分享接口
+    };
+    private readonly shareInfo: any = { // 分享信息
+        title: '',
+        description: '',
+        img: '',
+        url: ''
+    };
+    private success: Function = (result: any) => { // 分享成功处理
+        console.log(result);
+    };
+    private cancel: Function = (result: any) => { // 分享取消处理
+        console.log(result);
+    };
+    private WXSDK: any = null; // 微信SDK
+    
+    /**
+     * 构造函数
+     * @constructor Share
+     * @param {ShareConfig} config 配置
+     */
+    constructor(config: ShareConfig) {
+        const _this = this;
+        
+        _this.serverInfo.interface = config.interface;
+        
+        _this.shareInfo.title = config.title;
+        _this.shareInfo.description = config.description;
+        _this.shareInfo.img = config.img;
+        _this.shareInfo.url = config.url;
+    
+        config.success && (_this.success = config.success);
+        config.cancel && (_this.cancel = config.cancel);
+        
+        _this.getShare();
+    }
+    
+    /**
+     * 设置分享
+     * @private
+     */
+    private setShare(): void {
+        const _this = this;
+        
+        $.getScript(_this.serverInfo.share, () => {
+            if (W.wx) return;
+            
+            _this.WXSDK = W.wx;
+            
+            _this.WXSDK.config({
+                debug: false,
+                appId: _this.shareInfo.appId,
+                timestamp: _this.shareInfo.timestamp,
+                nonceStr: _this.shareInfo.nonceStr,
+                signature: _this.shareInfo.signature,
+                jsApiList: [ 'checkJsApi', 'onMenuShareAppMessage', 'onMenuShareTimeline' ],
+                openTagList: [ 'wx-open-launch-app' ]
+            });
+            
+            _this.WXSDK.ready(() => {
+                _this.WXSDK.checkJsApi({
+                    jsApiList: [ 'wx-open-launch-app' ],
+                    success: (result: any) => {
+                        console.log('微信开放接口可用');
+                    },
+                    fail: (result: any) => {
+                        console.log('微信开放接口不可用');
+                    }
+                })
+                
+                // 分享给好友
+                _this.WXSDK.onMenuShareAppMessage({
+                    title: _this.shareInfo.title,
+                    desc: _this.shareInfo.description,
+                    link: _this.shareInfo.url,
+                    imgUrl: _this.shareInfo.img,
+                    type: 'link',
+                    dataUrl: '',
+                    success: (result: any) => {
+                        _this.success(result);
+                    },
+                    cancel: (result: any) => {
+                        console.log(result);
+                        _this.cancel(result);
+                    }
+                });
+                
+                // 分享至朋友圈
+                _this.WXSDK.onMenuShareTimeline({
+                    title: _this.shareInfo.title,
+                    link: _this.shareInfo.url,
+                    imgUrl: _this.shareInfo.img,
+                    // trigger: (result: any) => {
+                    // },
+                    success: (result: any) => {
+                        _this.success(result);
+                    },
+                    cancel: (result: any) => {
+                        console.log(result);
+                        _this.cancel(result);
+                    },
+                    // fail: (result: any) => {
+                    // }
+                });
+                
+                // 分享至QQ
+                _this.WXSDK.onMenuShareQQ({
+                    title: _this.shareInfo.title,
+                    desc: _this.shareInfo.description,
+                    link: _this.shareInfo.url,
+                    imgUrl: _this.shareInfo.img,
+                    success: (result: any) => {
+                        _this.success(result);
+                    },
+                    cancel: (result: any) => {
+                        console.log(result);
+                        _this.cancel(result);
+                    }
+                });
+                
+                // 分享至QQ空间
+                _this.WXSDK.onMenuShareQZone({
+                    title: _this.shareInfo.title,
+                    desc: _this.shareInfo.description,
+                    link: _this.shareInfo.url,
+                    imgUrl: _this.shareInfo.img,
+                    success: (result: any) => {
+                        _this.success(result);
+                    },
+                    cancel: (result: any) => {
+                        console.log(result);
+                        _this.cancel(result);
+                    }
+                });
+                
+                // 报错
+                _this.WXSDK.error((result: any) => {
+                    console.log(result);
+                });
+            });
+        });
+    }
+    
+    /**
+     * 获取分享
+     * @return {void}
+     */
+    private getShare(): void {
+        const _this = this;
+        
+        Ajax.baseAjax({
+            url: _this.serverInfo.interface,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                url: W.location.href,
+                timestamp: FN.getTimestamp()
+            },
+            success: (result: any) => {
+                const data = $.parseJSON(result.data);
+                
+                if (result.retCode !== 0) {
+                    console.log(result.retMsg);
+                    return;
+                }
+                
+                _this.shareInfo.appId = data.appId;
+                _this.shareInfo.timestamp = data.timestamp;
+                _this.shareInfo.nonceStr = data.nonceStr;
+                _this.shareInfo.signature = data.signature;
+                
+                _this.setShare();
+            },
+            error: (e: any) => {
+                console.log(e);
+            }
+        });
+    }
+}

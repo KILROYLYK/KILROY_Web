@@ -5,7 +5,7 @@ const W: Window = window;
 
 export interface AuthorizeConfig { // 授权配置
     redirect?: string; // 授权成功回调地址
-    callback?(result: any): void; // 授权完成处理
+    success?(openId: string): void; // 授权并获取ID成功
     
     interface: string; // 授权接口（https://activity-api-test.iyingdi.com/tree/wechat-auth）
     appId: string; // 微信公众号
@@ -25,13 +25,14 @@ export default class Authorize {
         openId: FN.cookie.get('openId') || '', // 微信OpenID
         code: FN.url.getParam('code') || '', // 微信Code
     };
-    private callback: Function = (result: any) => { // 完成回调
-        console.log(result);
+    private success: Function = (openId: string) => { // 授权并获取ID成功
+        console.log(openId);
     };
     
     /**
      * 构造函数
      * @constructor Authorize
+     * @param {AuthorizeConfig} config 配置
      */
     constructor(config: AuthorizeConfig) {
         const _this = this;
@@ -40,15 +41,15 @@ export default class Authorize {
         _this.serverInfo.redirect = config.redirect || W.location.href;
         _this.userInfo.appId = config.appId;
         
-        config.callback && (_this.callback = config.callback);
-    }
-    
-    /**
-     *
-     * @private
-     */
-    private verify() {
-    
+        config.success && (_this.success = config.success);
+        
+        if (_this.userInfo.openId) { // 已登录
+            _this.success(_this.userInfo.openId);
+        } else if (_this.userInfo.code) { // // 已授权
+            _this.getAuthorize();
+        } else { // 未登录并且未授权
+            _this.getCode();
+        }
     }
     
     /**
@@ -69,7 +70,7 @@ export default class Authorize {
     }
     
     /**
-     * 授权
+     * 获取授权
      * @return {void}
      */
     private getAuthorize(): void {
@@ -84,7 +85,17 @@ export default class Authorize {
                 timestamp: FN.getTimestamp()
             },
             success: (result: any) => {
-                _this.callback && _this.callback(result);
+                const data = result.data;
+                
+                if (result.retCode !== 0) {
+                    console.log(result.retMsg);
+                    return;
+                }
+                
+                FN.cookie.set('openId', data.openid);
+                
+                _this.userInfo.openId = data.openId;
+                _this.success(_this.userInfo.openId);
             },
             error: (e: any) => {
                 console.log(e);

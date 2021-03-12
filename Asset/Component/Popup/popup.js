@@ -15,7 +15,7 @@ var Popup = /** @class */ (function () {
      * 构造函数
      * @constructor Popup
      * @param {string} id 弹窗ID
-     * @param {object} config 配置
+     * @param {PopupConfig} config 配置
      */
     function Popup(id, config) {
         this.$B = jquery_1.default('body');

@@ -13,6 +13,7 @@ var Authorize = /** @class */ (function () {
     /**
      * 构造函数
      * @constructor Authorize
+     * @param {AuthorizeConfig} config 配置
      */
     function Authorize(config) {
         this.serverInfo = {
@@ -25,21 +26,24 @@ var Authorize = /** @class */ (function () {
             openId: function_1.default.cookie.get('openId') || '',
             code: function_1.default.url.getParam('code') || '', // 微信Code
         };
-        this.callback = function (result) {
-            console.log(result);
+        this.success = function (openId) {
+            console.log(openId);
         };
         var _this = this;
         _this.serverInfo.interface = config.interface;
         _this.serverInfo.redirect = config.redirect || W.location.href;
         _this.userInfo.appId = config.appId;
-        config.callback && (_this.callback = config.callback);
+        config.success && (_this.success = config.success);
+        if (_this.userInfo.openId) { // 已登录
+            _this.success(_this.userInfo.openId);
+        }
+        else if (_this.userInfo.code) { // // 已授权
+            _this.getAuthorize();
+        }
+        else { // 未登录并且未授权
+            _this.getCode();
+        }
     }
-    /**
-     *
-     * @private
-     */
-    Authorize.prototype.verify = function () {
-    };
     /**
      * 获取Code
      * @return {void}
@@ -55,7 +59,7 @@ var Authorize = /** @class */ (function () {
             '#wechat_redirect';
     };
     /**
-     * 授权
+     * 获取授权
      * @return {void}
      */
     Authorize.prototype.getAuthorize = function () {
@@ -69,7 +73,14 @@ var Authorize = /** @class */ (function () {
                 timestamp: function_1.default.getTimestamp()
             },
             success: function (result) {
-                _this.callback && _this.callback(result);
+                var data = result.data;
+                if (result.retCode !== 0) {
+                    console.log(result.retMsg);
+                    return;
+                }
+                function_1.default.cookie.set('openId', data.openid);
+                _this.userInfo.openId = data.openId;
+                _this.success(_this.userInfo.openId);
             },
             error: function (e) {
                 console.log(e);

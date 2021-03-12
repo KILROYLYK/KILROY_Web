@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./popup.less");
+var function_1 = __importDefault(require("../../SDK/Function/function"));
 /**
  * 弹窗
  */
@@ -17,38 +18,28 @@ var Popup = /** @class */ (function () {
      * @param {object} config 配置
      */
     function Popup(id, config) {
+        this.$B = jquery_1.default('body');
+        this.config = {};
         this.id = '';
-        this.config = null;
         this.content = ''; // 内容
-        this.finishCallback = null; // 完成回调
-        this.openCallback = null; // 打开回调
-        this.closeCallback = null; // 关闭回调
-        this.$B = jquery_1.default('body'); // Jquery的Body元素
-        this.$id = null;
-        this.$content = null;
-        this.$close = null;
         this.setTime = {
             open: 0,
             close: 0
         };
+        this.$id = null;
+        this.$content = null;
+        this.$close = null;
         var _this = this;
-        if ('undefined' === typeof id ||
-            'object' === typeof id ||
-            id === '') {
-            return;
-        }
-        _this.id = id || 'popup';
+        _this.id = id;
         _this.$id = jquery_1.default('#' + _this.id);
         _this.config = config || {
             content: '',
-            finishCallback: null,
-            openCallback: null,
-            closeCallback: null,
+            isScreenClose: false,
+            finish: null,
+            open: null,
+            close: null
         };
         _this.content = _this.config.content || _this.$id.html();
-        _this.finishCallback = _this.config.finishCallback || null;
-        _this.openCallback = _this.config.openCallback || null;
-        _this.closeCallback = _this.config.closeCallback || null;
         _this.init();
     }
     /**
@@ -59,15 +50,15 @@ var Popup = /** @class */ (function () {
         var _this = this;
         _this.creatModal();
         _this.bindFun();
-        _this.finishCallback && _this.finishCallback();
+        _this.config.finish && _this.config.finish();
     };
     /**
      * 创建弹窗节点
      * @return {void}
      */
     Popup.prototype.creatModal = function () {
-        var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"box_content\">" + _this.content + "</div>\n                    <button class=\"btn_close\"><i /></button>\n                </div></div>";
-        _this.$id.remove();
+        var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"box_content\">" + _this.content + "</div>\n                    <button class=\"btn_close\"><i></i></button>\n                </div></div>";
+        _this.$id.remove(); // 清理已有节点
         _this.$B.append(template);
         _this.$id = jquery_1.default('#' + _this.id);
         _this.$content = _this.$id.find('.box_content');
@@ -79,11 +70,22 @@ var Popup = /** @class */ (function () {
      */
     Popup.prototype.bindFun = function () {
         var _this = this;
-        // 关闭按钮
-        _this.$close.on('click', function (e) {
-            e.stopPropagation();
-            _this.close();
-        });
+        if (_this.config.isScreenClose) { // 全屏关闭
+            _this.$id.on('click', function (e) {
+                e.stopPropagation();
+                _this.close();
+            });
+            _this.$content.on('click', function (e) {
+                e.stopPropagation();
+            });
+            _this.$close.hide();
+        }
+        else { // 按钮关闭
+            _this.$close.on('click', function (e) {
+                e.stopPropagation();
+                _this.close();
+            });
+        }
     };
     /**
      * 清除延时动画操作
@@ -91,14 +93,13 @@ var Popup = /** @class */ (function () {
      */
     Popup.prototype.clearSetTime = function () {
         var _this = this;
-        Object.values(_this.setTime)
-            .forEach(function (v, i, a) {
+        function_1.default.object.traversing(_this.setTime, function (k, v) {
             clearTimeout(v);
         });
     };
     /**
      * 打开
-     * @param {object} data 参数
+     * @param {*} data 参数
      * @return {void}
      */
     Popup.prototype.open = function (data) {
@@ -106,7 +107,7 @@ var Popup = /** @class */ (function () {
         var _this = this;
         _this.clearSetTime();
         _this.$id.addClass('show');
-        _this.openCallback && _this.openCallback(data);
+        _this.config.open && _this.config.open(data);
         _this.setTime.open = setTimeout(function () {
             _this.$id.addClass('active');
         }, 50);
@@ -121,7 +122,7 @@ var Popup = /** @class */ (function () {
         _this.$id.removeClass('active');
         _this.setTime.close = setTimeout(function () {
             _this.$id.removeClass('show');
-            _this.closeCallback && _this.closeCallback();
+            _this.config.close && _this.config.close();
         }, 550);
     };
     /**
@@ -133,7 +134,7 @@ var Popup = /** @class */ (function () {
         _this.clearSetTime();
         _this.$id.removeClass('show active');
         _this.$content.html(_this.content);
-        _this.finishCallback && _this.finishCallback();
+        _this.config.finish && _this.config.finish();
     };
     return Popup;
 }());

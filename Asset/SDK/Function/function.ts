@@ -16,8 +16,8 @@ export default class FN {
          * @param {number} decimal 小数位数
          * @return {number} 结果
          */
-        add: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
+        add(n1: number, n2: number, decimal: number): number {
+            const _this = this,
                 arg1 = n1.toString(),
                 arg2 = n2.toString(),
                 arg1Arr = arg1.split('.'),
@@ -38,8 +38,8 @@ export default class FN {
          * @param {number} decimal 小数位数
          * @return {number} 结果
          */
-        sub: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN;
+        sub(n1: number, n2: number, decimal: number): number {
+            const _this = this;
             return _this.calc.add(n1, -Number(n2), decimal);
         },
         
@@ -50,8 +50,8 @@ export default class FN {
          * @param {number} decimal 小数位数
          * @return {number} 结果
          */
-        mul: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
+        mul(n1: number, n2: number, decimal: number): number {
+            const _this = this,
                 r1 = n1.toString(),
                 r2 = n2.toString(),
                 m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
@@ -70,8 +70,8 @@ export default class FN {
          * @param {number} decimal 小数位数
          * @return {number} 结果
          */
-        div: (n1: number, n2: number, decimal: number): number => {
-            const _this = FN,
+        div(n1: number, n2: number, decimal: number): number {
+            const _this = this,
                 r1 = n1.toString(),
                 r2 = n2.toString(),
                 m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
@@ -83,13 +83,13 @@ export default class FN {
             return Number(result.toFixed(decimal));
         }
     };
-    public static readonly isPSB: any = { // 判断设备信息
+    public static readonly agent: any = { // 代理信息
         /**
-         * 判断Platform
-         * @return {string} 返回平台信息
+         * 客户端
+         * @return {string} 返回客户端信息
          */
-        platform: (): string => {
-            const _this = FN,
+        client(): string {
+            const _this = this,
                 reg = {
                     pc: /Windows|Mac|Linux/i,
                     mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
@@ -107,11 +107,11 @@ export default class FN {
         },
         
         /**
-         * 判断System
+         * 系统
          * @return {string} 返回系统信息
          */
-        system: (): string => {
-            const _this = FN,
+        system(): string {
+            const _this = this,
                 agent = W.navigator.userAgent.toLowerCase();
             
             if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
@@ -135,11 +135,11 @@ export default class FN {
         },
         
         /**
-         * 判断Browser
+         * 浏览器
          * @return {string} 返回浏览器信息
          */
-        browser: (): string => {
-            const _this = FN,
+        browser(): string {
+            const _this = this,
                 agent = W.navigator.userAgent.toLowerCase();
             
             if ((/Huawei/i).test(agent)) {
@@ -175,7 +175,7 @@ export default class FN {
             return agent;
         }
     };
-    public static readonly cookie: any = { // 操作Cookie
+    public static readonly cookie: any = { // Cookie
         /**
          * 设置Cookie
          * @param {string} name 名称
@@ -184,8 +184,8 @@ export default class FN {
          * @param {string} domain 域名
          * @return {void}
          */
-        set: (name: string, value: string, day: number = 0, domain: string = '/'): void => {
-            const _this = FN;
+        set(name: string, value: string, day: number = 0, domain: string = '/'): void {
+            const _this = this;
             
             let time = '' as any;
             
@@ -203,8 +203,8 @@ export default class FN {
          * @param {string} name 名称
          * @return {string|null} 返回value|null
          */
-        get: (name: string): string | null => {
-            const _this = FN,
+        get(name: string): string | null {
+            const _this = this,
                 reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
                 value = D.cookie.match(reg);
             
@@ -217,8 +217,8 @@ export default class FN {
          * @param {string} domain 域名
          * @return {void}
          */
-        del: (name: string, domain: string = '/'): void => {
-            const _this = FN,
+        del(name: string, domain: string = '/'): void {
+            const _this = this,
                 exp = new Date(),
                 value = _this.cookie.get(name);
             
@@ -226,15 +226,15 @@ export default class FN {
             if (value !== null) D.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
         }
     };
-    public static readonly url: any = { // 操作Url
+    public static readonly url: any = { // Url
         /**
          * 获取参数值
          * @param {string} name Url参数的key
          * @param {string} url Url
          * @return {string|null} 返回Url参数的value
          */
-        getParam: (name: string, url: string = W.location.search.substr(1)): string | null => {
-            const _this = FN,
+        getParam(name: string, url: string = W.location.search.substr(1)): string | null {
+            const _this = this,
                 reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             
             let param = null as any;
@@ -251,8 +251,8 @@ export default class FN {
          * @param {string} url Url
          * @return {array|null} 返回Url参数数组
          */
-        getAllParam: (url: string = W.location.search.substr(1)): any => {
-            const _this = FN,
+        getAllParam(url: string = W.location.search.substr(1)): any {
+            const _this = this,
                 param = {} as any;
             
             let u = '' as any;
@@ -277,8 +277,8 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        addParam: (object: any, url: string = W.location.href): string => {
-            const _this = FN,
+        addParam(object: any, url: string = W.location.href): string {
+            const _this = this,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
             
@@ -320,8 +320,8 @@ export default class FN {
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        delParam: (array: string[], url = W.location.href): string => {
-            const _this = FN,
+        delParam(array: string[], url = W.location.href): string {
+            const _this = this,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
             
@@ -350,64 +350,14 @@ export default class FN {
          * 获取哈希值
          * @return {string} 返回Url的hash值
          */
-        getHash: (): string => {
-            const _this = FN,
+        getHash(): string {
+            const _this = this,
                 hash = decodeURIComponent(W.location.hash);
             
             return hash.substring(1, hash.length);
         }
     };
-    public static readonly class: any = { // 操作Class
-        /**
-         * 判断是否含有Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {boolean} 是否含有Class
-         */
-        hasClass: (element: HTMLElement, name: string): boolean => {
-            const _this = FN,
-                reg = /\s/g, // 查询全局空字符串
-                className = name || '';
-            
-            if (className.replace(reg, '').length === 0) return false;
-            return new RegExp(' ' + className + ' ').test(' ' + element.className + ' ');
-        },
-        
-        /**
-         * 添加Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {void}
-         */
-        addClass: (element: HTMLElement, name: string): void => {
-            const _this = FN;
-            
-            if (_this.class.hasClass(element, name)) return;
-            element.className = element.className === '' ? name : element.className + ' ' + name;
-        },
-        
-        /**
-         * 删除Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {void}
-         */
-        removeClass: (element: HTMLElement, name: string): void => {
-            const _this = FN,
-                reg1 = /[\t\r\n]/g, // 查询空格
-                reg2 = /^\s+|\s+$/g; // 查询空格
-            
-            if (!_this.class.hasClass(element, name)) return;
-            
-            let newClass = ' ' + element.className.replace(reg1, '') + ' ';
-            
-            while (newClass.indexOf(' ' + name + ' ') >= 0) {
-                newClass = newClass.replace(' ' + name + ' ', ' ');
-            }
-            element.className = newClass.replace(reg2, '');
-        }
-    };
-    public static readonly array: any = { // 操作数组
+    public static readonly array: any = { // 数组
         /**
          * 遍历
          * @param {array} array 数组
@@ -474,7 +424,7 @@ export default class FN {
             return newArray;
         }
     };
-    public static readonly object: any = { // 操作数组
+    public static readonly object: any = { // 对象
         /**
          * 遍历
          * @param {object} object 对象
@@ -529,6 +479,56 @@ export default class FN {
             for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
             
             return param;
+        }
+    };
+    public static readonly class: any = { // 操作节点类
+        /**
+         * 判断是否含有Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {boolean} 是否含有Class
+         */
+        hasClass(element: HTMLElement, name: string): boolean {
+            const _this = this,
+                reg = /\s/g, // 查询全局空字符串
+                className = name || '';
+            
+            if (className.replace(reg, '').length === 0) return false;
+            return new RegExp(' ' + className + ' ').test(' ' + element.className + ' ');
+        },
+        
+        /**
+         * 添加Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {void}
+         */
+        addClass(element: HTMLElement, name: string): void {
+            const _this = this;
+            
+            if (_this.class.hasClass(element, name)) return;
+            element.className = element.className === '' ? name : element.className + ' ' + name;
+        },
+        
+        /**
+         * 删除Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {void}
+         */
+        removeClass(element: HTMLElement, name: string): void {
+            const _this = this,
+                reg1 = /[\t\r\n]/g, // 查询空格
+                reg2 = /^\s+|\s+$/g; // 查询空格
+            
+            if (!_this.class.hasClass(element, name)) return;
+            
+            let newClass = ' ' + element.className.replace(reg1, '') + ' ';
+            
+            while (newClass.indexOf(' ' + name + ' ') >= 0) {
+                newClass = newClass.replace(' ' + name + ' ', ' ');
+            }
+            element.className = newClass.replace(reg2, '');
         }
     };
     
@@ -658,9 +658,9 @@ export default class FN {
     public static scroll(id: string, top: Function, bottom: Function): void {
         const _this = this,
             $dom = $('#' + id),
-            detail = _this.isPSB.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+            detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         
-        $dom.bind(_this.isPSB.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
+        $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
             if (e.wheelDelta) { // 默认
                 if (e.wheelDelta > detail) top(); // 当滑轮向上滚动时
                 if (e.wheelDelta < -detail) bottom(); // 当滑轮向下滚动时

@@ -117,8 +117,8 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.scroll = function (id, top, bottom) {
-        var _this = this, $dom = jquery_1.default('#' + id), detail = _this.isPSB.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
-        $dom.bind(_this.isPSB.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
+        var _this = this, $dom = jquery_1.default('#' + id), detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+        $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
             if (e.wheelDelta) { // 默认
                 if (e.wheelDelta > detail)
                     top(); // 当滑轮向上滚动时
@@ -206,7 +206,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         add: function (n1, n2, decimal) {
-            var _this = FN, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
+            var _this = this, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
             return Number(result.toFixed(decimal));
         },
         /**
@@ -217,7 +217,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         sub: function (n1, n2, decimal) {
-            var _this = FN;
+            var _this = this;
             return _this.calc.add(n1, -Number(n2), decimal);
         },
         /**
@@ -228,7 +228,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         mul: function (n1, n2, decimal) {
-            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
+            var _this = this, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
                 (r2.split('.')[1] ? r2.split('.')[1].length : 0), result = Number(r1.replace('.', '')) *
                 Number(r2.replace('.', '')) /
                 Math.pow(10, m);
@@ -242,20 +242,20 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         div: function (n1, n2, decimal) {
-            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
+            var _this = this, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
                 (r1.split('.')[1] ? r1.split('.')[1].length : 0), result = Number(r1.replace('.', '')) /
                 Number(r2.replace('.', '')) *
                 Math.pow(10, m);
             return Number(result.toFixed(decimal));
         }
     };
-    FN.isPSB = {
+    FN.agent = {
         /**
-         * 判断Platform
-         * @return {string} 返回平台信息
+         * 客户端
+         * @return {string} 返回客户端信息
          */
-        platform: function () {
-            var _this = FN, reg = {
+        client: function () {
+            var _this = this, reg = {
                 pc: /Windows|Mac|Linux/i,
                 mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
             }, agent = W.navigator.userAgent.toLowerCase();
@@ -269,11 +269,11 @@ var FN = /** @class */ (function () {
             return agent;
         },
         /**
-         * 判断System
+         * 系统
          * @return {string} 返回系统信息
          */
         system: function () {
-            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
+            var _this = this, agent = W.navigator.userAgent.toLowerCase();
             if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
                 return 'Android';
             }
@@ -299,11 +299,11 @@ var FN = /** @class */ (function () {
             return agent;
         },
         /**
-         * 判断Browser
+         * 浏览器
          * @return {string} 返回浏览器信息
          */
         browser: function () {
-            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
+            var _this = this, agent = W.navigator.userAgent.toLowerCase();
             if ((/Huawei/i).test(agent)) {
                 // Huawei 特殊判断
                 if ((/MicroMessenger/i).test(agent)) {
@@ -359,7 +359,7 @@ var FN = /** @class */ (function () {
         set: function (name, value, day, domain) {
             if (day === void 0) { day = 0; }
             if (domain === void 0) { domain = '/'; }
-            var _this = FN;
+            var _this = this;
             var time = '';
             if (day > 0) {
                 time = new Date();
@@ -374,7 +374,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回value|null
          */
         get: function (name) {
-            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = D.cookie.match(reg);
+            var _this = this, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = D.cookie.match(reg);
             if (value !== null)
                 return decodeURIComponent(value[2]);
             else
@@ -388,7 +388,7 @@ var FN = /** @class */ (function () {
          */
         del: function (name, domain) {
             if (domain === void 0) { domain = '/'; }
-            var _this = FN, exp = new Date(), value = _this.cookie.get(name);
+            var _this = this, exp = new Date(), value = _this.cookie.get(name);
             exp.setTime(exp.getTime() - 1);
             if (value !== null)
                 D.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
@@ -403,7 +403,7 @@ var FN = /** @class */ (function () {
          */
         getParam: function (name, url) {
             if (url === void 0) { url = W.location.search.substr(1); }
-            var _this = FN, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
+            var _this = this, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             var param = null;
             if ((/\?/i).test(url))
                 url = url.split('?')[1];
@@ -420,7 +420,7 @@ var FN = /** @class */ (function () {
          */
         getAllParam: function (url) {
             if (url === void 0) { url = W.location.search.substr(1); }
-            var _this = FN, param = {};
+            var _this = this, param = {};
             var u = '';
             if (!url)
                 return param;
@@ -444,7 +444,7 @@ var FN = /** @class */ (function () {
          */
         addParam: function (object, url) {
             if (url === void 0) { url = W.location.href; }
-            var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
+            var _this = this, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
             if (Object.keys(object).length === 0)
                 return url;
@@ -484,7 +484,7 @@ var FN = /** @class */ (function () {
          */
         delParam: function (array, url) {
             if (url === void 0) { url = W.location.href; }
-            var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
+            var _this = this, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '';
             if (array.length === 0)
                 return url;
@@ -509,52 +509,8 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url的hash值
          */
         getHash: function () {
-            var _this = FN, hash = decodeURIComponent(W.location.hash);
+            var _this = this, hash = decodeURIComponent(W.location.hash);
             return hash.substring(1, hash.length);
-        }
-    };
-    FN.class = {
-        /**
-         * 判断是否含有Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {boolean} 是否含有Class
-         */
-        hasClass: function (element, name) {
-            var _this = FN, reg = /\s/g, // 查询全局空字符串
-            className = name || '';
-            if (className.replace(reg, '').length === 0)
-                return false;
-            return new RegExp(' ' + className + ' ').test(' ' + element.className + ' ');
-        },
-        /**
-         * 添加Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {void}
-         */
-        addClass: function (element, name) {
-            var _this = FN;
-            if (_this.class.hasClass(element, name))
-                return;
-            element.className = element.className === '' ? name : element.className + ' ' + name;
-        },
-        /**
-         * 删除Class
-         * @param {HTMLElement} element 元素
-         * @param {string} name 类名
-         * @return {void}
-         */
-        removeClass: function (element, name) {
-            var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
-            reg2 = /^\s+|\s+$/g; // 查询空格
-            if (!_this.class.hasClass(element, name))
-                return;
-            var newClass = ' ' + element.className.replace(reg1, '') + ' ';
-            while (newClass.indexOf(' ' + name + ' ') >= 0) {
-                newClass = newClass.replace(' ' + name + ' ', ' ');
-            }
-            element.className = newClass.replace(reg2, '');
         }
     };
     FN.array = {
@@ -660,6 +616,50 @@ var FN = /** @class */ (function () {
             for (var key in object)
                 param += (param === '' ? '' : '&') + key + '=' + object[key];
             return param;
+        }
+    };
+    FN.class = {
+        /**
+         * 判断是否含有Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {boolean} 是否含有Class
+         */
+        hasClass: function (element, name) {
+            var _this = this, reg = /\s/g, // 查询全局空字符串
+            className = name || '';
+            if (className.replace(reg, '').length === 0)
+                return false;
+            return new RegExp(' ' + className + ' ').test(' ' + element.className + ' ');
+        },
+        /**
+         * 添加Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {void}
+         */
+        addClass: function (element, name) {
+            var _this = this;
+            if (_this.class.hasClass(element, name))
+                return;
+            element.className = element.className === '' ? name : element.className + ' ' + name;
+        },
+        /**
+         * 删除Class
+         * @param {HTMLElement} element 元素
+         * @param {string} name 类名
+         * @return {void}
+         */
+        removeClass: function (element, name) {
+            var _this = this, reg1 = /[\t\r\n]/g, // 查询空格
+            reg2 = /^\s+|\s+$/g; // 查询空格
+            if (!_this.class.hasClass(element, name))
+                return;
+            var newClass = ' ' + element.className.replace(reg1, '') + ' ';
+            while (newClass.indexOf(' ' + name + ' ') >= 0) {
+                newClass = newClass.replace(' ' + name + ' ', ' ');
+            }
+            element.className = newClass.replace(reg2, '');
         }
     };
     return FN;

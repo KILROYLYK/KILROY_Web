@@ -6,13 +6,13 @@ declare module 'fn' {
      * FN
      */
     export default class FN {
-        public static readonly calc: any;
-        public static readonly isPSB: any;
-        public static readonly cookie: any;
-        public static readonly url: any;
-        public static readonly class: any;
-        public static readonly array: any;
-        public static readonly object: any
+        public static readonly calc: any; // 精准计算
+        public static readonly agent: any; // 代理信息
+        public static readonly cookie: any; // Cookie
+        public static readonly url: any; // Url
+        public static readonly array: any; // 数组
+        public static readonly object: any; // 对象
+        public static readonly class: any; // 操作节点类
         
         public static getRem(): number;
         

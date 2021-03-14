@@ -94,7 +94,7 @@ var Preload = /** @class */ (function () {
         }, false);
         audio.src = src;
         audio.load();
-        if (function_1.default.isPSB.platform === 'Mobile')
+        if (function_1.default.agent.client() === 'Mobile')
             callback();
     };
     /**

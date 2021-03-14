@@ -108,7 +108,7 @@ export default class Preload {
         audio.src = src;
         audio.load();
         
-        if (FN.isPSB.platform === 'Mobile') callback();
+        if (FN.agent.client() === 'Mobile') callback();
     }
     
     /**

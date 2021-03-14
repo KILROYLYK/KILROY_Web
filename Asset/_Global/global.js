@@ -3,15 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Tween = exports.GSAP = exports.Console = exports.$ = exports.D = exports.W = void 0;
+exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Console = exports.$ = exports.D = exports.W = void 0;
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery")); // JQuery
 // @ts-ignore
 var vconsole_1 = __importDefault(require("/usr/local/lib/node_modules/vconsole")); // 日志
-// @ts-ignore
-var gsap_1 = __importDefault(require("/usr/local/lib/node_modules/gsap")); // 动效
-// @ts-ignore
-var tween_js_1 = __importDefault(require("/usr/local/lib/node_modules/@tweenjs/tween.js")); // 过渡
 var function_1 = __importDefault(require("../SDK/Function/function")); // 函数
 var algorithm_1 = __importDefault(require("../SDK/Algorithm/algorithm")); // 算法
 var adaptation_1 = __importDefault(require("../SDK/Adaptation/adaptation")); // 适配
@@ -29,7 +25,7 @@ exports.W = window, exports.D = document;
 /**
  * Plugin
  */
-exports.$ = jquery_1.default, exports.Console = vconsole_1.default, exports.GSAP = gsap_1.default, exports.Tween = tween_js_1.default;
+exports.$ = jquery_1.default, exports.Console = vconsole_1.default;
 /**
  * SDK
  */
@@ -48,8 +44,6 @@ var Global = /** @class */ (function () {
     Global.D = exports.D;
     Global.$ = exports.$;
     Global.Console = exports.Console;
-    Global.GSAP = exports.GSAP;
-    Global.Tween = exports.Tween;
     Global.FN = exports.FN;
     Global.Algorithm = exports.Algorithm;
     Global.Adaptation = exports.Adaptation;

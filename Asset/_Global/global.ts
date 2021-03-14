@@ -2,10 +2,6 @@
 import jquery from '/usr/local/lib/node_modules/jquery'; // JQuery
 // @ts-ignore
 import vConsole from '/usr/local/lib/node_modules/vconsole'; // 日志
-// @ts-ignore
-import gsap from '/usr/local/lib/node_modules/gsap'; // 动效
-// @ts-ignore
-import tweenJS from '/usr/local/lib/node_modules/@tweenjs/tween.js'; // 过渡
 
 import fn from '../SDK/Function/function'; // 函数
 import algorithm from '../SDK/Algorithm/algorithm'; // 算法
@@ -31,9 +27,7 @@ export const
  */
 export const
     $: any = jquery,
-    Console: any = vConsole,
-    GSAP: any = gsap,
-    Tween: any = tweenJS;
+    Console: any = vConsole;
 
 /**
  * SDK
@@ -64,8 +58,6 @@ export default class Global {
     
     public static readonly $: typeof $ = $;
     public static readonly Console: typeof Console = Console;
-    public static readonly GSAP: typeof GSAP = GSAP;
-    public static readonly Tween: typeof Tween = Tween;
     
     public static readonly FN: typeof FN = FN;
     public static readonly Algorithm: typeof Algorithm = Algorithm;

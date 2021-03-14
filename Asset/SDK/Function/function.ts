@@ -533,15 +533,14 @@ export default class FN {
     };
     
     /**
-     * 获取当前Rem
-     * @return {number} rem
+     * 获取数据类型
+     * @param {*} param 参数
+     * @return {string} 数据类型
      */
-    public static getRem(): number {
-        const _this = this,
-            reg = /px/g,
-            size = $('html').css('font-size');
+    public static getType(param: any): string {
+        const _this = this;
         
-        return Number(size.replace(reg, ''));
+        return Object.prototype.toString.call(param).slice(8, -1);
     }
     
     /**
@@ -586,17 +585,6 @@ export default class FN {
     }
     
     /**
-     * 获取数据类型
-     * @param {*} param 参数
-     * @return {string} 数据类型
-     */
-    public static getRawType(param: any): string {
-        const _this = this;
-        
-        return Object.prototype.toString.call(param).slice(8, -1);
-    }
-    
-    /**
      * 获取随机整数
      * @param {number} n1 范围1
      * @param {number} n2 范围2
@@ -606,6 +594,18 @@ export default class FN {
         const _this = this;
         
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
+    }
+    
+    /**
+     * 获取当前Rem
+     * @return {number} rem
+     */
+    public static getRem(): number {
+        const _this = this,
+            reg = /px/g,
+            size = $('html').css('font-size');
+        
+        return Number(size.replace(reg, ''));
     }
     
     /**

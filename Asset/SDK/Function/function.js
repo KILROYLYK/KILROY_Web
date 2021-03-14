@@ -13,12 +13,13 @@ var FN = /** @class */ (function () {
     function FN() {
     }
     /**
-     * 获取当前Rem
-     * @return {number} rem
+     * 获取数据类型
+     * @param {*} param 参数
+     * @return {string} 数据类型
      */
-    FN.getRem = function () {
-        var _this = this, reg = /px/g, size = jquery_1.default('html').css('font-size');
-        return Number(size.replace(reg, ''));
+    FN.getType = function (param) {
+        var _this = this;
+        return Object.prototype.toString.call(param).slice(8, -1);
     };
     /**
      * 获取当前时间戳
@@ -56,15 +57,6 @@ var FN = /** @class */ (function () {
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
     };
     /**
-     * 获取数据类型
-     * @param {*} param 参数
-     * @return {string} 数据类型
-     */
-    FN.getRawType = function (param) {
-        var _this = this;
-        return Object.prototype.toString.call(param).slice(8, -1);
-    };
-    /**
      * 获取随机整数
      * @param {number} n1 范围1
      * @param {number} n2 范围2
@@ -73,6 +65,14 @@ var FN = /** @class */ (function () {
     FN.getRandomInt = function (n1, n2) {
         var _this = this;
         return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
+    };
+    /**
+     * 获取当前Rem
+     * @return {number} rem
+     */
+    FN.getRem = function () {
+        var _this = this, reg = /px/g, size = jquery_1.default('html').css('font-size');
+        return Number(size.replace(reg, ''));
     };
     /**
      * 记忆函数

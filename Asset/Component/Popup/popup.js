@@ -147,6 +147,7 @@ var Popup = /** @class */ (function () {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.popupToast,
                 open: function (data) {
+                    console.log(_this.popup.toast.$content);
                     _this.popup.toast.$content.find('.popup_content').text(data);
                     if (_this.setTime.toast)
                         clearTimeout(_this.setTime.toast);
@@ -155,12 +156,11 @@ var Popup = /** @class */ (function () {
                     }, 2500);
                 },
                 close: function () {
-                    _this.popup.toast.$content.find('.popup_content').text('');
+                    // _this.popup.toast.$content.find('.popup_content').text('');
                     clearTimeout(_this.setTime.toast);
                 }
             });
         }
-        console.log(message);
         _this.popup.toast.open(message);
     };
     // ---------- 静态函数 Start ---------- //

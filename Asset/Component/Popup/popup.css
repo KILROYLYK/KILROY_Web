@@ -144,7 +144,7 @@
   width: 3.5rem;
   padding: 0.15rem 0.25rem;
   background: rgba(0, 0, 0, 0.75);
-  border-radius: 0.02rem;
+  border-radius: 0.03rem;
 }
 #popup_toast .box_popup .btn_close {
   display: none;

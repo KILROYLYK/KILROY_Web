@@ -1,5 +1,5 @@
 // @ts-ignore
-import jquery from '/usr/local/lib/node_modules/jquery'; // JQuery
+import jQuery from '/usr/local/lib/node_modules/@types/jquery'; // JQuery
 // @ts-ignore
 import vConsole from '/usr/local/lib/node_modules/vconsole'; // 日志
 
@@ -26,7 +26,7 @@ export const
  * Plugin
  */
 export const
-    $: any = jquery,
+    $: any = jQuery,
     Console: any = vConsole;
 
 /**

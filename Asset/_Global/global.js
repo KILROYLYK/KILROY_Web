@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Console = exports.$ = exports.D = exports.W = void 0;
 // @ts-ignore
-var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery")); // JQuery
+var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/@types/jquery")); // JQuery
 // @ts-ignore
 var vconsole_1 = __importDefault(require("/usr/local/lib/node_modules/vconsole")); // 日志
 var function_1 = __importDefault(require("../SDK/Function/function")); // 函数

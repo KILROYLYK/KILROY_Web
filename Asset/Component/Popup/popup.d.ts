@@ -21,5 +21,7 @@ declare module 'popup' {
         public close(): void;
         
         public reset(): void;
+        
+        public static toast(message: string): void;
     }
 }

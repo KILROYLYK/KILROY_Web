@@ -20,15 +20,15 @@ var Popup = /** @class */ (function () {
     function Popup(id, config) {
         this.$B = jquery_1.default('body');
         this.config = {};
-        this.id = '';
-        this.content = ''; // 内容
-        this.setTime = {
-            open: 0,
-            close: 0
-        };
         this.$id = null;
         this.$content = null;
         this.$close = null;
+        this.id = '';
+        this.content = ''; // 内容
+        this.setTime = {
+            open: null,
+            close: null
+        };
         var _this = this;
         _this.id = id;
         _this.$id = jquery_1.default('#' + _this.id);
@@ -135,6 +135,42 @@ var Popup = /** @class */ (function () {
         _this.$id.removeClass('show active');
         _this.$content.html(_this.content);
         _this.config.finish && _this.config.finish();
+    };
+    /**
+     * Toast提示
+     * @param {string} message 提示信息
+     * @return {void}
+     */
+    Popup.toast = function (message) {
+        var _this = this;
+        if (!_this.popup.toast) {
+            _this.popup.toast = new Popup('popup_toast', {
+                content: _this.template.popupToast,
+                open: function (data) {
+                    _this.popup.toast.$content.find('.popup_content').text(data);
+                    if (_this.setTime.toast)
+                        clearTimeout(_this.setTime.toast);
+                    _this.setTime.toast = setTimeout(function () {
+                        _this.popup.toast.close();
+                    }, 2500);
+                },
+                close: function () {
+                    _this.popup.toast.$content.find('.popup_content').text('');
+                    clearTimeout(_this.setTime.toast);
+                }
+            });
+        }
+        _this.popup.toast.open(message);
+    };
+    // ---------- 静态函数 Start ---------- //
+    Popup.setTime = {
+        toast: null // 提示弹窗
+    };
+    Popup.popup = {
+        toast: null // 提示弹窗
+    };
+    Popup.template = {
+        toast: "<div class=\"popup_content\"></div>"
     };
     return Popup;
 }());

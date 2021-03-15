@@ -18,15 +18,15 @@ export interface PopupConfig { // 弹窗配置
 export default class Popup {
     private readonly $B: any = $('body');
     private config: PopupConfig = {};
-    private id: string = '';
-    private content: HTMLElement | string = ''; // 内容
-    private readonly setTime: any = { // 定时控制器
-        open: 0,
-        close: 0
-    };
     public $id: any = null;
     public $content: any = null;
     public $close: any = null;
+    private id: string = '';
+    private content: HTMLElement | string = ''; // 内容
+    private readonly setTime: any = { // 定时器列表
+        open: null,
+        close: null
+    };
     
     /**
      * 构造函数
@@ -166,4 +166,47 @@ export default class Popup {
         _this.$content.html(_this.content);
         _this.config.finish && _this.config.finish();
     }
+    
+    // ---------- 静态函数 Start ---------- //
+    private static readonly setTime: any = { // 定时器
+        toast: null // 提示弹窗
+    };
+    private static readonly popup: any = { // 弹窗
+        toast: null // 提示弹窗
+    };
+    private static readonly template: any = { // 模板
+        toast: `<div class="popup_content"></div>`
+    };
+    
+    /**
+     * Toast提示
+     * @param {string} message 提示信息
+     * @return {void}
+     */
+    public static toast(message: string): void {
+        const _this = this;
+        
+        if (!_this.popup.toast) {
+            _this.popup.toast = new Popup('popup_toast', {
+                content: _this.template.popupToast,
+                open(data: any) {
+                    _this.popup.toast.$content.find('.popup_content').text(data);
+                    
+                    if (_this.setTime.toast) clearTimeout(_this.setTime.toast);
+                    _this.setTime.toast = setTimeout(() => {
+                        _this.popup.toast.close();
+                    }, 2500);
+                },
+                close() {
+                    _this.popup.toast.$content.find('.popup_content').text('');
+                    
+                    clearTimeout(_this.setTime.toast);
+                }
+            });
+        }
+        
+        _this.popup.toast.open(message);
+    }
+    
+    // ---------- 静态函数 End ---------- //
 }

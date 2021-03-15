@@ -97,9 +97,9 @@
 
   .box_popup {
     width: 350*@px;
-    padding: 10*@px;
+    padding: 15*@px;
     background: fade(@color_2, 75);
-    border-radius: 5*@px;
+    border-radius: 2*@px;
 
     .btn_close {
       display: none;
@@ -107,7 +107,8 @@
 
     .popup_content {
       position: relative;
-      .font(center, 34*@px, @color_1, 34*@px, true);
+      .font(center, 34*@px, @color_1, 30*@px, true);
+      .wordBreak();
     }
   }
 }

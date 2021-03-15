@@ -191,6 +191,7 @@ export default class Popup {
                 content: _this.template.popupToast,
                 open(data: any) {
                     console.log(_this.popup.toast.$content);
+                    console.log(_this.popup.toast.$content.find('.popup_content'));
                     _this.popup.toast.$content.find('.popup_content').text(data);
                     
                     if (_this.setTime.toast) clearTimeout(_this.setTime.toast);

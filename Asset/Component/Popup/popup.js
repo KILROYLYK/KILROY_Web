@@ -145,10 +145,8 @@ var Popup = /** @class */ (function () {
         var _this = this;
         if (!_this.popup.toast) {
             _this.popup.toast = new Popup('popup_toast', {
-                content: _this.template.popupToast,
+                content: _this.template.toast,
                 open: function (data) {
-                    console.log(_this.popup.toast.$content);
-                    console.log(_this.popup.toast.$content.find('.popup_content'));
                     _this.popup.toast.$content.find('.popup_content').text(data);
                     if (_this.setTime.toast)
                         clearTimeout(_this.setTime.toast);
@@ -157,7 +155,7 @@ var Popup = /** @class */ (function () {
                     }, 2500);
                 },
                 close: function () {
-                    // _this.popup.toast.$content.find('.popup_content').text('');
+                    _this.popup.toast.$content.find('.popup_content').text('');
                     clearTimeout(_this.setTime.toast);
                 }
             });

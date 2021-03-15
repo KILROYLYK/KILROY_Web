@@ -160,6 +160,7 @@ var Popup = /** @class */ (function () {
                 }
             });
         }
+        console.log(message);
         _this.popup.toast.open(message);
     };
     // ---------- 静态函数 Start ---------- //

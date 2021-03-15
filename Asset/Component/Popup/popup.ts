@@ -205,6 +205,7 @@ export default class Popup {
             });
         }
         
+        console.log(message);
         _this.popup.toast.open(message);
     }
     

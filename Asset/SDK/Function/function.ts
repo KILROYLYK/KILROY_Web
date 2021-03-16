@@ -689,18 +689,18 @@ export default class FN {
      * @param {number} time 间隔时间
      * @return {void}
      */
-    public static spinning(callback: Function, time: number = 100): void {
+    public static gyroscope(callback: Function, time: number = 100): void {
         const _this = this,
             $W = $(W);
         
-        let openSpinning = true,
+        let openGyroscope = true,
             setTime = null as any;
         
         'DeviceOrientation' in W && $W.bind('deviceorientation', (e: DeviceOrientationEvent) => {
-            if (!openSpinning) return;
-            openSpinning = false;
+            if (!openGyroscope) return;
+            openGyroscope = false;
             setTime = setTimeout(() => {
-                openSpinning = true;
+                openGyroscope = true;
             }, time);
             
             callback({

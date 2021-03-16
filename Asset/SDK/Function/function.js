@@ -115,16 +115,16 @@ var FN = /** @class */ (function () {
      * @param {number} time 间隔时间
      * @return {void}
      */
-    FN.spinning = function (callback, time) {
+    FN.gyroscope = function (callback, time) {
         if (time === void 0) { time = 100; }
         var _this = this, $W = jquery_1.default(W);
-        var openSpinning = true, setTime = null;
+        var openGyroscope = true, setTime = null;
         'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
-            if (!openSpinning)
+            if (!openGyroscope)
                 return;
-            openSpinning = false;
+            openGyroscope = false;
             setTime = setTimeout(function () {
-                openSpinning = true;
+                openGyroscope = true;
             }, time);
             callback({
                 absolute: e.absolute,

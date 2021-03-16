@@ -107,7 +107,7 @@ export default class Share {
         const _this = this;
         
         $.getScript(_this.serverInfo.share, () => {
-            if (W.wx) return;
+            if (!('wx' in W)) return;
             
             _this.WXSDK = W.wx;
             

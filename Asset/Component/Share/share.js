@@ -56,7 +56,7 @@ var Share = /** @class */ (function () {
     Share.prototype.setShare = function () {
         var _this = this;
         jquery_1.default.getScript(_this.serverInfo.share, function () {
-            if (W.wx)
+            if (!('wx' in W))
                 return;
             _this.WXSDK = W.wx;
             _this.WXSDK.config({

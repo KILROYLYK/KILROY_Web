@@ -561,10 +561,8 @@ export default class FN {
                 matrix = $dom.css('transform').replace(reg,'').split(',');
             
             return {
-                x: matrix[4],
-                y: matrix[5],
-                sx: matrix[0],
-                sy: matrix[3]
+                x: matrix[4] || 0,
+                y: matrix[5] || 0
             };
         }
     };

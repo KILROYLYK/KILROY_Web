@@ -96,40 +96,75 @@ var FN = /** @class */ (function () {
     FN.resize = function (callback, time) {
         if (time === void 0) { time = 300; }
         var _this = this, $W = jquery_1.default(W), resize = function () {
-            if (resizeSetTime)
-                clearTimeout(resizeSetTime);
-            resizeSetTime = setTimeout(callback, time);
+            if (setTime)
+                clearTimeout(setTime);
+            setTime = setTimeout(callback, time);
         };
-        var resizeSetTime = 0;
+        var setTime = null;
         resize();
         $W.bind('pageshow', function (e) {
             if (e.persisted)
                 resize();
         }); // 屏幕显示
         $W.bind('resize', resize); // 屏幕尺寸变化
-        W.onorientationchange && $W.bind('orientationchange', resize); // 屏幕旋转
+        'onorientationchange' in W && $W.bind('orientationchange', resize); // 屏幕旋转
+    };
+    /**
+     * 监听陀螺仪
+     * @param {function} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    FN.spinning = function (callback, time) {
+        if (time === void 0) { time = 100; }
+        var _this = this, $W = jquery_1.default(W);
+        var openSpinning = true, setTime = null;
+        'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
+            if (!openSpinning)
+                return;
+            openSpinning = false;
+            setTime = setTimeout(function () {
+                openSpinning = true;
+            }, time);
+            callback({
+                absolute: e.absolute,
+                alpha: parseInt(String(e.alpha), 10),
+                beta: parseInt(String(e.beta), 10),
+                gamma: parseInt(String(e.gamma), 10)
+            });
+        });
     };
     /**
      * 监听滑轮事件
      * @param {string} id 节点id
-     * @param {function} top 向上滚动回调
-     * @param {function} bottom 向下滚动回调
+     * @param {*} callback 回调
+     * @param {number} time 间隔时间
      * @return {void}
      */
-    FN.scroll = function (id, top, bottom) {
+    FN.scroll = function (id, callback, time) {
+        if (callback === void 0) { callback = {}; }
+        if (time === void 0) { time = 100; }
         var _this = this, $dom = jquery_1.default('#' + id), detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+        var openScroll = true, setTime = null;
         $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
+            if (!openScroll)
+                return;
+            openScroll = false;
+            setTime = setTimeout(function () {
+                openScroll = true;
+            }, time);
+            callback.complete && callback.complete();
             if (e.wheelDelta) { // 默认
                 if (e.wheelDelta > detail)
-                    top(); // 当滑轮向上滚动时
+                    callback.top && callback.top(); // 当滑轮向上滚动时
                 if (e.wheelDelta < -detail)
-                    bottom(); // 当滑轮向下滚动时
+                    callback.bottom && callback.bottom(); // 当滑轮向下滚动时
             }
             else if (e.detail) { // Firefox兼容
                 if (e.detail > detail)
-                    bottom(); // 当滑轮向上滚动时
+                    callback.bottom && callback.bottom(); // 当滑轮向上滚动时
                 if (e.detail < -detail)
-                    top(); // 当滑轮向下滚动时
+                    callback.top && callback.top(); // 当滑轮向下滚动时
             }
         });
     };

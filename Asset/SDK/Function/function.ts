@@ -669,39 +669,78 @@ export default class FN {
         const _this = this,
             $W = $(W),
             resize = () => {
-                if (resizeSetTime) clearTimeout(resizeSetTime);
-                resizeSetTime = setTimeout(callback, time);
+                if (setTime) clearTimeout(setTime);
+                setTime = setTimeout(callback, time);
             };
         
-        let resizeSetTime = 0;
+        let setTime = null as any;
         
         resize();
         $W.bind('pageshow', (e: PageTransitionEvent) => {
             if (e.persisted) resize();
         }); // 屏幕显示
         $W.bind('resize', resize); // 屏幕尺寸变化
-        W.onorientationchange && $W.bind('orientationchange', resize); // 屏幕旋转
+        'onorientationchange' in W && $W.bind('orientationchange', resize); // 屏幕旋转
+    }
+    
+    /**
+     * 监听陀螺仪
+     * @param {function} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    public static spinning(callback: Function, time: number = 100): void {
+        const _this = this,
+            $W = $(W);
+        
+        let openSpinning = true,
+            setTime = null as any;
+        
+        'DeviceOrientation' in W && $W.bind('deviceorientation', (e: DeviceOrientationEvent) => {
+            if (!openSpinning) return;
+            openSpinning = false;
+            setTime = setTimeout(() => {
+                openSpinning = true;
+            }, time);
+            
+            callback({
+                absolute: e.absolute,
+                alpha: parseInt(String(e.alpha), 10),
+                beta: parseInt(String(e.beta), 10),
+                gamma: parseInt(String(e.gamma), 10)
+            });
+        });
     }
     
     /**
      * 监听滑轮事件
      * @param {string} id 节点id
-     * @param {function} top 向上滚动回调
-     * @param {function} bottom 向下滚动回调
+     * @param {*} callback 回调
+     * @param {number} time 间隔时间
      * @return {void}
      */
-    public static scroll(id: string, top: Function, bottom: Function): void {
+    public static scroll(id: string, callback: any = {}, time: number = 100): void {
         const _this = this,
             $dom = $('#' + id),
             detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         
+        let openScroll = true,
+            setTime = null as any;
+        
         $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
+            if (!openScroll) return;
+            openScroll = false;
+            setTime = setTimeout(() => {
+                openScroll = true;
+            }, time);
+            
+            callback.complete && callback.complete();
             if (e.wheelDelta) { // 默认
-                if (e.wheelDelta > detail) top(); // 当滑轮向上滚动时
-                if (e.wheelDelta < -detail) bottom(); // 当滑轮向下滚动时
+                if (e.wheelDelta > detail) callback.top && callback.top(); // 当滑轮向上滚动时
+                if (e.wheelDelta < -detail) callback.bottom && callback.bottom(); // 当滑轮向下滚动时
             } else if (e.detail) { // Firefox兼容
-                if (e.detail > detail) bottom(); // 当滑轮向上滚动时
-                if (e.detail < -detail) top(); // 当滑轮向下滚动时
+                if (e.detail > detail) callback.bottom && callback.bottom(); // 当滑轮向上滚动时
+                if (e.detail < -detail) callback.top && callback.top(); // 当滑轮向下滚动时
             }
         });
     }

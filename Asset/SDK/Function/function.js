@@ -135,12 +135,12 @@ var FN = /** @class */ (function () {
     };
     /**
      * 元素添加Transform
-     * @param {HTMLElement} element JQuery对象
+     * @param {*} $dom JQuery对象
      * @param {string} style 样式字符串
      * @return {void}
      */
-    FN.transform = function (element, style) {
-        var _this = this, $dom = jquery_1.default(element);
+    FN.transform = function ($dom, style) {
+        var _this = this;
         $dom.css({
             '-webkit-transform': style,
             '-moz-transform': style,

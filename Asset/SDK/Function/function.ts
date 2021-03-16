@@ -673,13 +673,12 @@ export default class FN {
     
     /**
      * 元素添加Transform
-     * @param {HTMLElement} element JQuery对象
+     * @param {*} $dom JQuery对象
      * @param {string} style 样式字符串
      * @return {void}
      */
-    public static transform(element: HTMLElement, style: string): void {
-        const _this = this,
-            $dom = $(element);
+    public static transform($dom: any, style: string): void {
+        const _this = this;
         
         $dom.css({
             '-webkit-transform': style,

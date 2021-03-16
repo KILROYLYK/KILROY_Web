@@ -13,6 +13,7 @@ declare module 'fn' {
         public static readonly array: any;
         public static readonly object: any;
         public static readonly class: any;
+        public static readonly transform: any;
         
         public static getType(param: any): string;
         
@@ -29,8 +30,6 @@ declare module 'fn' {
         public static resize(callback: Function, time: number): void;
         
         public static scroll(id: string, top: Function, bottom: Function): void;
-        
-        public static transform(element: HTMLElement, style: string): void;
         
         public static innerChainSaveParam(): void;
         

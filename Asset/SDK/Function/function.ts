@@ -531,6 +531,43 @@ export default class FN {
             element.className = newClass.replace(reg2, '');
         }
     };
+    public static readonly transform: any = { // 操作变形
+        /**
+         * 设置Transform
+         * @param {*} $dom JQuery对象
+         * @param {string} style 样式字符串
+         * @return {void}
+         */
+        set($dom: any, style: string): void {
+            const _this = this;
+            
+            $dom.css({
+                '-webkit-transform': style,
+                '-moz-transform': style,
+                '-o-transform': style,
+                '-ms-transform': style,
+                transform: style
+            });
+        },
+    
+        /**
+         * 设置Transform
+         * @param {*} $dom JQuery对象
+         * @return {*}
+         */
+        get($dom: any): any {
+            const _this = this,
+                reg = /[^0-9\-,]/g,
+                matrix = $dom.css('transform').replace(reg,'').split(',');
+            
+            return {
+                x: matrix[4],
+                y: matrix[5],
+                sx: matrix[0],
+                sy: matrix[3]
+            };
+        }
+    };
     
     /**
      * 获取数据类型
@@ -668,24 +705,6 @@ export default class FN {
                 if (e.detail > detail) bottom(); // 当滑轮向上滚动时
                 if (e.detail < -detail) top(); // 当滑轮向下滚动时
             }
-        });
-    }
-    
-    /**
-     * 元素添加Transform
-     * @param {*} $dom JQuery对象
-     * @param {string} style 样式字符串
-     * @return {void}
-     */
-    public static transform($dom: any, style: string): void {
-        const _this = this;
-        
-        $dom.css({
-            '-webkit-transform': style,
-            '-moz-transform': style,
-            '-o-transform': style,
-            '-ms-transform': style,
-            transform: style
         });
     }
     

@@ -134,22 +134,6 @@ var FN = /** @class */ (function () {
         });
     };
     /**
-     * 元素添加Transform
-     * @param {*} $dom JQuery对象
-     * @param {string} style 样式字符串
-     * @return {void}
-     */
-    FN.transform = function ($dom, style) {
-        var _this = this;
-        $dom.css({
-            '-webkit-transform': style,
-            '-moz-transform': style,
-            '-o-transform': style,
-            '-ms-transform': style,
-            transform: style
-        });
-    };
-    /**
      * 内链跳转保留参数
      * @return {void}
      */
@@ -660,6 +644,38 @@ var FN = /** @class */ (function () {
                 newClass = newClass.replace(' ' + name + ' ', ' ');
             }
             element.className = newClass.replace(reg2, '');
+        }
+    };
+    FN.transform = {
+        /**
+         * 设置Transform
+         * @param {*} $dom JQuery对象
+         * @param {string} style 样式字符串
+         * @return {void}
+         */
+        set: function ($dom, style) {
+            var _this = this;
+            $dom.css({
+                '-webkit-transform': style,
+                '-moz-transform': style,
+                '-o-transform': style,
+                '-ms-transform': style,
+                transform: style
+            });
+        },
+        /**
+         * 设置Transform
+         * @param {*} $dom JQuery对象
+         * @return {*}
+         */
+        get: function ($dom) {
+            var _this = this, reg = /[^0-9\-,]/g, matrix = $dom.css('transform').replace(reg, '').split(',');
+            return {
+                x: matrix[4],
+                y: matrix[5],
+                sx: matrix[0],
+                sy: matrix[3]
+            };
         }
     };
     return FN;

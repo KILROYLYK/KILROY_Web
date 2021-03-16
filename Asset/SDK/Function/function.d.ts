@@ -22,7 +22,7 @@ declare module 'fn' {
         public static getTime(time: number | string): string;
         
         public static getRandomInt(n1: number, n2: number): number;
-    
+        
         public static getRem(): number;
         
         public static cached(callback: Function): Function;
@@ -30,6 +30,8 @@ declare module 'fn' {
         public static resize(callback: Function, time: number): void;
         
         public static scroll(id: string, top: Function, bottom: Function): void;
+        
+        public static gyroscope(callback: Function, time: number): void;
         
         public static innerChainSaveParam(): void;
         

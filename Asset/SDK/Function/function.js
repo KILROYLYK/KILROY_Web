@@ -110,31 +110,6 @@ var FN = /** @class */ (function () {
         'onorientationchange' in W && $W.bind('orientationchange', resize); // 屏幕旋转
     };
     /**
-     * 监听陀螺仪
-     * @param {function} callback 回调
-     * @param {number} time 间隔时间
-     * @return {void}
-     */
-    FN.gyroscope = function (callback, time) {
-        if (time === void 0) { time = 100; }
-        var _this = this, $W = jquery_1.default(W);
-        var openGyroscope = true, setTime = null;
-        'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
-            if (!openGyroscope)
-                return;
-            openGyroscope = false;
-            setTime = setTimeout(function () {
-                openGyroscope = true;
-            }, time);
-            callback({
-                absolute: e.absolute,
-                alpha: parseInt(String(e.alpha), 10),
-                beta: parseInt(String(e.beta), 10),
-                gamma: parseInt(String(e.gamma), 10)
-            });
-        });
-    };
-    /**
      * 监听滑轮事件
      * @param {string} id 节点id
      * @param {*} callback 回调
@@ -143,7 +118,7 @@ var FN = /** @class */ (function () {
      */
     FN.scroll = function (id, callback, time) {
         if (callback === void 0) { callback = {}; }
-        if (time === void 0) { time = 100; }
+        if (time === void 0) { time = 50; }
         var _this = this, $dom = jquery_1.default('#' + id), detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         var openScroll = true, setTime = null;
         $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
@@ -166,6 +141,31 @@ var FN = /** @class */ (function () {
                 if (e.detail < -detail)
                     callback.top && callback.top(); // 当滑轮向下滚动时
             }
+        });
+    };
+    /**
+     * 监听陀螺仪
+     * @param {function} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    FN.gyroscope = function (callback, time) {
+        if (time === void 0) { time = 50; }
+        var _this = this, $W = jquery_1.default(W);
+        var openGyroscope = true, setTime = null;
+        'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
+            if (!openGyroscope)
+                return;
+            openGyroscope = false;
+            setTime = setTimeout(function () {
+                openGyroscope = true;
+            }, time);
+            callback({
+                absolute: e.absolute,
+                alpha: parseInt(String(e.alpha), 10),
+                beta: parseInt(String(e.beta), 10),
+                gamma: parseInt(String(e.gamma), 10)
+            });
         });
     };
     /**

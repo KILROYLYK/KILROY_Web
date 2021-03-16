@@ -684,42 +684,13 @@ export default class FN {
     }
     
     /**
-     * 监听陀螺仪
-     * @param {function} callback 回调
-     * @param {number} time 间隔时间
-     * @return {void}
-     */
-    public static gyroscope(callback: Function, time: number = 100): void {
-        const _this = this,
-            $W = $(W);
-        
-        let openGyroscope = true,
-            setTime = null as any;
-        
-        'DeviceOrientation' in W && $W.bind('deviceorientation', (e: DeviceOrientationEvent) => {
-            if (!openGyroscope) return;
-            openGyroscope = false;
-            setTime = setTimeout(() => {
-                openGyroscope = true;
-            }, time);
-            
-            callback({
-                absolute: e.absolute,
-                alpha: parseInt(String(e.alpha), 10),
-                beta: parseInt(String(e.beta), 10),
-                gamma: parseInt(String(e.gamma), 10)
-            });
-        });
-    }
-    
-    /**
      * 监听滑轮事件
      * @param {string} id 节点id
      * @param {*} callback 回调
      * @param {number} time 间隔时间
      * @return {void}
      */
-    public static scroll(id: string, callback: any = {}, time: number = 100): void {
+    public static scroll(id: string, callback: any = {}, time: number = 50): void {
         const _this = this,
             $dom = $('#' + id),
             detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
@@ -742,6 +713,35 @@ export default class FN {
                 if (e.detail > detail) callback.bottom && callback.bottom(); // 当滑轮向上滚动时
                 if (e.detail < -detail) callback.top && callback.top(); // 当滑轮向下滚动时
             }
+        });
+    }
+    
+    /**
+     * 监听陀螺仪
+     * @param {function} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    public static gyroscope(callback: Function, time: number = 50): void {
+        const _this = this,
+            $W = $(W);
+        
+        let openGyroscope = true,
+            setTime = null as any;
+        
+        'DeviceOrientation' in W && $W.bind('deviceorientation', (e: DeviceOrientationEvent) => {
+            if (!openGyroscope) return;
+            openGyroscope = false;
+            setTime = setTimeout(() => {
+                openGyroscope = true;
+            }, time);
+            
+            callback({
+                absolute: e.absolute,
+                alpha: parseInt(String(e.alpha), 10),
+                beta: parseInt(String(e.beta), 10),
+                gamma: parseInt(String(e.gamma), 10)
+            });
         });
     }
     

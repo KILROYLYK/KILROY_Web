@@ -671,8 +671,8 @@ var FN = /** @class */ (function () {
         get: function ($dom) {
             var _this = this, reg = /[^0-9\-,]/g, matrix = $dom.css('transform').replace(reg, '').split(',');
             return {
-                x: matrix[4] || 0,
-                y: matrix[5] || 0
+                x: parseFloat(matrix[4]) || 0,
+                y: parseFloat(matrix[5]) || 0
             };
         }
     };

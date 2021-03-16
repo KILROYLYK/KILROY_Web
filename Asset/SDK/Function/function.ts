@@ -549,7 +549,7 @@ export default class FN {
                 transform: style
             });
         },
-    
+        
         /**
          * 设置Transform
          * @param {*} $dom JQuery对象
@@ -558,11 +558,11 @@ export default class FN {
         get($dom: any): any {
             const _this = this,
                 reg = /[^0-9\-,]/g,
-                matrix = $dom.css('transform').replace(reg,'').split(',');
+                matrix = $dom.css('transform').replace(reg, '').split(',');
             
             return {
-                x: matrix[4] || 0,
-                y: matrix[5] || 0
+                x: parseFloat(matrix[4]) || 0,
+                y: parseFloat(matrix[5]) || 0
             };
         }
     };

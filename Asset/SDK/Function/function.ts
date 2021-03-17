@@ -2,7 +2,9 @@
 import $ from '/usr/local/lib/node_modules/jquery';
 
 const W: Window = window,
-    D: Document = document;
+    D: Document = document,
+    $W: typeof $ = $(W),
+    $D: typeof $ = $(D);
 
 /**
  * 函数
@@ -667,7 +669,6 @@ export default class FN {
      */
     public static resize(callback: Function, time: number = 300): void {
         const _this = this,
-            $W = $(W),
             resize = () => {
                 if (setTime) clearTimeout(setTime);
                 setTime = setTimeout(callback, time);
@@ -723,8 +724,7 @@ export default class FN {
      * @return {void}
      */
     public static gyroscope(callback: Function, time: number = 50): void {
-        const _this = this,
-            $W = $(W);
+        const _this = this;
         
         let openGyroscope = true,
             setTime = null as any;

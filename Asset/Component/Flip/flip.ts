@@ -6,7 +6,9 @@ import FN from '../../SDK/Function/function';
 import Ajax from '../../SDK/Ajax/ajax';
 
 const W: Window = window,
-    D: Document = document;
+    D: Document = document,
+    $W: typeof $ = $(W),
+    $D: typeof $ = $(D);
 
 export interface FlipConfig { // 翻页配置
     language?: string; // 语言
@@ -46,9 +48,6 @@ export default class Flip {
         getList: '/api/get-posts-list'
     };
     
-    private readonly $W: any = $(W);
-    private readonly $D: any = $(D);
-    
     /**
      * 构造函数
      * @constructor Flip
@@ -87,7 +86,7 @@ export default class Flip {
             callback: config.callback || null
         };
         
-        _this.config.type === 'scroll' && _this.$D.scroll(_this.scrollFun);
+        _this.config.type === 'scroll' && $D.scroll(_this.scrollFun);
     }
     
     /**
@@ -255,9 +254,9 @@ export default class Flip {
      */
     private scrollFun(): void {
         const _this = this,
-            top = _this.$W.scrollTop(),
-            winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * FN.getRem()) return;
+            top = $W.scrollTop(),
+            winHeight = $D.height();
+        if (top < winHeight - $W.height() - 2 * FN.getRem()) return;
         _this.getData();
     }
 }

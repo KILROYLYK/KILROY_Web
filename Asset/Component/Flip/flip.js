@@ -8,7 +8,7 @@ var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./flip.less");
 var function_1 = __importDefault(require("../../SDK/Function/function"));
 var ajax_1 = __importDefault(require("../../SDK/Ajax/ajax"));
-var W = window, D = document;
+var W = window, D = document, $W = jquery_1.default(W), $D = jquery_1.default(D);
 /**
  * 翻页
  */
@@ -26,8 +26,6 @@ var Flip = /** @class */ (function () {
             domain: 'https://cms.gaeamobile.net',
             getList: '/api/get-posts-list'
         };
-        this.$W = jquery_1.default(W);
-        this.$D = jquery_1.default(D);
         var _this = this;
         _this.config = {
             projectID: config.projectId,
@@ -54,7 +52,7 @@ var Flip = /** @class */ (function () {
             }),
             callback: config.callback || null
         };
-        _this.config.type === 'scroll' && _this.$D.scroll(_this.scrollFun);
+        _this.config.type === 'scroll' && $D.scroll(_this.scrollFun);
     }
     /**
      * 获取数据
@@ -192,8 +190,8 @@ var Flip = /** @class */ (function () {
      * @return {void}
      */
     Flip.prototype.scrollFun = function () {
-        var _this = this, top = _this.$W.scrollTop(), winHeight = _this.$D.height();
-        if (top < winHeight - _this.$W.height() - 2 * function_1.default.getRem())
+        var _this = this, top = $W.scrollTop(), winHeight = $D.height();
+        if (top < winHeight - $W.height() - 2 * function_1.default.getRem())
             return;
         _this.getData();
     };

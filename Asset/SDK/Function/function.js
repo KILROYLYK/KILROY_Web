@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
-var W = window, D = document;
+var W = window, D = document, $W = jquery_1.default(W), $D = jquery_1.default(D);
 /**
  * 函数
  */
@@ -95,7 +95,7 @@ var FN = /** @class */ (function () {
      */
     FN.resize = function (callback, time) {
         if (time === void 0) { time = 300; }
-        var _this = this, $W = jquery_1.default(W), resize = function () {
+        var _this = this, resize = function () {
             if (setTime)
                 clearTimeout(setTime);
             setTime = setTimeout(callback, time);
@@ -151,7 +151,7 @@ var FN = /** @class */ (function () {
      */
     FN.gyroscope = function (callback, time) {
         if (time === void 0) { time = 50; }
-        var _this = this, $W = jquery_1.default(W);
+        var _this = this;
         var openGyroscope = true, setTime = null;
         'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
             if (!openGyroscope)

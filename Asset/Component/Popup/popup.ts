@@ -193,7 +193,7 @@ export default class Popup {
         if (!_this.popup.toast) {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.toast,
-                // animation: 'bottom',
+                animation: 'bottom',
                 isScreenClose: true,
                 open(data: any) {
                     _this.popup.toast.$content.find('.content').text(data);

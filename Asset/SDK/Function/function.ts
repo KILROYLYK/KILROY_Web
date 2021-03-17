@@ -603,7 +603,7 @@ export default class FN {
                 canvas.width = image.width;
                 canvas.height = image.height;
                 context.drawImage(image, 0, 0, image.width, image.height);
-                callback(canvas.toDataURL());
+                callback(canvas.toDataURL('image/png'));
             };
         }
     };

@@ -19,8 +19,8 @@ import authorize from '../Component/Authorize/authorize'; // 授权
  * Plugin
  */
 export const
-    $: any = jquery,
-    Console: any = vConsole;
+    $: typeof jquery = jquery,
+    Console: typeof vConsole = vConsole;
 
 /**
  * Base
@@ -35,21 +35,21 @@ export const
  * SDK
  */
 export const
-    FN: any = fn,
-    Algorithm: any = algorithm,
-    Adaptation: any = adaptation,
-    Crypto: any = crypto,
-    Ajax: any = ajax;
+    FN: typeof fn = fn,
+    Algorithm: typeof algorithm = algorithm,
+    Adaptation: typeof adaptation = adaptation,
+    Crypto: typeof crypto = crypto,
+    Ajax: typeof ajax = ajax;
 
 /**
  * Component
  */
 export const
-    Preload: any = preload,
-    Popup: any = popup,
-    Flip: any = flip,
-    Share: any = share,
-    Authorize: any = authorize;
+    Preload: typeof preload = preload,
+    Popup: typeof popup = popup,
+    Flip: typeof flip = flip,
+    Share: typeof share = share,
+    Authorize: typeof authorize = authorize;
 
 /**
  * Global

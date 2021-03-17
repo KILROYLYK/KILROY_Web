@@ -6,21 +6,14 @@ import vConsole from '/usr/local/lib/node_modules/vconsole'; // 日志
 import fn from '../SDK/Function/function'; // 函数
 import algorithm from '../SDK/Algorithm/algorithm'; // 算法
 import adaptation from '../SDK/Adaptation/adaptation'; // 适配
-import crypto from'../SDK/Crypto/crypto'; // 加密
-import ajax from'../SDK/Ajax/ajax'; // 远程请求
+import crypto from '../SDK/Crypto/crypto'; // 加密
+import ajax from '../SDK/Ajax/ajax'; // 远程请求
 
-import preload from'../Component/Preload/preload'; // 预加载
-import popup from'../Component/Popup/popup'; // 弹窗
-import flip from'../Component/Flip/flip'; // 翻页
+import preload from '../Component/Preload/preload'; // 预加载
+import popup from '../Component/Popup/popup'; // 弹窗
+import flip from '../Component/Flip/flip'; // 翻页
 import share from '../Component/Share/share'; // 分享
 import authorize from '../Component/Authorize/authorize'; // 授权
-
-/**
- * Base
- */
-export const
-    W: Window = window,
-    D: Document = document;
 
 /**
  * Plugin
@@ -28,6 +21,15 @@ export const
 export const
     $: any = jquery,
     Console: any = vConsole;
+
+/**
+ * Base
+ */
+export const
+    W: Window = window,
+    D: Document = document,
+    $W: typeof $ = $(W),
+    $D: typeof $ = $(D);
 
 /**
  * SDK
@@ -53,11 +55,13 @@ export const
  * Global
  */
 export default class Global {
-    public static readonly W: Window = W;
-    public static readonly D: Document = D;
-    
     public static readonly $: typeof $ = $;
     public static readonly Console: typeof Console = Console;
+    
+    public static readonly W: Window = W;
+    public static readonly D: Document = D;
+    public static readonly $W: typeof $ = $W;
+    public static readonly $D: typeof $ = $D;
     
     public static readonly FN: typeof FN = FN;
     public static readonly Algorithm: typeof Algorithm = Algorithm;

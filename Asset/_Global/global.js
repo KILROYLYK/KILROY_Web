@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.Console = exports.$ = exports.D = exports.W = void 0;
+exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.$D = exports.$W = exports.D = exports.W = exports.Console = exports.$ = void 0;
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery")); // JQuery
 // @ts-ignore
@@ -19,13 +19,13 @@ var flip_1 = __importDefault(require("../Component/Flip/flip")); // 翻页
 var share_1 = __importDefault(require("../Component/Share/share")); // 分享
 var authorize_1 = __importDefault(require("../Component/Authorize/authorize")); // 授权
 /**
- * Base
- */
-exports.W = window, exports.D = document;
-/**
  * Plugin
  */
 exports.$ = jquery_1.default, exports.Console = vconsole_1.default;
+/**
+ * Base
+ */
+exports.W = window, exports.D = document, exports.$W = exports.$(exports.W), exports.$D = exports.$(exports.D);
 /**
  * SDK
  */
@@ -40,10 +40,12 @@ exports.Preload = preload_1.default, exports.Popup = popup_1.default, exports.Fl
 var Global = /** @class */ (function () {
     function Global() {
     }
-    Global.W = exports.W;
-    Global.D = exports.D;
     Global.$ = exports.$;
     Global.Console = exports.Console;
+    Global.W = exports.W;
+    Global.D = exports.D;
+    Global.$W = exports.$W;
+    Global.$D = exports.$D;
     Global.FN = exports.FN;
     Global.Algorithm = exports.Algorithm;
     Global.Adaptation = exports.Adaptation;

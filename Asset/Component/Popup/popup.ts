@@ -4,8 +4,11 @@ import $ from '/usr/local/lib/node_modules/jquery';
 import './popup.less';
 import FN from '../../SDK/Function/function';
 
+const $B: typeof $ = $('body');
+
 export interface PopupConfig { // 弹窗配置
-    content?: any; // 内容
+    content?: HTMLElement | string; // 内容
+    animation?: 'top' | 'bottom' | 'left' | 'right'; // 动画
     isScreenClose?: boolean; // 是否全屏关闭
     finish?(): void; // 完成回调
     open?(data: any): void; // 打开回调
@@ -16,11 +19,10 @@ export interface PopupConfig { // 弹窗配置
  * 弹窗
  */
 export default class Popup {
-    private readonly $B: any = $('body');
+    public $id: typeof $ = null; // 根节点
+    public $content: typeof $ = null; // 内容容器
+    public $close: typeof $ = null; // 关闭按钮
     private config: PopupConfig = {};
-    public $id: any = null;
-    public $content: any = null;
-    public $close: any = null;
     private id: string = '';
     private content: HTMLElement | string = ''; // 内容
     private readonly setTime: any = { // 定时器列表
@@ -72,16 +74,18 @@ export default class Popup {
         const _this = this,
             template = `<div id="${ _this.id }" class="popup ${ _this.id }">
                 <div class="box_popup">
-                    <div class="box_content">${ _this.content }</div>
-                    <button class="btn_close"><i></i></button>
+                    <div class="popup_content">${ _this.content }</div>
+                    <button class="popup_close"><i></i></button>
                 </div></div>`;
         
         _this.$id.remove(); // 清理已有节点
-        _this.$B.append(template);
+        $B.append(template);
         
         _this.$id = $('#' + _this.id);
-        _this.$content = _this.$id.find('.box_content');
-        _this.$close = _this.$id.find('.btn_close');
+        _this.$content = _this.$id.find('.popup_content');
+        _this.$close = _this.$id.find('popup_close');
+        
+        if (_this.config.animation) _this.$id.addClass('popup_' + _this.config.animation);
     }
     
     /**
@@ -92,6 +96,7 @@ export default class Popup {
         const _this = this;
         
         if (_this.config.isScreenClose) { // 全屏关闭
+            _this.$close.hide();
             _this.$id.on('click', (e: Event) => {
                 e.stopPropagation();
                 _this.close();
@@ -99,7 +104,6 @@ export default class Popup {
             _this.$content.on('click', (e: Event) => {
                 e.stopPropagation();
             });
-            _this.$close.hide();
         } else { // 按钮关闭
             _this.$close.on('click', (e: Event) => {
                 e.stopPropagation();
@@ -163,7 +167,7 @@ export default class Popup {
         _this.clearSetTime();
         
         _this.$id.removeClass('show active');
-        _this.$content.html(_this.content);
+        _this.$content.append(_this.content);
         _this.config.finish && _this.config.finish();
     }
     
@@ -175,7 +179,7 @@ export default class Popup {
         toast: null // 提示弹窗
     };
     private static readonly template: any = { // 模板
-        toast: `<div class="popup_content"></div>`
+        toast: `<div class="content"></div>`
     };
     
     /**
@@ -189,8 +193,10 @@ export default class Popup {
         if (!_this.popup.toast) {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.toast,
+                // animation: 'bottom',
+                isScreenClose: true,
                 open(data: any) {
-                    _this.popup.toast.$content.find('.popup_content').text(data);
+                    _this.popup.toast.$content.find('.content').text(data);
                     
                     if (_this.setTime.toast) clearTimeout(_this.setTime.toast);
                     _this.setTime.toast = setTimeout(() => {
@@ -198,7 +204,7 @@ export default class Popup {
                     }, 2500);
                 },
                 close() {
-                    _this.popup.toast.$content.find('.popup_content').text('');
+                    _this.popup.toast.$content.find('.content').text('');
                     
                     clearTimeout(_this.setTime.toast);
                 }

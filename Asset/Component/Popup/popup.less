@@ -14,6 +14,30 @@
   .transition(all @popup_time);
   cursor: pointer;
 
+  &.popup_top {
+    .box_popup {
+      .transform(translate(-50%, calc(-50% - 200 * @px)));
+    }
+  }
+
+  &.popup_bottom {
+    .box_popup {
+      .transform(translate(-50%, calc(-50% + 200 * @px)));
+    }
+  }
+
+  &.popup_left {
+    .box_popup {
+      .transform(translate(calc(-50% - 200 * @px), -50%));
+    }
+  }
+
+  &.popup_right {
+    .box_popup {
+      .transform(translate(calc(-50% + 200 * @px), -50%));
+    }
+  }
+
   &.show {
     display: block;
   }
@@ -31,11 +55,10 @@
     width: 720*@px;
     .borderBox();
     background: fade(@color_1, 70);
-    .transform(translate(-50%, calc(-50% - 200 * @px)));
     .transition(transform @popup_time);
     cursor: auto;
 
-    .btn_close {
+    .popup_close {
       .position(bottom, -90*@px);
       z-index: 1;
       width: 50*@px;
@@ -80,7 +103,7 @@
       }
     }
 
-    .box_content {
+    .popup_content {
       overflow: hidden;
       position: relative;
       height: 100%;
@@ -101,84 +124,11 @@
     background: fade(@color_2, 75);
     border-radius: 3*@px;
 
-    .btn_close {
-      display: none;
-    }
-
     .popup_content {
-      position: relative;
-      .font(center, 34*@px, @color_1, 30*@px, true);
-      .wordBreak();
-    }
-  }
-}
-
-#popup_message {
-  z-index: @popup_z+5;
-
-  .box_popup {
-    padding: 50*@px 0;
-
-    .box_content {
-      display: table;
-
-      p {
-        display: table-cell;
-        .font(center, 30*@px, @color_2, 20*@px, true);
-        vertical-align: middle;
-
-        span {
-          display: block;
-          margin-bottom: 20*@px;
-          .font(center, 50*@px, @color_2, 30*@px, true);
-        }
-      }
-    }
-  }
-}
-
-#popup_image {
-  .box_popup {
-    width: 0;
-    height: 0;
-
-    .btn_close {
-      display: none;
-    }
-
-    .box_content {
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-}
-
-#popup_video {
-  .box_popup {
-    width: 1100*@px;
-    height: 600*@px;
-
-    .box_content {
-
-      video,
-      iframe {
-        .position();
-        width: 100%;
-        height: 100%;
-        margin: auto;
-        background: @color_2;
-
-        & + video,
-        & + iframe {
-          display: none;
-        }
-
-        &.active {
-          display: block;
-        }
+      .content {
+        position: relative;
+        .font(center, 34*@px, @color_1, 30*@px, true);
+        .wordBreak();
       }
     }
   }

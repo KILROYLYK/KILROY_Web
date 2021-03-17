@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./popup.less");
 var function_1 = __importDefault(require("../../SDK/Function/function"));
+var $B = jquery_1.default('body');
 /**
  * 弹窗
  */
@@ -18,11 +19,10 @@ var Popup = /** @class */ (function () {
      * @param {PopupConfig} config 配置
      */
     function Popup(id, config) {
-        this.$B = jquery_1.default('body');
+        this.$id = null; // 根节点
+        this.$content = null; // 内容容器
+        this.$close = null; // 关闭按钮
         this.config = {};
-        this.$id = null;
-        this.$content = null;
-        this.$close = null;
         this.id = '';
         this.content = ''; // 内容
         this.setTime = {
@@ -57,12 +57,14 @@ var Popup = /** @class */ (function () {
      * @return {void}
      */
     Popup.prototype.creatModal = function () {
-        var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"box_content\">" + _this.content + "</div>\n                    <button class=\"btn_close\"><i></i></button>\n                </div></div>";
+        var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"popup_content\">" + _this.content + "</div>\n                    <button class=\"popup_close\"><i></i></button>\n                </div></div>";
         _this.$id.remove(); // 清理已有节点
-        _this.$B.append(template);
+        $B.append(template);
         _this.$id = jquery_1.default('#' + _this.id);
-        _this.$content = _this.$id.find('.box_content');
-        _this.$close = _this.$id.find('.btn_close');
+        _this.$content = _this.$id.find('.popup_content');
+        _this.$close = _this.$id.find('popup_close');
+        if (_this.config.animation)
+            _this.$id.addClass('popup_' + _this.config.animation);
     };
     /**
      * 绑定基础事件
@@ -71,6 +73,7 @@ var Popup = /** @class */ (function () {
     Popup.prototype.bindFun = function () {
         var _this = this;
         if (_this.config.isScreenClose) { // 全屏关闭
+            _this.$close.hide();
             _this.$id.on('click', function (e) {
                 e.stopPropagation();
                 _this.close();
@@ -78,7 +81,6 @@ var Popup = /** @class */ (function () {
             _this.$content.on('click', function (e) {
                 e.stopPropagation();
             });
-            _this.$close.hide();
         }
         else { // 按钮关闭
             _this.$close.on('click', function (e) {
@@ -133,7 +135,7 @@ var Popup = /** @class */ (function () {
         var _this = this;
         _this.clearSetTime();
         _this.$id.removeClass('show active');
-        _this.$content.html(_this.content);
+        _this.$content.append(_this.content);
         _this.config.finish && _this.config.finish();
     };
     /**
@@ -146,8 +148,10 @@ var Popup = /** @class */ (function () {
         if (!_this.popup.toast) {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.toast,
+                // animation: 'bottom',
+                isScreenClose: true,
                 open: function (data) {
-                    _this.popup.toast.$content.find('.popup_content').text(data);
+                    _this.popup.toast.$content.find('.content').text(data);
                     if (_this.setTime.toast)
                         clearTimeout(_this.setTime.toast);
                     _this.setTime.toast = setTimeout(function () {
@@ -155,7 +159,7 @@ var Popup = /** @class */ (function () {
                     }, 2500);
                 },
                 close: function () {
-                    _this.popup.toast.$content.find('.popup_content').text('');
+                    _this.popup.toast.$content.find('.content').text('');
                     clearTimeout(_this.setTime.toast);
                 }
             });
@@ -170,7 +174,7 @@ var Popup = /** @class */ (function () {
         toast: null // 提示弹窗
     };
     Popup.template = {
-        toast: "<div class=\"popup_content\"></div>"
+        toast: "<div class=\"content\"></div>"
     };
     return Popup;
 }());

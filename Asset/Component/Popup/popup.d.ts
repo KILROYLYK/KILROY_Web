@@ -1,19 +1,30 @@
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
+
 /**
  * 弹窗
  */
 declare module 'popup' {
-    export interface PopupConfig { // 弹窗配置
-        content?: any; // 内容
-        isScreenClose?: boolean; // 是否全屏关闭
-        finish?(): void; // 完成回调
-        open?(data: any): void; // 打开回调
-        close?(): void; // 关闭回调
+    export interface PopupConfig {
+        content?: HTMLElement | string;
+        animation?: 'top' | 'bottom' | 'left' | 'right';
+        isScreenClose?: boolean;
+        
+        finish?(): void;
+        
+        open?(data: any): void;
+        
+        close?(): void;
     }
     
     /**
      * Popup
      */
     export default class Popup {
+        public $id: typeof $; // 根节点
+        public $content: typeof $; // 内容容器
+        public $close: typeof $; // 关闭按钮
+        
         constructor(config: PopupConfig); // 构造函数
         
         public open(data: any): void;

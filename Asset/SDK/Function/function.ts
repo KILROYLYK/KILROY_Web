@@ -230,6 +230,22 @@ export default class FN {
     };
     public static readonly url: any = { // Url
         /**
+         * 参数化
+         * @param {*} object 对象
+         * @param {boolean} hasQuestion 是否添加？
+         * @return {string} 参数
+         */
+        toParam(object: any, hasQuestion: boolean = false): string {
+            const _this = this;
+            
+            let param = '';
+            
+            for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
+            
+            return hasQuestion ? '?' + param : param;
+        },
+        
+        /**
          * 获取参数值
          * @param {string} name Url参数的key
          * @param {string} url Url
@@ -466,21 +482,6 @@ export default class FN {
             const _this = this;
             
             return JSON.parse(JSON.stringify(object));
-        },
-        
-        /**
-         * 参数化
-         * @param {*} object 对象
-         * @return {string} 参数
-         */
-        param(object: any): string {
-            const _this = this;
-            
-            let param = '';
-            
-            for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
-            
-            return param;
         }
     };
     public static readonly class: any = { // 操作节点类
@@ -490,7 +491,7 @@ export default class FN {
          * @param {string} name 类名
          * @return {boolean} 是否含有Class
          */
-        hasClass(element: HTMLElement, name: string): boolean {
+        has(element: HTMLElement, name: string): boolean {
             const _this = this,
                 reg = /\s/g, // 查询全局空字符串
                 className = name || '';
@@ -505,7 +506,7 @@ export default class FN {
          * @param {string} name 类名
          * @return {void}
          */
-        addClass(element: HTMLElement, name: string): void {
+        add(element: HTMLElement, name: string): void {
             const _this = this;
             
             if (_this.class.hasClass(element, name)) return;
@@ -518,7 +519,7 @@ export default class FN {
          * @param {string} name 类名
          * @return {void}
          */
-        removeClass(element: HTMLElement, name: string): void {
+        remove(element: HTMLElement, name: string): void {
             const _this = this,
                 reg1 = /[\t\r\n]/g, // 查询空格
                 reg2 = /^\s+|\s+$/g; // 查询空格

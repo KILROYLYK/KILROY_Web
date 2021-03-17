@@ -415,6 +415,20 @@ var FN = /** @class */ (function () {
     };
     FN.url = {
         /**
+         * 参数化
+         * @param {*} object 对象
+         * @param {boolean} hasQuestion 是否添加？
+         * @return {string} 参数
+         */
+        toParam: function (object, hasQuestion) {
+            if (hasQuestion === void 0) { hasQuestion = false; }
+            var _this = this;
+            var param = '';
+            for (var key in object)
+                param += (param === '' ? '' : '&') + key + '=' + object[key];
+            return hasQuestion ? '?' + param : param;
+        },
+        /**
          * 获取参数值
          * @param {string} name Url参数的key
          * @param {string} url Url
@@ -623,18 +637,6 @@ var FN = /** @class */ (function () {
         copy: function (object) {
             var _this = this;
             return JSON.parse(JSON.stringify(object));
-        },
-        /**
-         * 参数化
-         * @param {*} object 对象
-         * @return {string} 参数
-         */
-        param: function (object) {
-            var _this = this;
-            var param = '';
-            for (var key in object)
-                param += (param === '' ? '' : '&') + key + '=' + object[key];
-            return param;
         }
     };
     FN.class = {
@@ -644,7 +646,7 @@ var FN = /** @class */ (function () {
          * @param {string} name 类名
          * @return {boolean} 是否含有Class
          */
-        hasClass: function (element, name) {
+        has: function (element, name) {
             var _this = this, reg = /\s/g, // 查询全局空字符串
             className = name || '';
             if (className.replace(reg, '').length === 0)
@@ -657,7 +659,7 @@ var FN = /** @class */ (function () {
          * @param {string} name 类名
          * @return {void}
          */
-        addClass: function (element, name) {
+        add: function (element, name) {
             var _this = this;
             if (_this.class.hasClass(element, name))
                 return;
@@ -669,7 +671,7 @@ var FN = /** @class */ (function () {
          * @param {string} name 类名
          * @return {void}
          */
-        removeClass: function (element, name) {
+        remove: function (element, name) {
             var _this = this, reg1 = /[\t\r\n]/g, // 查询空格
             reg2 = /^\s+|\s+$/g; // 查询空格
             if (!_this.class.hasClass(element, name))

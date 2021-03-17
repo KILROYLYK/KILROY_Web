@@ -1,14 +1,3 @@
-import fn from "../SDK/Function/function";
-import algorithm from "../SDK/Algorithm/algorithm";
-import adaptation from "../SDK/Adaptation/adaptation";
-import crypto from "../SDK/Crypto/crypto";
-import ajax from "../SDK/Ajax/ajax";
-import preload from "../Component/Preload/preload";
-import popup from "../Component/Popup/popup";
-import flip from "../Component/Flip/flip";
-import share from "../Component/Share/share";
-import authorize from "../Component/Authorize/authorize";
-
 /**
  * 全局
  */

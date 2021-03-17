@@ -10,7 +10,7 @@ export interface PopupConfig { // 弹窗配置
     content?: HTMLElement | string; // 内容
     animation?: 'top' | 'bottom' | 'left' | 'right'; // 动画
     isScreenClose?: boolean; // 是否全屏关闭
-    finish?(): void; // 完成回调
+    finish?(data: Popup): void; // 完成回调
     open?(data: any): void; // 打开回调
     close?(): void; // 关闭回调
 }
@@ -63,7 +63,7 @@ export default class Popup {
         _this.creatModal();
         _this.bindFun();
         
-        _this.config.finish && _this.config.finish();
+        _this.config.finish && _this.config.finish(_this);
     }
     
     /**
@@ -168,7 +168,7 @@ export default class Popup {
         
         _this.$id.removeClass('show active');
         _this.$content.append(_this.content);
-        _this.config.finish && _this.config.finish();
+        _this.config.finish && _this.config.finish(_this);
     }
     
     // ---------- 静态函数 Start ---------- //

@@ -10,7 +10,7 @@ declare module 'popup' {
         animation?: 'top' | 'bottom' | 'left' | 'right';
         isScreenClose?: boolean;
         
-        finish?(): void;
+        finish?(data: Popup): void;
         
         open?(data: any): void;
         

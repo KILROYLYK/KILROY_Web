@@ -50,7 +50,7 @@ var Popup = /** @class */ (function () {
         var _this = this;
         _this.creatModal();
         _this.bindFun();
-        _this.config.finish && _this.config.finish();
+        _this.config.finish && _this.config.finish(_this);
     };
     /**
      * 创建弹窗节点
@@ -136,7 +136,7 @@ var Popup = /** @class */ (function () {
         _this.clearSetTime();
         _this.$id.removeClass('show active');
         _this.$content.append(_this.content);
-        _this.config.finish && _this.config.finish();
+        _this.config.finish && _this.config.finish(_this);
     };
     /**
      * Toast提示

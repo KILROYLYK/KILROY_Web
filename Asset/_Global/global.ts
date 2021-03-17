@@ -27,9 +27,11 @@ export const
  */
 export const
     W: Window = window,
-    D: Document = document,
     $W: typeof $ = $(W),
-    $D: typeof $ = $(D);
+    D: Document = document,
+    $D: typeof $ = $(D),
+    B: HTMLElement = D.body,
+    $B: typeof $ = $(B);
 
 /**
  * SDK
@@ -59,9 +61,11 @@ export default class Global {
     public static readonly Console: typeof Console = Console;
     
     public static readonly W: Window = W;
-    public static readonly D: Document = D;
     public static readonly $W: typeof $ = $W;
+    public static readonly D: Document = D;
     public static readonly $D: typeof $ = $D;
+    public static readonly B: HTMLElement = B;
+    public static readonly $Body: typeof $ = $B;
     
     public static readonly FN: typeof FN = FN;
     public static readonly Algorithm: typeof Algorithm = Algorithm;

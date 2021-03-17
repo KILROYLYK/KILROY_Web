@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.$D = exports.$W = exports.D = exports.W = exports.Console = exports.$ = void 0;
+exports.Authorize = exports.Share = exports.Flip = exports.Popup = exports.Preload = exports.Ajax = exports.Crypto = exports.Adaptation = exports.Algorithm = exports.FN = exports.$B = exports.B = exports.$D = exports.D = exports.$W = exports.W = exports.Console = exports.$ = void 0;
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery")); // JQuery
 // @ts-ignore
@@ -25,7 +25,7 @@ exports.$ = jquery_1.default, exports.Console = vconsole_1.default;
 /**
  * Base
  */
-exports.W = window, exports.D = document, exports.$W = exports.$(exports.W), exports.$D = exports.$(exports.D);
+exports.W = window, exports.$W = exports.$(exports.W), exports.D = document, exports.$D = exports.$(exports.D), exports.B = exports.D.body, exports.$B = exports.$(exports.B);
 /**
  * SDK
  */
@@ -43,9 +43,11 @@ var Global = /** @class */ (function () {
     Global.$ = exports.$;
     Global.Console = exports.Console;
     Global.W = exports.W;
-    Global.D = exports.D;
     Global.$W = exports.$W;
+    Global.D = exports.D;
     Global.$D = exports.$D;
+    Global.B = exports.B;
+    Global.$Body = exports.$B;
     Global.FN = exports.FN;
     Global.Algorithm = exports.Algorithm;
     Global.Adaptation = exports.Adaptation;

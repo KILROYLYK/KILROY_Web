@@ -14,9 +14,11 @@ declare module 'global' {
      */
     export const
         W: Window,
-        D: Document,
         $W: typeof $,
-        $D: typeof $;
+        D: Document,
+        $D: typeof $,
+        B: HTMLElement,
+        $B: typeof $;
     
     /**
      * SDK
@@ -46,9 +48,11 @@ declare module 'global' {
         public static readonly Console: typeof Console;
         
         public static readonly W: Window;
-        public static readonly D: Document;
         public static readonly $W: typeof $;
+        public static readonly D: Document;
         public static readonly $D: typeof $;
+        public static readonly B: HTMLElement;
+        public static readonly $Body: typeof $;
         
         public static readonly FN: typeof FN;
         public static readonly Algorithm: typeof Algorithm;

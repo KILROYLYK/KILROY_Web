@@ -195,7 +195,7 @@ export default class Popup {
                 content: _this.template.toast,
                 animation: 'bottom',
                 isScreenClose: true,
-                open(data: any) {
+                open(data: any): void {
                     _this.popup.toast.$content.find('.content').text(data);
                     
                     if (_this.setTime.toast) clearTimeout(_this.setTime.toast);
@@ -203,7 +203,7 @@ export default class Popup {
                         _this.popup.toast.close();
                     }, 2500);
                 },
-                close() {
+                close(): void {
                     _this.popup.toast.$content.find('.content').text('');
                     
                     clearTimeout(_this.setTime.toast);

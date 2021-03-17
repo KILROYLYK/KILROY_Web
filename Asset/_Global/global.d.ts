@@ -69,7 +69,7 @@ declare module 'global' {
         public static readonly D: Document;
         public static readonly $D: typeof $;
         public static readonly B: HTMLElement;
-        public static readonly $Body: typeof $;
+        public static readonly $B: typeof $;
         
         public static readonly FN: typeof FN;
         public static readonly Algorithm: typeof Algorithm;

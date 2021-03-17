@@ -65,7 +65,7 @@ export default class Global {
     public static readonly D: Document = D;
     public static readonly $D: typeof $ = $D;
     public static readonly B: HTMLElement = B;
-    public static readonly $Body: typeof $ = $B;
+    public static readonly $B: typeof $ = $B;
     
     public static readonly FN: typeof FN = FN;
     public static readonly Algorithm: typeof Algorithm = Algorithm;

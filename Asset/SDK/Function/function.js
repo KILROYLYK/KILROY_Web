@@ -713,6 +713,37 @@ var FN = /** @class */ (function () {
             };
         }
     };
+    FN.image = {
+        /**
+         * 获取图像尺寸
+         * @param {string} src 资源地址
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        getSize: function (src, callback) {
+            var _this = this, image = new Image();
+            image.src = src;
+            image.onload = function () {
+                callback(image.width, image.height);
+            };
+        },
+        /**
+         * 获取图像编码
+         * @param {string} src 资源地址
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        getBase64: function (src, callback) {
+            var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
+            image.src = src;
+            image.onload = function () {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                context.drawImage(image, 0, 0, image.width, image.height);
+                callback(canvas.toDataURL());
+            };
+        }
+    };
     return FN;
 }());
 exports.default = FN;

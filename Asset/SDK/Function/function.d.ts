@@ -14,6 +14,7 @@ declare module 'fn' {
         public static readonly object: any;
         public static readonly class: any;
         public static readonly transform: any;
+        public static readonly image: any;
         
         public static getType(param: any): string;
         

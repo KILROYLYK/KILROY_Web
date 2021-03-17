@@ -569,6 +569,45 @@ export default class FN {
             };
         }
     };
+    public static readonly image: any = { // 图像
+        /**
+         * 获取图像尺寸
+         * @param {string} src 资源地址
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        getSize(src: string, callback: Function): void {
+            const _this = this,
+                image = new Image();
+            
+            image.src = src;
+            image.onload = () => {
+                callback(image.width, image.height);
+            };
+        },
+        
+        /**
+         * 获取图像编码
+         * @param {string} src 资源地址
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        getBase64(src: string, callback: Function): void {
+            const _this = this,
+                image = new Image(),
+                canvas = D.createElement('canvas'),
+                context = canvas.getContext('2d');
+            
+            image.src = src;
+            image.onload = () => {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                
+                context.drawImage(image, 0, 0, image.width, image.height);
+                callback(canvas.toDataURL());
+            };
+        }
+    };
     
     /**
      * 获取数据类型

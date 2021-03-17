@@ -597,14 +597,15 @@ export default class FN {
                 image = new Image(),
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
-            
-            image.src = src;
+    
+            image.crossOrigin = 'anonymous';
             image.onload = () => {
                 canvas.width = image.width;
                 canvas.height = image.height;
                 context.drawImage(image, 0, 0, image.width, image.height);
                 callback(canvas.toDataURL('image/png'));
             };
+            image.src = src;
         }
     };
     

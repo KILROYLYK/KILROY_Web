@@ -735,13 +735,14 @@ var FN = /** @class */ (function () {
          */
         getBase64: function (src, callback) {
             var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
-            image.src = src;
+            image.crossOrigin = 'anonymous';
             image.onload = function () {
                 canvas.width = image.width;
                 canvas.height = image.height;
                 context.drawImage(image, 0, 0, image.width, image.height);
                 callback(canvas.toDataURL('image/png'));
             };
+            image.src = src;
         }
     };
     return FN;

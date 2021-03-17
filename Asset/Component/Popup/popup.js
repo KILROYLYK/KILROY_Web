@@ -62,7 +62,7 @@ var Popup = /** @class */ (function () {
         $B.append(template);
         _this.$id = jquery_1.default('#' + _this.id);
         _this.$content = _this.$id.find('.popup_content');
-        _this.$close = _this.$id.find('popup_close');
+        _this.$close = _this.$id.find('.popup_close');
         if (_this.config.animation)
             _this.$id.addClass('popup_' + _this.config.animation);
     };

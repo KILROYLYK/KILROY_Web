@@ -46,7 +46,7 @@ var Crypto = /** @class */ (function () {
      * @return {string} 加密后的数据字符串
      */
     Crypto.encryptMD5 = function (key, data) {
-        var _this = this, sortData = function_1.default.object.sort(data), paramData = function_1.default.object.param(sortData);
+        var _this = this, sortData = function_1.default.object.sort(data), paramData = function_1.default.url.toParam(sortData);
         return crypto_js_1.default.MD5(paramData + '&key=' + key).toString();
     };
     /**

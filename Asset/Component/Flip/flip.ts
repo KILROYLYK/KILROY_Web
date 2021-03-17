@@ -71,10 +71,10 @@ export default class Flip {
                 last: (config.button && config.button.last) || '>>'
             },
             $dom: {
-                $content: (config.$dom && config.$dom.$content) || $('#content'),
-                $list: (config.$dom && config.$dom.$list) || $('#content > .list'),
-                $page: (config.$dom && config.$dom.$page) || $('#content > .page'),
-                $scroll: (config.$dom && config.$dom.$scroll) || $('#content > .more')
+                $content: (config.$dom && config.$dom.$content) || $('#flip_content'),
+                $list: (config.$dom && config.$dom.$list) || $('#flip_content > .list'),
+                $page: (config.$dom && config.$dom.$page) || $('#flip_content > .page'),
+                $scroll: (config.$dom && config.$dom.$scroll) || $('#flip_content > .more')
             },
             createDom: config.createDom || ((k: number, v: any) => {
                 return `<a href="${ v.post_url }">

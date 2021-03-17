@@ -42,10 +42,10 @@ var Flip = /** @class */ (function () {
                 last: (config.button && config.button.last) || '>>'
             },
             $dom: {
-                $content: (config.$dom && config.$dom.$content) || jquery_1.default('#content'),
-                $list: (config.$dom && config.$dom.$list) || jquery_1.default('#content > .list'),
-                $page: (config.$dom && config.$dom.$page) || jquery_1.default('#content > .page'),
-                $scroll: (config.$dom && config.$dom.$scroll) || jquery_1.default('#content > .more')
+                $content: (config.$dom && config.$dom.$content) || jquery_1.default('#flip_content'),
+                $list: (config.$dom && config.$dom.$list) || jquery_1.default('#flip_content > .list'),
+                $page: (config.$dom && config.$dom.$page) || jquery_1.default('#flip_content > .page'),
+                $scroll: (config.$dom && config.$dom.$scroll) || jquery_1.default('#flip_content > .more')
             },
             createDom: config.createDom || (function (k, v) {
                 return "<a href=\"" + v.post_url + "\">\n                        <span>\u3010" + v.category_name + "\u3011</span>\n                        <span>" + v.post_date.substring(5, 10) + "</span>\n                        <span>" + v.post_title + "</span>\n                    </a>";

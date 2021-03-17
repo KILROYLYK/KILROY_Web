@@ -14,6 +14,21 @@
   .transition(all @popup_time);
   cursor: pointer;
 
+  &.popup_top,
+  &.popup_bottom,
+  &.popup_left,
+  &.popup_right {
+    &.active {
+      .box_popup {
+        .center();
+      }
+    }
+
+    .box_popup {
+      .transition(transform @popup_time);
+    }
+  }
+
   &.popup_top {
     .box_popup {
       .transform(translate(-50%, calc(-50% - 200 * @px)));
@@ -44,18 +59,13 @@
 
   &.active {
     opacity: 1;
-
-    .box_popup {
-      .center();
-    }
   }
 
   .box_popup {
-    .position(absolute, 50%, auto, auto, 50%);
+    .center();
     width: 720*@px;
-    .borderBox();
     background: fade(@color_1, 70);
-    .transition(transform @popup_time);
+    .borderBox();
     cursor: auto;
 
     .popup_close {

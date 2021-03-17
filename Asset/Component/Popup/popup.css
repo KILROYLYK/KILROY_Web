@@ -16,6 +16,31 @@
   transition: all 0.6s;
   cursor: pointer;
 }
+.popup.popup_top.active .box_popup,
+.popup.popup_bottom.active .box_popup,
+.popup.popup_left.active .box_popup,
+.popup.popup_right.active .box_popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.popup.popup_top .box_popup,
+.popup.popup_bottom .box_popup,
+.popup.popup_left .box_popup,
+.popup.popup_right .box_popup {
+  -webkit-transition: transform 0.6s;
+  -moz-transition: transform 0.6s;
+  -o-transition: transform 0.6s;
+  -ms-transition: transform 0.6s;
+  transition: transform 0.6s;
+}
 .popup.popup_top .box_popup {
   -webkit-transform: translate(-50%, calc(-50% - 200 * 0.01rem));
   -moz-transform: translate(-50%, calc(-50% - 200 * 0.01rem));
@@ -50,7 +75,7 @@
 .popup.active {
   opacity: 1;
 }
-.popup.active .box_popup {
+.popup .box_popup {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -61,23 +86,11 @@
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-}
-.popup .box_popup {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
   width: 7.2rem;
+  background: rgba(255, 255, 255, 0.7);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.7);
-  -webkit-transition: transform 0.6s;
-  -moz-transition: transform 0.6s;
-  -o-transition: transform 0.6s;
-  -ms-transition: transform 0.6s;
-  transition: transform 0.6s;
   cursor: auto;
 }
 .popup .box_popup .popup_close {

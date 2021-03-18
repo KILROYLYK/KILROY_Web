@@ -128,6 +128,20 @@
   z-index: 1000;
   .transition(all 0.3s);
 
+  &.popup_vertical {
+    .box_popup .popup_content i {
+      .transform(rotate(90deg) scale(0.6));
+      .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
+    }
+  }
+
+  &.popup_horizontal {
+    .box_popup .popup_content i {
+      .transform(rotate(0deg) scale(0.6));
+      .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
+    }
+  }
+
   .box_popup {
     width: 100%;
     height: 100%;
@@ -141,16 +155,6 @@
         margin: auto;
         .bg('@{src_img}direction.png', 513*@px, 429*@px, true);
         pointer-events: none;
-
-        &.popup_vertical {
-          .transform(rotate(90deg) scale(0.6));
-          .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
-        }
-
-        &.popup_horizontal {
-          .transform(rotate(0deg) scale(0.6));
-          .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
-        }
       }
     }
   }
@@ -178,7 +182,7 @@
 }
 
 // 垂直动画
-.creatAnimation('a_vertical', .a_vertical());
+.creatAnimation(a_vertical, .a_vertical());
 .a_vertical() {
   from {
     .transform(rotate(90deg) scale(0.6));
@@ -189,7 +193,7 @@
 }
 
 // 垂直动画
-.creatAnimation('a_horizontal', .a_horizontal());
+.creatAnimation(a_horizontal, .a_horizontal());
 .a_horizontal() {
   from {
     .transform(rotate(0deg) scale(0.6));

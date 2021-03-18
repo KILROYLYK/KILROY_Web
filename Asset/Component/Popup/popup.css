@@ -180,6 +180,30 @@
   -ms-transition: all 0.3s;
   transition: all 0.3s;
 }
+.popup_direction.popup_vertical .box_popup .popup_content i {
+  -webkit-transform: rotate(90deg) scale(0.6);
+  -moz-transform: rotate(90deg) scale(0.6);
+  -o-transform: rotate(90deg) scale(0.6);
+  -ms-transform: rotate(90deg) scale(0.6);
+  transform: rotate(90deg) scale(0.6);
+  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+}
+.popup_direction.popup_horizontal .box_popup .popup_content i {
+  -webkit-transform: rotate(0deg) scale(0.6);
+  -moz-transform: rotate(0deg) scale(0.6);
+  -o-transform: rotate(0deg) scale(0.6);
+  -ms-transform: rotate(0deg) scale(0.6);
+  transform: rotate(0deg) scale(0.6);
+  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+}
 .popup_direction .box_popup {
   width: 100%;
   height: 100%;
@@ -203,30 +227,6 @@
   background-size: 5.13rem 4.29rem;
   pointer-events: none;
 }
-.popup_direction .box_popup .popup_content i.popup_vertical {
-  -webkit-transform: rotate(90deg) scale(0.6);
-  -moz-transform: rotate(90deg) scale(0.6);
-  -o-transform: rotate(90deg) scale(0.6);
-  -ms-transform: rotate(90deg) scale(0.6);
-  transform: rotate(90deg) scale(0.6);
-  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-}
-.popup_direction .box_popup .popup_content i.popup_horizontal {
-  -webkit-transform: rotate(0deg) scale(0.6);
-  -moz-transform: rotate(0deg) scale(0.6);
-  -o-transform: rotate(0deg) scale(0.6);
-  -ms-transform: rotate(0deg) scale(0.6);
-  transform: rotate(0deg) scale(0.6);
-  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-}
 .popup_toast {
   z-index: 60;
   background: rgba(0, 0, 0, 0);
@@ -248,7 +248,7 @@
   word-break: break-all;
   word-wrap: break-word;
 }
-@keyframes 'a_vertical' {
+@keyframes a_vertical {
   from {
     -webkit-transform: rotate(90deg) scale(0.6);
     -moz-transform: rotate(90deg) scale(0.6);
@@ -264,7 +264,7 @@
     transform: rotate(0deg) scale(0.6);
   }
 }
-@-moz-keyframes 'a_vertical' {
+@-moz-keyframes a_vertical {
   from {
     -webkit-transform: rotate(90deg) scale(0.6);
     -moz-transform: rotate(90deg) scale(0.6);
@@ -280,7 +280,7 @@
     transform: rotate(0deg) scale(0.6);
   }
 }
-@-webkit-keyframes 'a_vertical' {
+@-webkit-keyframes a_vertical {
   from {
     -webkit-transform: rotate(90deg) scale(0.6);
     -moz-transform: rotate(90deg) scale(0.6);
@@ -296,7 +296,7 @@
     transform: rotate(0deg) scale(0.6);
   }
 }
-@-o-keyframes 'a_vertical' {
+@-o-keyframes a_vertical {
   from {
     -webkit-transform: rotate(90deg) scale(0.6);
     -moz-transform: rotate(90deg) scale(0.6);
@@ -312,7 +312,7 @@
     transform: rotate(0deg) scale(0.6);
   }
 }
-@keyframes 'a_horizontal' {
+@keyframes a_horizontal {
   from {
     -webkit-transform: rotate(0deg) scale(0.6);
     -moz-transform: rotate(0deg) scale(0.6);
@@ -328,7 +328,7 @@
     transform: rotate(90deg) scale(0.6);
   }
 }
-@-moz-keyframes 'a_horizontal' {
+@-moz-keyframes a_horizontal {
   from {
     -webkit-transform: rotate(0deg) scale(0.6);
     -moz-transform: rotate(0deg) scale(0.6);
@@ -344,7 +344,7 @@
     transform: rotate(90deg) scale(0.6);
   }
 }
-@-webkit-keyframes 'a_horizontal' {
+@-webkit-keyframes a_horizontal {
   from {
     -webkit-transform: rotate(0deg) scale(0.6);
     -moz-transform: rotate(0deg) scale(0.6);
@@ -360,7 +360,7 @@
     transform: rotate(90deg) scale(0.6);
   }
 }
-@-o-keyframes 'a_horizontal' {
+@-o-keyframes a_horizontal {
   from {
     -webkit-transform: rotate(0deg) scale(0.6);
     -moz-transform: rotate(0deg) scale(0.6);

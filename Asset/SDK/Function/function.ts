@@ -571,6 +571,16 @@ export default class FN {
     };
     public static readonly image: any = { // 图像
         /**
+         * 判断是否是图片
+         * @param file
+         */
+        is(file: File): boolean {
+            const _this = this,
+                reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            return reg.test(file.name);
+        },
+        
+        /**
          * 获取图像尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
@@ -597,7 +607,7 @@ export default class FN {
                 image = new Image(),
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
-    
+            
             image.crossOrigin = '*';
             image.onload = () => {
                 canvas.width = image.width;
@@ -608,6 +618,7 @@ export default class FN {
             image.src = src;
         }
     };
+    public static readonly file: any = {};
     
     /**
      * 获取数据类型

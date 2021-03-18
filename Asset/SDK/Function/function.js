@@ -715,6 +715,14 @@ var FN = /** @class */ (function () {
     };
     FN.image = {
         /**
+         * 判断是否是图片
+         * @param file
+         */
+        is: function (file) {
+            var _this = this, reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            return reg.test(file.name);
+        },
+        /**
          * 获取图像尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
@@ -745,6 +753,7 @@ var FN = /** @class */ (function () {
             image.src = src;
         }
     };
+    FN.file = {};
     return FN;
 }());
 exports.default = FN;

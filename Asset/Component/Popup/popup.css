@@ -198,11 +198,11 @@
   -o-transform: rotate(0deg) scale(0.5);
   -ms-transform: rotate(0deg) scale(0.5);
   transform: rotate(0deg) scale(0.5);
-  -webkit-animation: 'a_vertical' 5s ease-out infinite forwards;
-  -moz-animation: 'a_vertical' 5s ease-out infinite forwards;
-  -o-animation: 'a_vertical' 5s ease-out infinite forwards;
-  -ms-animation: 'a_vertical' 5s ease-out infinite forwards;
-  animation: 'a_vertical' 5s ease-out infinite forwards;
+  -webkit-animation: 'a_horizontal' 5s ease-out infinite forwards;
+  -moz-animation: 'a_horizontal' 5s ease-out infinite forwards;
+  -o-animation: 'a_horizontal' 5s ease-out infinite forwards;
+  -ms-animation: 'a_horizontal' 5s ease-out infinite forwards;
+  animation: 'a_horizontal' 5s ease-out infinite forwards;
 }
 .popup_direction .box_popup {
   width: 100%;

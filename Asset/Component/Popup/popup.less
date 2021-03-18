@@ -116,6 +116,7 @@
     .popup_content {
       overflow: hidden;
       position: relative;
+      width: 100%;
       height: 100%;
       margin: auto;
       .borderBox();
@@ -123,7 +124,36 @@
   }
 }
 
-#popup_toast {
+.popup_direction {
+  z-index: 1000;
+
+  .box_popup {
+    width: 100%;
+    height: 100%;
+    @style: fade(#303136, 100), fade(black, 100);
+    .gradientRadial(@style);
+
+    .popup_content {
+      i {
+        display: block;
+        .position();
+        margin: auto;
+        .bg('@{src_img}rotate_screen.png', 200*@px, 200*@px, true);
+        pointer-events: none;
+
+        &.popup_vertical {
+
+        }
+
+        &.popup_horizontal {
+
+        }
+      }
+    }
+  }
+}
+
+.popup_toast {
   z-index: @popup_z+10;
   background: fade(@color_2, 0);
   pointer-events: none;
@@ -143,4 +173,3 @@
     }
   }
 }
-

@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
 require("./popup.less");
 var function_1 = __importDefault(require("../../SDK/Function/function"));
-var $B = jquery_1.default('body');
+var $D = jquery_1.default(document), $B = jquery_1.default('body');
 /**
  * 弹窗
  */
@@ -139,7 +139,37 @@ var Popup = /** @class */ (function () {
         _this.config.finish && _this.config.finish(_this);
     };
     /**
-     * Toast提示
+     * 锁定方向弹窗
+     * @return {'vertical'|'horizontal'} direction 方向
+     * @return {void}
+     */
+    Popup.lockDirection = function (direction) {
+        if (direction === void 0) { direction = 'vertical'; }
+        var _this = this;
+        if (!_this.popup.direction) {
+            _this.popup.direction = new Popup('popup_direction', {
+                content: _this.template.direction,
+                isScreenClose: true,
+                finish: function (data) {
+                    data.$id.addClass('popup_' + direction);
+                }
+            });
+        }
+        function_1.default.resize(function () {
+            var width = $D.width(), height = $D.height(), isPC = function_1.default.agent.client() === 'PC', isVertical = width <= height;
+            if (isPC)
+                return;
+            if ((isVertical && direction !== 'vertical') ||
+                (!isVertical && direction === 'vertical')) {
+                _this.popup.direction.open();
+            }
+            else {
+                _this.popup.direction.close();
+            }
+        });
+    };
+    /**
+     * 提示弹窗
      * @param {string} message 提示信息
      * @return {void}
      */
@@ -168,12 +198,15 @@ var Popup = /** @class */ (function () {
     };
     // ---------- 静态函数 Start ---------- //
     Popup.setTime = {
-        toast: null // 提示弹窗
+        direction: null,
+        toast: null // 提示
     };
     Popup.popup = {
-        toast: null // 提示弹窗
+        direction: null,
+        toast: null // 提示
     };
     Popup.template = {
+        direction: "<i></i>",
         toast: "<div class=\"content\"></div>"
     };
     return Popup;

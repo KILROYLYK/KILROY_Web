@@ -87,27 +87,6 @@ audio {
   -webkit-overflow-scrolling: touch;
 }
 
-.rotate_screen {
-  @style: fade(#303136, 100), fade(black, 100);
-  display: none;
-  .position(fixed);
-  z-index: 100;
-  .gradientRadial(@style);
-
-  &:before {
-    content: '';
-    display: block;
-    .position();
-    margin: auto;
-    .bg('@{src_img}rotate_screen.png', 200*@px, 200*@px, true);
-    pointer-events: none;
-  }
-
-  &.active {
-    display: block;
-  }
-}
-
 .body {
   overflow: hidden;
   position: relative;

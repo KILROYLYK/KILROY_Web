@@ -165,24 +165,51 @@
 .popup .box_popup .popup_content {
   overflow: hidden;
   position: relative;
+  width: 100%;
   height: 100%;
   margin: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#popup_toast {
+.popup_direction {
+  z-index: 1000;
+}
+.popup_direction .box_popup {
+  width: 100%;
+  height: 100%;
+  background: -webkit-radial-gradient(#303136, #000000) ;
+  background: -moz-radial-gradient(#303136, #000000) ;
+  background: -o-radial-gradient(#303136, #000000) ;
+  background: -ms-radial-gradient(#303136, #000000) ;
+  background: radial-gradient(#303136, #000000) ;
+}
+.popup_direction .box_popup .popup_content i {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 2rem;
+  height: 2rem;
+  background: url('../image/rotate_screen.png') center no-repeat;
+  background-size: 2rem 2rem;
+  pointer-events: none;
+}
+.popup_toast {
   z-index: 60;
   background: rgba(0, 0, 0, 0);
   pointer-events: none;
 }
-#popup_toast .box_popup {
+.popup_toast .box_popup {
   width: 3.5rem;
   padding: 0.15rem 0.25rem;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 0.08rem;
 }
-#popup_toast .box_popup .popup_content .content {
+.popup_toast .box_popup .popup_content .content {
   position: relative;
   text-align: center;
   line-height: 0.34rem;

@@ -99,38 +99,6 @@ textarea:-ms-input-placeholder {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-.rotate_screen {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  background: -webkit-radial-gradient(#303136, #000000) ;
-  background: -moz-radial-gradient(#303136, #000000) ;
-  background: -o-radial-gradient(#303136, #000000) ;
-  background: -ms-radial-gradient(#303136, #000000) ;
-  background: radial-gradient(#303136, #000000) ;
-}
-.rotate_screen:before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 2rem;
-  height: 2rem;
-  background: url('../image/rotate_screen.png') center no-repeat;
-  background-size: 2rem 2rem;
-  pointer-events: none;
-}
-.rotate_screen.active {
-  display: block;
-}
 .body {
   overflow: hidden;
   position: relative;

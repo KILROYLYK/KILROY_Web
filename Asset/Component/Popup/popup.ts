@@ -4,7 +4,8 @@ import $ from '/usr/local/lib/node_modules/jquery';
 import './popup.less';
 import FN from '../../SDK/Function/function';
 
-const $B: typeof $ = $('body');
+const $D: typeof $ = $(document),
+    $B: typeof $ = $('body');
 
 export interface PopupConfig { // 弹窗配置
     content?: HTMLElement | string; // 内容
@@ -173,17 +174,55 @@ export default class Popup {
     
     // ---------- 静态函数 Start ---------- //
     private static readonly setTime: any = { // 定时器
-        toast: null // 提示弹窗
+        direction: null, // 锁定方向
+        toast: null // 提示
     };
     private static readonly popup: any = { // 弹窗
-        toast: null // 提示弹窗
+        direction: null, // 锁定方向
+        toast: null // 提示
     };
     private static readonly template: any = { // 模板
+        direction: `<i></i>`,
         toast: `<div class="content"></div>`
     };
     
     /**
-     * Toast提示
+     * 锁定方向弹窗
+     * @return {'vertical'|'horizontal'} direction 方向
+     * @return {void}
+     */
+    public static lockDirection(direction: 'vertical' | 'horizontal' = 'vertical'): void {
+        const _this = this;
+        
+        if (!_this.popup.direction) {
+            _this.popup.direction = new Popup('popup_direction', {
+                content: _this.template.direction,
+                isScreenClose: true,
+                finish(data: Popup) {
+                    data.$id.addClass('popup_' + direction);
+                }
+            });
+        }
+        
+        FN.resize(() => {
+            const width = $D.width(),
+                height = $D.height(),
+                isPC = FN.agent.client() === 'PC',
+                isVertical = width <= height;
+            
+            if (isPC) return;
+            
+            if ((isVertical && direction !== 'vertical') ||
+                (!isVertical && direction === 'vertical')) {
+                _this.popup.direction.open();
+            } else {
+                _this.popup.direction.close();
+            }
+        });
+    }
+    
+    /**
+     * 提示弹窗
      * @param {string} message 提示信息
      * @return {void}
      */

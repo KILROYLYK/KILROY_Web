@@ -588,7 +588,7 @@ export default class FN {
          * @param {Function} callback 回调
          * @return {void}
          */
-        getSize(src: string, callback: Function): void {
+        size(src: string, callback: Function): void {
             const _this = this,
                 image = new Image();
             
@@ -599,12 +599,12 @@ export default class FN {
         },
         
         /**
-         * 获取图片编码
+         * 获取图片Base64
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
          */
-        getBase64(src: string, callback: Function): void {
+        get(src: string, callback: Function): void {
             const _this = this,
                 image = new Image(),
                 canvas = D.createElement('canvas'),
@@ -622,7 +622,7 @@ export default class FN {
     };
     public static readonly file: any = { // 文件
         /**
-         * 获取文件
+         * 获取文件Base64
          * @param {File} file 文件
          * @param {Function} callback 回调
          * @return {void}

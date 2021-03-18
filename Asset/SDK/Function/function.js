@@ -729,7 +729,7 @@ var FN = /** @class */ (function () {
          * @param {Function} callback 回调
          * @return {void}
          */
-        getSize: function (src, callback) {
+        size: function (src, callback) {
             var _this = this, image = new Image();
             image.src = src;
             image.onload = function () {
@@ -737,12 +737,12 @@ var FN = /** @class */ (function () {
             };
         },
         /**
-         * 获取图片编码
+         * 获取图片Base64
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
          */
-        getBase64: function (src, callback) {
+        get: function (src, callback) {
             var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
             image.crossOrigin = '*';
             image.onload = function () {
@@ -756,7 +756,7 @@ var FN = /** @class */ (function () {
     };
     FN.file = {
         /**
-         * 获取文件
+         * 获取文件Base64
          * @param {File} file 文件
          * @param {Function} callback 回调
          * @return {void}

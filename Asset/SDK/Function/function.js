@@ -94,7 +94,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.resize = function (callback, time) {
-        if (time === void 0) { time = 300; }
+        if (time === void 0) { time = 100; }
         var _this = this, resize = function () {
             if (setTime)
                 clearTimeout(setTime);

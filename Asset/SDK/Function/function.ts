@@ -572,12 +572,13 @@ export default class FN {
     public static readonly image: any = { // 图像
         /**
          * 判断是否是图片
-         * @param file
+         * @param {string} name 图片名称
+         * @return {boolean} 是否是图片
          */
-        is(file: File): boolean {
+        is(name: string): boolean {
             const _this = this,
                 reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
-            return reg.test(file.name);
+            return reg.test(name);
         },
         
         /**

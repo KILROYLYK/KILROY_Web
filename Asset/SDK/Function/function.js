@@ -716,11 +716,12 @@ var FN = /** @class */ (function () {
     FN.image = {
         /**
          * 判断是否是图片
-         * @param file
+         * @param {string} name 图片名称
+         * @return {boolean} 是否是图片
          */
-        is: function (file) {
+        is: function (name) {
             var _this = this, reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
-            return reg.test(file.name);
+            return reg.test(name);
         },
         /**
          * 获取图像尺寸

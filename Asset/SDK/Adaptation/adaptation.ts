@@ -6,8 +6,7 @@ const W: Window = window,
 export interface RemConfig { // Rem配置
     width?: number; // 设计稿宽度
     time?: number; // 延时更新时间
-    isMax?: boolean; // 是否限制最大值
-    isScale?: boolean; // 是否缩放
+    constraint?(fontSize: number): number; // 约束处理
 }
 
 /**
@@ -44,13 +43,10 @@ export default class Adaptation {
     private static changeRem(config: RemConfig = {}): void {
         const _this = this,
             width = W.innerWidth,
-            height = W.innerHeight,
             design = config.width || 750;
         
         let fontSize = width / design * 100;
-        
-        if (config.isMax && fontSize > 100) fontSize = 100;
-        if (config.isScale && width / height >= 0.75) fontSize = 75;
+        config.constraint && (fontSize = config.constraint(fontSize));
         
         D.documentElement.style.fontSize = fontSize + 'px';
     }

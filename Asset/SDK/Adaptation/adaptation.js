@@ -36,12 +36,9 @@ var Adaptation = /** @class */ (function () {
      */
     Adaptation.changeRem = function (config) {
         if (config === void 0) { config = {}; }
-        var _this = this, width = W.innerWidth, height = W.innerHeight, design = config.width || 750;
+        var _this = this, width = W.innerWidth, design = config.width || 750;
         var fontSize = width / design * 100;
-        if (config.isMax && fontSize > 100)
-            fontSize = 100;
-        if (config.isScale && width / height >= 0.75)
-            fontSize = 75;
+        config.constraint && (fontSize = config.constraint(fontSize));
         D.documentElement.style.fontSize = fontSize + 'px';
     };
     return Adaptation;

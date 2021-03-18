@@ -140,18 +140,18 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 锁定方向弹窗
-     * @return {'vertical'|'horizontal'} direction 方向
+     * @return {'vertical'|'horizontal'} type 方向
      * @return {void}
      */
-    Popup.lockDirection = function (direction) {
-        if (direction === void 0) { direction = 'vertical'; }
+    Popup.direction = function (type) {
+        if (type === void 0) { type = 'vertical'; }
         var _this = this;
         if (!_this.popup.direction) {
             _this.popup.direction = new Popup('popup_direction', {
                 content: _this.template.direction,
                 isScreenClose: true,
                 finish: function (data) {
-                    data.$id.addClass('popup_' + direction);
+                    data.$id.addClass('popup_' + type);
                 }
             });
         }
@@ -159,8 +159,8 @@ var Popup = /** @class */ (function () {
             var width = $D.width(), height = $D.height(), isPC = function_1.default.agent.client() === 'PC', isVertical = width <= height;
             if (isPC)
                 return;
-            if ((isVertical && direction !== 'vertical') ||
-                (!isVertical && direction === 'vertical')) {
+            if ((isVertical && type !== 'vertical') ||
+                (!isVertical && type === 'vertical')) {
                 _this.popup.direction.open();
             }
             else {

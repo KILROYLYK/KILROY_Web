@@ -188,10 +188,10 @@ export default class Popup {
     
     /**
      * 锁定方向弹窗
-     * @return {'vertical'|'horizontal'} direction 方向
+     * @return {'vertical'|'horizontal'} type 方向
      * @return {void}
      */
-    public static lockDirection(direction: 'vertical' | 'horizontal' = 'vertical'): void {
+    public static direction(type: 'vertical' | 'horizontal' = 'vertical'): void {
         const _this = this;
         
         if (!_this.popup.direction) {
@@ -199,7 +199,7 @@ export default class Popup {
                 content: _this.template.direction,
                 isScreenClose: true,
                 finish(data: Popup) {
-                    data.$id.addClass('popup_' + direction);
+                    data.$id.addClass('popup_' + type);
                 }
             });
         }
@@ -212,8 +212,8 @@ export default class Popup {
             
             if (isPC) return;
             
-            if ((isVertical && direction !== 'vertical') ||
-                (!isVertical && direction === 'vertical')) {
+            if ((isVertical && type !== 'vertical') ||
+                (!isVertical && type === 'vertical')) {
                 _this.popup.direction.open();
             } else {
                 _this.popup.direction.close();

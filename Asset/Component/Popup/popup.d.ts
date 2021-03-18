@@ -33,6 +33,8 @@ declare module 'popup' {
         
         public reset(): void;
         
+        public static direction(type: 'vertical' | 'horizontal'): void;
+        
         public static toast(message: string): void;
     }
 }

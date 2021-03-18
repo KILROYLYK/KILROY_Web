@@ -762,11 +762,9 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (file, callback) {
-            var _this_1 = this;
             var _this = this, reader = new FileReader();
             reader.onload = function (e) {
-                console.log(e);
-                callback(_this_1.result);
+                callback(e.target);
             };
             reader.readAsDataURL(file);
         }

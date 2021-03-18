@@ -632,8 +632,7 @@ export default class FN {
                 reader = new FileReader();
             
             reader.onload = (e: ProgressEvent<FileReader>) => {
-                console.log(e);
-                callback(this.result);
+                callback(e.target);
             };
             reader.readAsDataURL(file);
         }

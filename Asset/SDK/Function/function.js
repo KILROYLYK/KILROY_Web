@@ -724,7 +724,7 @@ var FN = /** @class */ (function () {
             return reg.test(name);
         },
         /**
-         * 获取图像尺寸
+         * 获取图片尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
@@ -737,7 +737,7 @@ var FN = /** @class */ (function () {
             };
         },
         /**
-         * 获取图像编码
+         * 获取图片编码
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
@@ -754,7 +754,8 @@ var FN = /** @class */ (function () {
             image.src = src;
         }
     };
-    FN.file = {};
+    FN.file = { // 文件
+    };
     return FN;
 }());
 exports.default = FN;

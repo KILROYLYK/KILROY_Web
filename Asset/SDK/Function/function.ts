@@ -569,7 +569,7 @@ export default class FN {
             };
         }
     };
-    public static readonly image: any = { // 图像
+    public static readonly image: any = { // 图片
         /**
          * 判断是否是图片
          * @param {string} name 图片名称
@@ -578,11 +578,12 @@ export default class FN {
         is(name: string): boolean {
             const _this = this,
                 reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            
             return reg.test(name);
         },
         
         /**
-         * 获取图像尺寸
+         * 获取图片尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
@@ -598,7 +599,7 @@ export default class FN {
         },
         
         /**
-         * 获取图像编码
+         * 获取图片编码
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @return {void}
@@ -619,7 +620,8 @@ export default class FN {
             image.src = src;
         }
     };
-    public static readonly file: any = {};
+    public static readonly file: any = { // 文件
+    };
     
     /**
      * 获取数据类型

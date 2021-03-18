@@ -754,7 +754,22 @@ var FN = /** @class */ (function () {
             image.src = src;
         }
     };
-    FN.file = { // 文件
+    FN.file = {
+        /**
+         * 获取文件
+         * @param {File} file 文件
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        get: function (file, callback) {
+            var _this_1 = this;
+            var _this = this, reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e);
+                callback(_this_1.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
     return FN;
 }());

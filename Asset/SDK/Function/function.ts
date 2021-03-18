@@ -621,6 +621,22 @@ export default class FN {
         }
     };
     public static readonly file: any = { // 文件
+        /**
+         * 获取文件
+         * @param {File} file 文件
+         * @param {Function} callback 回调
+         * @return {void}
+         */
+        get(file: File, callback: Function): void {
+            const _this = this,
+                reader = new FileReader();
+            
+            reader.onload = (e: ProgressEvent<FileReader>) => {
+                console.log(e);
+                callback(this.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
     
     /**

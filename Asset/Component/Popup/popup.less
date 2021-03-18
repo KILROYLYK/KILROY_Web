@@ -139,15 +139,17 @@
         display: block;
         .position();
         margin: auto;
-        .bg('@{src_img}rotate_screen.png', 200*@px, 200*@px, true);
+        .bg('@{src_img}direction.png', 513*@px, 429*@px, true);
         pointer-events: none;
 
         &.popup_vertical {
-
+          .transform(rotate(90deg) scale(0.6));
+          .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
         }
 
         &.popup_horizontal {
-
+          .transform(rotate(0deg) scale(0.6));
+          .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
         }
       }
     }
@@ -172,5 +174,27 @@
         .wordBreak();
       }
     }
+  }
+}
+
+// 垂直动画
+.creatAnimation('a_vertical', .a_vertical());
+.a_vertical() {
+  from {
+    .transform(rotate(90deg) scale(0.6));
+  }
+  to {
+    .transform(rotate(0deg) scale(0.6));
+  }
+}
+
+// 垂直动画
+.creatAnimation('a_horizontal', .a_horizontal());
+.a_horizontal() {
+  from {
+    .transform(rotate(0deg) scale(0.6));
+  }
+  to {
+    .transform(rotate(90deg) scale(0.6));
   }
 }

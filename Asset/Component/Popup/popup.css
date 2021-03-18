@@ -181,28 +181,28 @@
   transition: all 0.3s;
 }
 .popup_direction.popup_vertical .box_popup .popup_content i {
-  -webkit-transform: rotate(90deg) scale(0.6);
-  -moz-transform: rotate(90deg) scale(0.6);
-  -o-transform: rotate(90deg) scale(0.6);
-  -ms-transform: rotate(90deg) scale(0.6);
-  transform: rotate(90deg) scale(0.6);
-  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -webkit-transform: rotate(-90deg) scale(0.5);
+  -moz-transform: rotate(-90deg) scale(0.5);
+  -o-transform: rotate(-90deg) scale(0.5);
+  -ms-transform: rotate(-90deg) scale(0.5);
+  transform: rotate(-90deg) scale(0.5);
+  -webkit-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -moz-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -o-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -ms-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
 }
 .popup_direction.popup_horizontal .box_popup .popup_content i {
-  -webkit-transform: rotate(0deg) scale(0.6);
-  -moz-transform: rotate(0deg) scale(0.6);
-  -o-transform: rotate(0deg) scale(0.6);
-  -ms-transform: rotate(0deg) scale(0.6);
-  transform: rotate(0deg) scale(0.6);
-  -webkit-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -moz-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -o-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  -ms-animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
-  animation: 'a_vertical' 1s 0.5s ease-out alternate infinite;
+  -webkit-transform: rotate(0deg) scale(0.5);
+  -moz-transform: rotate(0deg) scale(0.5);
+  -o-transform: rotate(0deg) scale(0.5);
+  -ms-transform: rotate(0deg) scale(0.5);
+  transform: rotate(0deg) scale(0.5);
+  -webkit-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -moz-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -o-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  -ms-animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
+  animation: 'a_vertical' 1s 1.5s ease-out alternate infinite;
 }
 .popup_direction .box_popup {
   width: 100%;
@@ -250,130 +250,130 @@
 }
 @keyframes a_vertical {
   from {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
 }
 @-moz-keyframes a_vertical {
   from {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
 }
 @-webkit-keyframes a_vertical {
   from {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
 }
 @-o-keyframes a_vertical {
   from {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
 }
 @keyframes a_horizontal {
   from {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
 }
 @-moz-keyframes a_horizontal {
   from {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
 }
 @-webkit-keyframes a_horizontal {
   from {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
 }
 @-o-keyframes a_horizontal {
   from {
-    -webkit-transform: rotate(0deg) scale(0.6);
-    -moz-transform: rotate(0deg) scale(0.6);
-    -o-transform: rotate(0deg) scale(0.6);
-    -ms-transform: rotate(0deg) scale(0.6);
-    transform: rotate(0deg) scale(0.6);
+    -webkit-transform: rotate(0deg) scale(0.5);
+    -moz-transform: rotate(0deg) scale(0.5);
+    -o-transform: rotate(0deg) scale(0.5);
+    -ms-transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.5);
   }
   to {
-    -webkit-transform: rotate(90deg) scale(0.6);
-    -moz-transform: rotate(90deg) scale(0.6);
-    -o-transform: rotate(90deg) scale(0.6);
-    -ms-transform: rotate(90deg) scale(0.6);
-    transform: rotate(90deg) scale(0.6);
+    -webkit-transform: rotate(-90deg) scale(0.5);
+    -moz-transform: rotate(-90deg) scale(0.5);
+    -o-transform: rotate(-90deg) scale(0.5);
+    -ms-transform: rotate(-90deg) scale(0.5);
+    transform: rotate(-90deg) scale(0.5);
   }
 }
 /*# sourceMappingURL=popup.css.map */

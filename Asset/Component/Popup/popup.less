@@ -130,15 +130,15 @@
 
   &.popup_vertical {
     .box_popup .popup_content i {
-      .transform(rotate(90deg) scale(0.6));
-      .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
+      .transform(rotate(-90deg) scale(0.5));
+      .animation('a_vertical' 1s 1.5s ease-out alternate infinite);
     }
   }
 
   &.popup_horizontal {
     .box_popup .popup_content i {
-      .transform(rotate(0deg) scale(0.6));
-      .animation('a_vertical' 1s 0.5s ease-out alternate infinite);
+      .transform(rotate(0deg) scale(0.5));
+      .animation('a_vertical' 1s 1.5s ease-out alternate infinite);
     }
   }
 
@@ -185,20 +185,20 @@
 .creatAnimation(a_vertical, .a_vertical());
 .a_vertical() {
   from {
-    .transform(rotate(90deg) scale(0.6));
+    .transform(rotate(-90deg) scale(0.5));
   }
   to {
-    .transform(rotate(0deg) scale(0.6));
+    .transform(rotate(0deg) scale(0.5));
   }
 }
 
-// 垂直动画
+// 水平动画
 .creatAnimation(a_horizontal, .a_horizontal());
 .a_horizontal() {
   from {
-    .transform(rotate(0deg) scale(0.6));
+    .transform(rotate(0deg) scale(0.5));
   }
   to {
-    .transform(rotate(90deg) scale(0.6));
+    .transform(rotate(-90deg) scale(0.5));
   }
 }

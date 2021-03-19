@@ -766,7 +766,7 @@ var FN = /** @class */ (function () {
                 'z-index': '-1000',
                 'pointer-events': 'none'
             });
-            $img.onload = function () {
+            $img.bind('load', function () {
                 width = $img.width();
                 height = $img.height();
                 canvas.width = width;
@@ -774,7 +774,7 @@ var FN = /** @class */ (function () {
                 context.drawImage($img[0], 0, 0, width, height);
                 callback(canvas.toDataURL('image/png'));
                 $B.remove($img);
-            };
+            });
             $B.append($img);
             $img.attr('src', src);
             // }

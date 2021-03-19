@@ -634,7 +634,7 @@ export default class FN {
                 'z-index': '-1000',
                 'pointer-events': 'none'
             });
-            $img.onload = () => {
+            $img.bind('load', () => {
                 width = $img.width();
                 height = $img.height();
                 canvas.width = width;
@@ -642,7 +642,7 @@ export default class FN {
                 context.drawImage($img[0], 0, 0, width, height);
                 callback(canvas.toDataURL('image/png'));
                 $B.remove($img);
-            };
+            });
             $B.append($img);
             $img.attr('src', src);
             // }

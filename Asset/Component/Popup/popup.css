@@ -242,9 +242,6 @@
 .popup_load.mask {
   background: rgba(0, 0, 0, 0.2);
 }
-.popup_load.mask .box_popup .popup_content i {
-  background: #ffffff;
-}
 .popup_load .box_popup {
   width: 3rem;
   height: 3rem;
@@ -270,7 +267,7 @@
   height: 0.3rem;
   margin: auto;
   border-radius: 50%;
-  background: #000000;
+  background: #ffffff;
 }
 .popup_load .box_popup .popup_content i:nth-child(1) {
   top: -2rem;

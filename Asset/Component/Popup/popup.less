@@ -1,6 +1,5 @@
 @import '../../../Resource/css/_global';
 
-@color_3: #9500FF;
 @popup_z: 50;
 @popup_opacity: 0.75;
 @popup_time: 0.6s;
@@ -172,6 +171,10 @@
 
   &.mask {
     background: fade(@color_2, 20);
+
+    .box_popup .popup_content i {
+      background: @color_1;
+    }
   }
 
   .box_popup {
@@ -193,7 +196,7 @@
         height: 50*@px;
         margin: auto;
         border-radius: 50%;
-        background: @color_3;
+        background: @color_2;
 
         &:nth-child(1) {
 

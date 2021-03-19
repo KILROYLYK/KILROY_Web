@@ -761,10 +761,12 @@ var FN = /** @class */ (function () {
             var $img = jquery_1.default('<img src="" alt="" />');
             // console.log(e);
             $img.css({
-                position: 'fixed',
-                opacity: 0,
-                'z-index': '-1000',
-                'pointer-events': 'none'
+                position: 'fixed !important',
+                top: '0 !important',
+                left: '0 !important',
+                opacity: '0 !important',
+                'z-index': '-1000 !important',
+                'pointer-events': 'none !important'
             });
             $img.bind('load', function () {
                 width = $img.width();

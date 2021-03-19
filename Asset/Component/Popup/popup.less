@@ -1,6 +1,7 @@
 @import '../../../Resource/css/_global';
 
 @color_3: #9500FF;
+@color_4: #CB85FF;
 @popup_z: 50;
 @popup_opacity: 0.75;
 @popup_time: 0.6s;
@@ -171,7 +172,11 @@
   .transition(all 0.3s);
 
   &.mask {
-    background: fade(@color_2, 30);
+    background: fade(@color_2, 10);
+
+    .box_popup .popup_content i {
+      background: @color_4;
+    }
   }
 
   .box_popup {
@@ -193,7 +198,6 @@
         margin: auto;
         border-radius: 50%;
         background: @color_3;
-
       }
     }
   }

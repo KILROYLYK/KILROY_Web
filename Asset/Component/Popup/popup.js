@@ -176,16 +176,16 @@ var Popup = /** @class */ (function () {
     Popup.load = function (isOpen, showMask) {
         if (isOpen === void 0) { isOpen = true; }
         if (showMask === void 0) { showMask = false; }
-        var _this = this;
+        var _this = this, className = 'mask';
         if (!_this.popup.load) {
             _this.popup.load = new Popup('popup_load', {
                 content: _this.template.load,
-                finish: function (popup) {
-                    showMask && popup.$id.addClass('mask');
+                open: function (data) {
+                    data ? _this.popup.load.$id.addClass(className) : _this.popup.load.$id.removeClass(className);
                 }
             });
         }
-        isOpen ? _this.popup.load.open() : _this.popup.load.close();
+        isOpen ? _this.popup.load.open(showMask) : _this.popup.load.close();
     };
     /**
      * 提示弹窗

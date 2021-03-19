@@ -230,18 +230,19 @@ export default class Popup {
      * @return {void}
      */
     public static load(isOpen: boolean = true, showMask: boolean = false): void {
-        const _this = this;
+        const _this = this,
+            className = 'mask';
         
         if (!_this.popup.load) {
             _this.popup.load = new Popup('popup_load', {
                 content: _this.template.load,
-                finish(popup: Popup) {
-                    showMask && popup.$id.addClass('mask');
+                open(data: boolean) {
+                    data ? _this.popup.load.$id.addClass(className) : _this.popup.load.$id.removeClass(className);
                 }
             });
         }
         
-        isOpen ? _this.popup.load.open() : _this.popup.load.close();
+        isOpen ? _this.popup.load.open(showMask) : _this.popup.load.close();
     }
     
     /**

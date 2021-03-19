@@ -35,6 +35,8 @@ declare module 'popup' {
         
         public static direction(type: 'vertical' | 'horizontal'): void;
         
+        public static load(mask: boolean): void;
+        
         public static toast(message: string): void;
     }
 }

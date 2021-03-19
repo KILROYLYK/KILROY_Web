@@ -169,21 +169,23 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 加载弹窗
-     * @param {boolean} mask 是否显示黑透
+     * @param {boolean} isOpen 是否显示
+     * @param {boolean} showMask 是否显示黑透
      * @return {void}
      */
-    Popup.load = function (mask) {
-        if (mask === void 0) { mask = false; }
+    Popup.load = function (isOpen, showMask) {
+        if (isOpen === void 0) { isOpen = true; }
+        if (showMask === void 0) { showMask = false; }
         var _this = this;
         if (!_this.popup.load) {
             _this.popup.load = new Popup('popup_load', {
                 content: _this.template.load,
                 finish: function (popup) {
-                    mask && popup.$id.addClass('mask');
+                    showMask && popup.$id.addClass('mask');
                 }
             });
         }
-        _this.popup.load.open();
+        isOpen ? _this.popup.load.open() : _this.popup.load.close();
     };
     /**
      * 提示弹窗

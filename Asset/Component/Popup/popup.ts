@@ -225,22 +225,23 @@ export default class Popup {
     
     /**
      * 加载弹窗
-     * @param {boolean} mask 是否显示黑透
+     * @param {boolean} isOpen 是否显示
+     * @param {boolean} showMask 是否显示黑透
      * @return {void}
      */
-    public static load(mask: boolean = false): void {
+    public static load(isOpen: boolean = true, showMask: boolean = false): void {
         const _this = this;
         
         if (!_this.popup.load) {
             _this.popup.load = new Popup('popup_load', {
                 content: _this.template.load,
                 finish(popup: Popup) {
-                    mask && popup.$id.addClass('mask');
+                    showMask && popup.$id.addClass('mask');
                 }
             });
         }
         
-        _this.popup.load.open();
+        isOpen ? _this.popup.load.open() : _this.popup.load.close();
     }
     
     /**

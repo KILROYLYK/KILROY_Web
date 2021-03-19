@@ -189,17 +189,63 @@
     }
 
     .popup_content {
+      @d1: 200*@px;
+      @d2: 140*@px;
+      @d2: 140*@px;
+      @t1: 1.04s;
+      @t2: 0.13s;
+
       i {
         display: block;
         .position();
-        width: 50*@px;
-        height: 50*@px;
+        width: 30*@px;
+        height: 30*@px;
         margin: auto;
         border-radius: 50%;
         background: @color_2;
 
         &:nth-child(1) {
+          top: -@d1;
+          .animation('a_scale' @t1 ease @t2*1 infinite forwards);
+        }
 
+        &:nth-child(2) {
+          top: -@d2;
+          left: @d2;
+          .animation('a_scale' @t1 ease @t2*2 infinite forwards);
+        }
+
+        &:nth-child(3) {
+          left: @d1;
+          .animation('a_scale' @t1 ease @t2*3 infinite forwards);
+        }
+
+        &:nth-child(4) {
+          top: @d2;
+          left: @d2;
+          .animation('a_scale' @t1 ease @t2*4 infinite forwards);
+        }
+
+        &:nth-child(5) {
+          top: @d1;
+          .animation('a_scale' @t1 ease @t2*5 infinite forwards);
+        }
+
+        &:nth-child(6) {
+          top: @d2;
+          left: -@d2;
+          .animation('a_scale' @t1 ease @t2*6 infinite forwards);
+        }
+
+        &:nth-child(7) {
+          left: -@d1;
+          .animation('a_scale' @t1 ease @t2*7 infinite forwards);
+        }
+
+        &:nth-child(8) {
+          top: -@d2;
+          left: -@d2;
+          .animation('a_scale' @t1 ease @t2*8 infinite forwards);
         }
       }
     }
@@ -268,5 +314,18 @@
   }
   to {
     .transform(rotate(0deg) scale(0.5));
+  }
+}
+
+// 缩放
+.creatAnimation(a_scale, .a_scale());
+.a_scale() {
+  from {
+    opacity: 1;
+    .transform(scale(2));
+  }
+  to {
+    .transform(scale(1));
+    opacity: 0.2;
   }
 }

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
-var W = window, D = document, $W = jquery_1.default(W), $B = jquery_1.default('body');
+var W = window, D = document, $W = jquery_1.default(W);
 /**
  * 函数
  */
@@ -743,43 +743,15 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (src, callback) {
-            var _this = this, canvas = D.createElement('canvas'), context = canvas.getContext('2d');
-            var width = 0, height = 0;
-            // try {
-            //     const image = new Image();
-            //
-            //     image.onload = () => {
-            //         width = image.width;
-            //         height = image.height;
-            //         canvas.width = width;
-            //         canvas.height = height;
-            //         context.drawImage(image, 0, 0, width, height);
-            //         callback(canvas.toDataURL('image/png'));
-            //     };
-            //     image.src = src;
-            // } catch (e) {
-            var $img = jquery_1.default('<img src="" alt="" />');
-            // console.log(e);
-            $img.css({
-                position: 'fixed !important',
-                top: '0 !important',
-                left: '0 !important',
-                opacity: '0 !important',
-                'z-index': '-1000 !important',
-                'pointer-events': 'none !important'
-            });
-            $img.bind('load', function () {
-                width = $img.width();
-                height = $img.height();
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage($img[0], 0, 0, width, height);
+            var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
+            image.crossOrigin = 'anonymous';
+            image.onload = function () {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                context.drawImage(image, 0, 0, image.width, image.height);
                 callback(canvas.toDataURL('image/png'));
-                $B.remove($img);
-            });
-            $B.append($img);
-            $img.attr('src', src);
-            // }
+            };
+            image.src = src;
         }
     };
     FN.file = {

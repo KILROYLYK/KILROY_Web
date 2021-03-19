@@ -240,7 +240,7 @@
   transition: all 0.3s;
 }
 .popup_load.mask {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
 }
 .popup_load.mask .box_popup .popup_content i {
   background: #CB85FF;

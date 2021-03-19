@@ -743,15 +743,33 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (src, callback) {
-            var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
-            image.crossOrigin = '*';
-            image.onload = function () {
-                canvas.width = image.width;
-                canvas.height = image.height;
-                context.drawImage(image, 0, 0, image.width, image.height);
-                callback(canvas.toDataURL('image/png'));
-            };
-            image.src = src;
+            var _this = this, canvas = D.createElement('canvas'), context = canvas.getContext('2d');
+            var width = 0, height = 0;
+            try {
+                var image_1 = new Image();
+                image_1.onload = function () {
+                    width = image_1.width;
+                    height = image_1.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.drawImage(image_1, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/png'));
+                };
+                image_1.src = src;
+            }
+            catch (e) {
+                var $img_1 = jquery_1.default('<img src="" alt="" />');
+                console.log(e);
+                $img_1.onload = function () {
+                    width = $img_1.width();
+                    height = $img_1.height();
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.drawImage($img_1[0], 0, 0, width, height);
+                    callback(canvas.toDataURL('image/png'));
+                };
+                $img_1.attr('src', src);
+            }
         }
     };
     FN.file = {

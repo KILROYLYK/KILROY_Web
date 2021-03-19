@@ -606,18 +606,39 @@ export default class FN {
          */
         get(src: string, callback: Function): void {
             const _this = this,
-                image = new Image(),
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
             
-            image.crossOrigin = '*';
-            image.onload = () => {
-                canvas.width = image.width;
-                canvas.height = image.height;
-                context.drawImage(image, 0, 0, image.width, image.height);
-                callback(canvas.toDataURL('image/png'));
-            };
-            image.src = src;
+            let width = 0,
+                height = 0;
+            
+            try {
+                const image = new Image();
+                
+                image.onload = () => {
+                    width = image.width;
+                    height = image.height;
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.drawImage(image, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/png'));
+                };
+                image.src = src;
+            } catch (e) {
+                const $img = $('<img src="" alt="" />');
+                
+                console.log(e);
+                
+                $img.onload = () => {
+                    width = $img.width();
+                    height = $img.height();
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.drawImage($img[0], 0, 0, width, height);
+                    callback(canvas.toDataURL('image/png'));
+                };
+                $img.attr('src', src);
+            }
         }
     };
     public static readonly file: any = { // 文件

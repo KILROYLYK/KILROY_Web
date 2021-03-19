@@ -744,7 +744,7 @@ var FN = /** @class */ (function () {
          */
         get: function (src, callback) {
             var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
-            image.crossOrigin = 'anonymous';
+            image.crossOrigin = '*';
             image.onload = function () {
                 canvas.width = image.width;
                 canvas.height = image.height;

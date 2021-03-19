@@ -425,33 +425,3 @@
 .spritePublic(@sprite:false) when (@sprite=true) {
   .bg('public.png', @public_w*@scale, @public_h*@scale);
 }
-
-// 循环Demo
-//@fn: 100 / 7;
-//.loopFrame(@fi) when (@fi<7) {
-//  .ifFrame(@fi) {
-//
-//  }
-//  .loopFrame(@fi+1);
-//}
-//
-//.ifFrame(@fi) when (@fi=0) {
-//  @i: (@fn + -0.01)%;
-//  from {
-//    .bg('animation_1.png');
-//  }
-//  @{i} {
-//    .bg('animation_1.png');
-//  }
-//}
-//
-//.ifFrame(@fi) when (@fi>0) {
-//  @i: (@fn * @fi + -0.01)%;
-//  @ii: (@fn * @fi)%;
-//  @{i} {
-//    .bg('animation_@{fi}.png');
-//  }
-//  @{ii} {
-//    .bg('animation_@{fi}.png');
-//  }
-//}

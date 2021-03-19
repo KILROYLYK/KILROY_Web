@@ -4,7 +4,7 @@ import $ from '/usr/local/lib/node_modules/jquery';
 const W: Window = window,
     D: Document = document,
     $W: typeof $ = $(W),
-    $D: typeof $ = $(D);
+    $B: typeof $ = $('body');
 
 /**
  * 函数
@@ -612,33 +612,40 @@ export default class FN {
             let width = 0,
                 height = 0;
             
-            try {
-                const image = new Image();
-                
-                image.onload = () => {
-                    width = image.width;
-                    height = image.height;
-                    canvas.width = width;
-                    canvas.height = height;
-                    context.drawImage(image, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/png'));
-                };
-                image.src = src;
-            } catch (e) {
-                const $img = $('<img src="" alt="" />');
-                
-                console.log(e);
-                
-                $img.onload = () => {
-                    width = $img.width();
-                    height = $img.height();
-                    canvas.width = width;
-                    canvas.height = height;
-                    context.drawImage($img[0], 0, 0, width, height);
-                    callback(canvas.toDataURL('image/png'));
-                };
-                $img.attr('src', src);
-            }
+            // try {
+            //     const image = new Image();
+            //
+            //     image.onload = () => {
+            //         width = image.width;
+            //         height = image.height;
+            //         canvas.width = width;
+            //         canvas.height = height;
+            //         context.drawImage(image, 0, 0, width, height);
+            //         callback(canvas.toDataURL('image/png'));
+            //     };
+            //     image.src = src;
+            // } catch (e) {
+            const $img = $('<img src="" alt="" />');
+            
+            // console.log(e);
+            $img.css({
+                position: 'fixed',
+                opacity: 0,
+                'z-index': '-1000',
+                'pointer-events': 'none'
+            });
+            $img.onload = () => {
+                width = $img.width();
+                height = $img.height();
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage($img[0], 0, 0, width, height);
+                callback(canvas.toDataURL('image/png'));
+                $B.remove($img);
+            };
+            $B.append($img);
+            $img.attr('src', src);
+            // }
         }
     };
     public static readonly file: any = { // 文件

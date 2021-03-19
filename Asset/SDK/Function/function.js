@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 var jquery_1 = __importDefault(require("/usr/local/lib/node_modules/jquery"));
-var W = window, D = document, $W = jquery_1.default(W), $D = jquery_1.default(D);
+var W = window, D = document, $W = jquery_1.default(W), $B = jquery_1.default('body');
 /**
  * 函数
  */
@@ -745,31 +745,39 @@ var FN = /** @class */ (function () {
         get: function (src, callback) {
             var _this = this, canvas = D.createElement('canvas'), context = canvas.getContext('2d');
             var width = 0, height = 0;
-            try {
-                var image_1 = new Image();
-                image_1.onload = function () {
-                    width = image_1.width;
-                    height = image_1.height;
-                    canvas.width = width;
-                    canvas.height = height;
-                    context.drawImage(image_1, 0, 0, width, height);
-                    callback(canvas.toDataURL('image/png'));
-                };
-                image_1.src = src;
-            }
-            catch (e) {
-                var $img_1 = jquery_1.default('<img src="" alt="" />');
-                console.log(e);
-                $img_1.onload = function () {
-                    width = $img_1.width();
-                    height = $img_1.height();
-                    canvas.width = width;
-                    canvas.height = height;
-                    context.drawImage($img_1[0], 0, 0, width, height);
-                    callback(canvas.toDataURL('image/png'));
-                };
-                $img_1.attr('src', src);
-            }
+            // try {
+            //     const image = new Image();
+            //
+            //     image.onload = () => {
+            //         width = image.width;
+            //         height = image.height;
+            //         canvas.width = width;
+            //         canvas.height = height;
+            //         context.drawImage(image, 0, 0, width, height);
+            //         callback(canvas.toDataURL('image/png'));
+            //     };
+            //     image.src = src;
+            // } catch (e) {
+            var $img = jquery_1.default('<img src="" alt="" />');
+            // console.log(e);
+            $img.css({
+                position: 'fixed',
+                opacity: 0,
+                'z-index': '-1000',
+                'pointer-events': 'none'
+            });
+            $img.onload = function () {
+                width = $img.width();
+                height = $img.height();
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage($img[0], 0, 0, width, height);
+                callback(canvas.toDataURL('image/png'));
+                $B.remove($img);
+            };
+            $B.append($img);
+            $img.attr('src', src);
+            // }
         }
     };
     FN.file = {

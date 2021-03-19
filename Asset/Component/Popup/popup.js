@@ -149,9 +149,8 @@ var Popup = /** @class */ (function () {
         if (!_this.popup.direction) {
             _this.popup.direction = new Popup('popup_direction', {
                 content: _this.template.direction,
-                isScreenClose: true,
-                finish: function (data) {
-                    data.$id.addClass('popup_' + type);
+                finish: function (popup) {
+                    popup.$id.addClass('popup_' + type);
                 }
             });
         }
@@ -169,6 +168,24 @@ var Popup = /** @class */ (function () {
         });
     };
     /**
+     * 加载弹窗
+     * @param {boolean} mask 是否显示黑透
+     * @return {void}
+     */
+    Popup.load = function (mask) {
+        if (mask === void 0) { mask = false; }
+        var _this = this;
+        if (!_this.popup.load) {
+            _this.popup.load = new Popup('popup_load', {
+                content: _this.template.load,
+                finish: function (popup) {
+                    mask && popup.$id.addClass('mask');
+                }
+            });
+        }
+        _this.popup.load.open();
+    };
+    /**
      * 提示弹窗
      * @param {string} message 提示信息
      * @return {void}
@@ -179,7 +196,6 @@ var Popup = /** @class */ (function () {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.toast,
                 animation: 'bottom',
-                isScreenClose: true,
                 open: function (data) {
                     _this.popup.toast.$content.find('.content').text(data);
                     if (_this.setTime.toast)
@@ -199,15 +215,18 @@ var Popup = /** @class */ (function () {
     // ---------- 静态函数 Start ---------- //
     Popup.setTime = {
         direction: null,
+        load: null,
         toast: null // 提示
     };
     Popup.popup = {
         direction: null,
+        load: null,
         toast: null // 提示
     };
     Popup.template = {
         direction: "<i></i>",
-        toast: "<div class=\"content\"></div>"
+        load: "<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>",
+        toast: "<div class=\"content\"></div>" // 提示
     };
     return Popup;
 }());

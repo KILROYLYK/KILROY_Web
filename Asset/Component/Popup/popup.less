@@ -1,5 +1,6 @@
 @import '../../../Resource/css/_global';
 
+@color_3: #9500FF;
 @popup_z: 50;
 @popup_opacity: 0.75;
 @popup_time: 0.6s;
@@ -131,14 +132,14 @@
   &.popup_vertical {
     .box_popup .popup_content i {
       .transform(rotate(-90deg) scale(0.5));
-      .animation('a_vertical' 5s ease infinite forwards);
+      .animation('a_vertical' 3s ease infinite forwards);
     }
   }
 
   &.popup_horizontal {
     .box_popup .popup_content i {
       .transform(rotate(0deg) scale(0.5));
-      .animation('a_horizontal' 5s ease infinite forwards);
+      .animation('a_horizontal' 3s ease infinite forwards);
     }
   }
 
@@ -148,6 +149,10 @@
     @style: fade(#303136, 100), fade(black, 100);
     .gradientRadial(@style);
 
+    .popup_close {
+      display: none;
+    }
+
     .popup_content {
       i {
         display: block;
@@ -155,6 +160,41 @@
         margin: auto;
         .bg('@{src_img}direction.png', 513*@px, 429*@px, true);
         pointer-events: none;
+      }
+    }
+  }
+}
+
+.popup_load {
+  z-index: 100;
+  background-color: transparent;
+  .transition(all 0.3s);
+
+  &.mask {
+    background: fade(@color_2, 70);
+  }
+
+  .box_popup {
+    .position();
+    width: 100*@px;
+    height: 100*@px;
+    margin: auto;
+    background-color: transparent;
+
+    .popup_close {
+      display: none;
+    }
+
+    .popup_content {
+      i {
+        display: block;
+        .position();
+        width: 20*@px;
+        height: 20*@px;
+        margin: auto;
+        border-radius: 50%;
+        background: @color_3;
+
       }
     }
   }
@@ -170,6 +210,10 @@
     padding: 15*@px 25*@px;
     background: fade(@color_2, 75);
     border-radius: 8*@px;
+
+    .popup_close {
+      display: none;
+    }
 
     .popup_content {
       .content {
@@ -193,7 +237,7 @@
   70% {
     .transform(rotate(0deg) scale(0.5));
   }
-  90%{
+  90% {
     .transform(rotate(0deg) scale(0.5));
   }
   to {
@@ -213,7 +257,7 @@
   70% {
     .transform(rotate(90deg) scale(0.5));
   }
-  90%{
+  90% {
     .transform(rotate(90deg) scale(0.5));
   }
   to {

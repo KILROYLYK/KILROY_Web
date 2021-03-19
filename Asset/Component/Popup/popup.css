@@ -186,11 +186,11 @@
   -o-transform: rotate(-90deg) scale(0.5);
   -ms-transform: rotate(-90deg) scale(0.5);
   transform: rotate(-90deg) scale(0.5);
-  -webkit-animation: 'a_vertical' 5s ease infinite forwards;
-  -moz-animation: 'a_vertical' 5s ease infinite forwards;
-  -o-animation: 'a_vertical' 5s ease infinite forwards;
-  -ms-animation: 'a_vertical' 5s ease infinite forwards;
-  animation: 'a_vertical' 5s ease infinite forwards;
+  -webkit-animation: 'a_vertical' 3s ease infinite forwards;
+  -moz-animation: 'a_vertical' 3s ease infinite forwards;
+  -o-animation: 'a_vertical' 3s ease infinite forwards;
+  -ms-animation: 'a_vertical' 3s ease infinite forwards;
+  animation: 'a_vertical' 3s ease infinite forwards;
 }
 .popup_direction.popup_horizontal .box_popup .popup_content i {
   -webkit-transform: rotate(0deg) scale(0.5);
@@ -198,11 +198,11 @@
   -o-transform: rotate(0deg) scale(0.5);
   -ms-transform: rotate(0deg) scale(0.5);
   transform: rotate(0deg) scale(0.5);
-  -webkit-animation: 'a_horizontal' 5s ease infinite forwards;
-  -moz-animation: 'a_horizontal' 5s ease infinite forwards;
-  -o-animation: 'a_horizontal' 5s ease infinite forwards;
-  -ms-animation: 'a_horizontal' 5s ease infinite forwards;
-  animation: 'a_horizontal' 5s ease infinite forwards;
+  -webkit-animation: 'a_horizontal' 3s ease infinite forwards;
+  -moz-animation: 'a_horizontal' 3s ease infinite forwards;
+  -o-animation: 'a_horizontal' 3s ease infinite forwards;
+  -ms-animation: 'a_horizontal' 3s ease infinite forwards;
+  animation: 'a_horizontal' 3s ease infinite forwards;
 }
 .popup_direction .box_popup {
   width: 100%;
@@ -212,6 +212,9 @@
   background: -o-radial-gradient(#303136, #000000) ;
   background: -ms-radial-gradient(#303136, #000000) ;
   background: radial-gradient(#303136, #000000) ;
+}
+.popup_direction .box_popup .popup_close {
+  display: none;
 }
 .popup_direction .box_popup .popup_content i {
   display: block;
@@ -227,6 +230,45 @@
   background-size: 5.13rem 4.29rem;
   pointer-events: none;
 }
+.popup_load {
+  z-index: 100;
+  background-color: transparent;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.popup_load.mask {
+  background: rgba(0, 0, 0, 0.7);
+}
+.popup_load .box_popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 1rem;
+  height: 1rem;
+  margin: auto;
+  background-color: transparent;
+}
+.popup_load .box_popup .popup_close {
+  display: none;
+}
+.popup_load .box_popup .popup_content i {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 0.2rem;
+  height: 0.2rem;
+  margin: auto;
+  border-radius: 50%;
+  background: #9500FF;
+}
 .popup_toast {
   z-index: 60;
   background: rgba(0, 0, 0, 0);
@@ -237,6 +279,9 @@
   padding: 0.15rem 0.25rem;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 0.08rem;
+}
+.popup_toast .box_popup .popup_close {
+  display: none;
 }
 .popup_toast .box_popup .popup_content .content {
   position: relative;

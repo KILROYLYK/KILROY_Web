@@ -11,7 +11,7 @@ export interface PopupConfig { // 弹窗配置
     content?: HTMLElement | string; // 内容
     animation?: 'top' | 'bottom' | 'left' | 'right'; // 动画
     isScreenClose?: boolean; // 是否全屏关闭
-    finish?(data: Popup): void; // 完成回调
+    finish?(popup: Popup): void; // 完成回调
     open?(data: any): void; // 打开回调
     close?(): void; // 关闭回调
 }
@@ -175,15 +175,18 @@ export default class Popup {
     // ---------- 静态函数 Start ---------- //
     private static readonly setTime: any = { // 定时器
         direction: null, // 锁定方向
+        load: null, // 加载
         toast: null // 提示
     };
     private static readonly popup: any = { // 弹窗
         direction: null, // 锁定方向
+        load: null, // 加载
         toast: null // 提示
     };
     private static readonly template: any = { // 模板
-        direction: `<i></i>`,
-        toast: `<div class="content"></div>`
+        direction: `<i></i>`, // 锁定方向
+        load: `<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>`, // 加载
+        toast: `<div class="content"></div>` // 提示
     };
     
     /**
@@ -197,9 +200,8 @@ export default class Popup {
         if (!_this.popup.direction) {
             _this.popup.direction = new Popup('popup_direction', {
                 content: _this.template.direction,
-                isScreenClose: true,
-                finish(data: Popup) {
-                    data.$id.addClass('popup_' + type);
+                finish(popup: Popup) {
+                    popup.$id.addClass('popup_' + type);
                 }
             });
         }
@@ -222,6 +224,26 @@ export default class Popup {
     }
     
     /**
+     * 加载弹窗
+     * @param {boolean} mask 是否显示黑透
+     * @return {void}
+     */
+    public static load(mask: boolean = false): void {
+        const _this = this;
+        
+        if (!_this.popup.load) {
+            _this.popup.load = new Popup('popup_load', {
+                content: _this.template.load,
+                finish(popup: Popup) {
+                    mask && popup.$id.addClass('mask');
+                }
+            });
+        }
+        
+        _this.popup.load.open();
+    }
+    
+    /**
      * 提示弹窗
      * @param {string} message 提示信息
      * @return {void}
@@ -233,7 +255,6 @@ export default class Popup {
             _this.popup.toast = new Popup('popup_toast', {
                 content: _this.template.toast,
                 animation: 'bottom',
-                isScreenClose: true,
                 open(data: any): void {
                     _this.popup.toast.$content.find('.content').text(data);
                     

@@ -1,7 +1,6 @@
 @import '../../../Resource/css/_global';
 
 @color_3: #9500FF;
-@color_4: #CB85FF;
 @popup_z: 50;
 @popup_opacity: 0.75;
 @popup_time: 0.6s;
@@ -173,16 +172,13 @@
 
   &.mask {
     background: fade(@color_2, 20);
-
-    .box_popup .popup_content i {
-      background: @color_4;
-    }
   }
 
   .box_popup {
-    width: 100*@px;
-    height: 100*@px;
+    width: 300*@px;
+    height: 300*@px;
     margin: auto;
+    .transform(translate(-50%, -50%) scale(0.3));
     background-color: transparent;
 
     .popup_close {
@@ -193,11 +189,15 @@
       i {
         display: block;
         .position();
-        width: 20*@px;
-        height: 20*@px;
+        width: 50*@px;
+        height: 50*@px;
         margin: auto;
         border-radius: 50%;
         background: @color_3;
+
+        &:nth-child(1) {
+
+        }
       }
     }
   }

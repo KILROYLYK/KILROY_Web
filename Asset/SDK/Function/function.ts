@@ -91,26 +91,26 @@ export default class FN {
         
         /**
          * 获取随机数
-         * @param {RangeConfig} data 范围
+         * @param {RangeConfig} range 范围
          * @return {number} 返回随机数
          */
-        random(data: RangeConfig): number {
+        random(range: RangeConfig): number {
             const _this = this;
             
-            return Math.floor(Math.random() * (data.max - data.min + 1) + data.min);
+            return Math.floor(Math.random() * (range.max - range.min + 1) + range.min);
         },
         
         /**
          * 获取概率下标
-         * @param {RangeConfig[]} data 范围数组
+         * @param {RangeConfig[]} range 范围数组
          * @return {number|null} 返回随机数
          */
-        probability(data: RangeConfig[]): any {
+        probability(range: RangeConfig[]): any {
             const _this = this,
                 random = Math.random();
             
-            for (let i = 0, n = data.length; i < n; i++) {
-                if (random >= data[i].min && (data[i].max === 1 ? random <= 1 : random < data[i].max)) return i;
+            for (let i = 0, n = range.length; i < n; i++) {
+                if (random >= range[i].min && (range[i].max === 1 ? random <= 1 : random < range[i].max)) return i;
             }
             
             return null;

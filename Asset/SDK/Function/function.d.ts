@@ -23,8 +23,6 @@ declare module 'fn' {
         
         public static getTime(time: number | string): string;
         
-        public static getRandomInt(n1: number, n2: number): number;
-        
         public static getRem(): number;
         
         public static cached(callback: Function): Function;

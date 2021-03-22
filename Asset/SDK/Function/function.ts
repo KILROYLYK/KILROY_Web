@@ -5,6 +5,11 @@ const W: Window = window,
     D: Document = document,
     $W: typeof $ = $(W);
 
+export interface RangeConfig { // 范围配置
+    min: number; // 范围最小值
+    max: number; // 范围最大值
+}
+
 /**
  * 函数
  */
@@ -82,6 +87,62 @@ export default class FN {
                     Math.pow(10, m);
             
             return Number(result.toFixed(decimal));
+        },
+        
+        /**
+         * 获取随机数
+         * @param {RangeConfig} data 范围
+         * @return {number} 返回随机数
+         */
+        random(data: RangeConfig): number {
+            const _this = this;
+            
+            return Math.floor(Math.random() * (data.max - data.min + 1) + data.min);
+        },
+        
+        /**
+         * 获取概率下标
+         * @param {RangeConfig[]} data 范围数组
+         * @return {number|null} 返回随机数
+         */
+        probability(data: RangeConfig[]): any {
+            const _this = this,
+                random = Math.random();
+            
+            for (let i = 0, n = data.length; i < n; i++) {
+                if (random >= data[i].min && (data[i].max === 1 ? random <= 1 : random < data[i].max)) return i;
+            }
+            
+            return null;
+        },
+    
+        /**
+         * 初始化概率数组
+         * @param {string} name 概率值名称
+         * @param {any[]} data 数据数组
+         * @return {RangeConfig[]} 概率数组
+         */
+        initProbability(name: string, data: any[]): RangeConfig[] {
+            const _this = this,
+                max = data.reduce((total: number, v: any, i: number, a: any[]) => {
+                    return total += v[name];
+                }),
+                list = [] as RangeConfig[];
+            
+            let probability = 0;
+            
+            data.forEach((v: any, i: number, a: any[]) => {
+                const range = v[name] / max;
+                
+                list.push({
+                    min: probability,
+                    max: probability + range
+                });
+                
+                probability += range;
+            });
+            
+            return list;
         }
     };
     public static readonly agent: any = { // 代理信息
@@ -687,18 +748,6 @@ export default class FN {
         if (minute.length < 2) minute = '0' + minute;
         
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
-    }
-    
-    /**
-     * 获取随机整数
-     * @param {number} n1 范围1
-     * @param {number} n2 范围2
-     * @return {number} 返回随机数
-     */
-    public static getRandomInt(n1: number, n2: number): number {
-        const _this = this;
-        
-        return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
     }
     
     /**

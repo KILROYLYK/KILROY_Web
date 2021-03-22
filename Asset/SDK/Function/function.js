@@ -57,16 +57,6 @@ var FN = /** @class */ (function () {
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
     };
     /**
-     * 获取随机整数
-     * @param {number} n1 范围1
-     * @param {number} n2 范围2
-     * @return {number} 返回随机数
-     */
-    FN.getRandomInt = function (n1, n2) {
-        var _this = this;
-        return Math.floor(Math.random() * (n2 - n1 + 1) + n1);
-    };
-    /**
      * 获取当前Rem
      * @return {number} rem
      */
@@ -266,6 +256,49 @@ var FN = /** @class */ (function () {
                 Number(r2.replace('.', '')) *
                 Math.pow(10, m);
             return Number(result.toFixed(decimal));
+        },
+        /**
+         * 获取随机数
+         * @param {RangeConfig} data 范围
+         * @return {number} 返回随机数
+         */
+        random: function (data) {
+            var _this = this;
+            return Math.floor(Math.random() * (data.max - data.min + 1) + data.min);
+        },
+        /**
+         * 获取概率下标
+         * @param {RangeConfig[]} data 范围数组
+         * @return {number|null} 返回随机数
+         */
+        probability: function (data) {
+            var _this = this, random = Math.random();
+            for (var i = 0, n = data.length; i < n; i++) {
+                if (random >= data[i].min && (data[i].max === 1 ? random <= 1 : random < data[i].max))
+                    return i;
+            }
+            return null;
+        },
+        /**
+         * 初始化概率数组
+         * @param {string} name 概率值名称
+         * @param {any[]} data 数据数组
+         * @return {RangeConfig[]} 概率数组
+         */
+        initProbability: function (name, data) {
+            var _this = this, max = data.reduce(function (total, v, i, a) {
+                return total += v[name];
+            }), list = [];
+            var probability = 0;
+            data.forEach(function (v, i, a) {
+                var range = v[name] / max;
+                list.push({
+                    min: probability,
+                    max: probability + range
+                });
+                probability += range;
+            });
+            return list;
         }
     };
     FN.agent = {

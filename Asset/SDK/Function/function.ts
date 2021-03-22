@@ -129,7 +129,7 @@ export default class FN {
             let max = 0,
                 probability = 0;
             
-            data.map((v: any, i: number, a: any[]) => {
+            data.forEach((v: any, i: number, a: any[]) => {
                 max += v[name];
             });
             data.forEach((v: any, i: number, a: any[]) => {

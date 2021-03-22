@@ -286,10 +286,11 @@ var FN = /** @class */ (function () {
          * @return {RangeConfig[]} 概率数组
          */
         initProbability: function (name, data) {
-            var _this = this, max = data.reduce(function (total, v, i, a) {
-                return total += v[name];
-            }), list = [];
-            var probability = 0;
+            var _this = this, list = [];
+            var max = 0, probability = 0;
+            data.map(function (v, i, a) {
+                max += v[name];
+            });
             data.forEach(function (v, i, a) {
                 var range = v[name] / max;
                 list.push({

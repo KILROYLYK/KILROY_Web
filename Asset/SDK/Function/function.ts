@@ -115,7 +115,7 @@ export default class FN {
             
             return null;
         },
-    
+        
         /**
          * 初始化概率数组
          * @param {string} name 概率值名称
@@ -124,13 +124,14 @@ export default class FN {
          */
         initProbability(name: string, data: any[]): RangeConfig[] {
             const _this = this,
-                max = data.reduce((total: number, v: any, i: number, a: any[]) => {
-                    return total += v[name];
-                }),
                 list = [] as RangeConfig[];
             
-            let probability = 0;
+            let max = 0,
+                probability = 0;
             
+            data.map((v: any, i: number, a: any[]) => {
+                max += v[name];
+            });
             data.forEach((v: any, i: number, a: any[]) => {
                 const range = v[name] / max;
                 

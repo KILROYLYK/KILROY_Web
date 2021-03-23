@@ -673,7 +673,7 @@
     -o-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
-    opacity: 0.2;
+    opacity: 0;
   }
 }
 @-moz-keyframes a_scale {
@@ -691,7 +691,7 @@
     -o-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
-    opacity: 0.2;
+    opacity: 0;
   }
 }
 @-webkit-keyframes a_scale {
@@ -709,7 +709,7 @@
     -o-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
-    opacity: 0.2;
+    opacity: 0;
   }
 }
 @-o-keyframes a_scale {
@@ -727,7 +727,7 @@
     -o-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
-    opacity: 0.2;
+    opacity: 0;
   }
 }
 /*# sourceMappingURL=popup.css.map */

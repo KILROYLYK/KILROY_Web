@@ -2,6 +2,11 @@
  * 函数
  */
 declare module 'fn' {
+    export interface ProbabilityConfig { // 概率配置
+        min: number; // 范围最小值
+        max: number; // 范围最大值
+    }
+    
     /**
      * FN
      */

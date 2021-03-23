@@ -259,16 +259,17 @@ var FN = /** @class */ (function () {
         },
         /**
          * 获取随机数
-         * @param {RangeConfig} range 范围
+         * @param {number} r1 范围1
+         * @param {number} r2 范围2
          * @return {number} 返回随机数
          */
-        random: function (range) {
+        random: function (r1, r2) {
             var _this = this;
-            return Math.floor(Math.random() * (range.max - range.min + 1) + range.min);
+            return Math.floor(Math.random() * (r2 - r1 + 1) + r1);
         },
         /**
          * 获取概率下标
-         * @param {RangeConfig[]} range 范围数组
+         * @param {ProbabilityConfig[]} range 范围数组
          * @return {number|null} 返回随机数
          */
         probability: function (range) {
@@ -283,12 +284,12 @@ var FN = /** @class */ (function () {
          * 初始化概率数组
          * @param {string} name 概率值名称
          * @param {any[]} data 数据数组
-         * @return {RangeConfig[]} 概率数组
+         * @return {ProbabilityConfig[]} 概率数组
          */
         initProbability: function (name, data) {
             var _this = this, list = [];
             var max = 0, probability = 0;
-            data.map(function (v, i, a) {
+            data.forEach(function (v, i, a) {
                 max += v[name];
             });
             data.forEach(function (v, i, a) {

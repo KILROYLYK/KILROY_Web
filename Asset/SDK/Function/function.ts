@@ -5,7 +5,7 @@ const W: Window = window,
     D: Document = document,
     $W: typeof $ = $(W);
 
-export interface RangeConfig { // 范围配置
+export interface ProbabilityConfig { // 概率配置
     min: number; // 范围最小值
     max: number; // 范围最大值
 }
@@ -88,24 +88,25 @@ export default class FN {
             
             return Number(result.toFixed(decimal));
         },
-        
+    
         /**
          * 获取随机数
-         * @param {RangeConfig} range 范围
+         * @param {number} r1 范围1
+         * @param {number} r2 范围2
          * @return {number} 返回随机数
          */
-        random(range: RangeConfig): number {
+        random(r1: number, r2:number): number {
             const _this = this;
-            
-            return Math.floor(Math.random() * (range.max - range.min + 1) + range.min);
+        
+            return Math.floor(Math.random() * (r2 - r1 + 1) + r1);
         },
         
         /**
          * 获取概率下标
-         * @param {RangeConfig[]} range 范围数组
+         * @param {ProbabilityConfig[]} range 范围数组
          * @return {number|null} 返回随机数
          */
-        probability(range: RangeConfig[]): any {
+        probability(range: ProbabilityConfig[]): any {
             const _this = this,
                 random = Math.random();
             
@@ -120,11 +121,11 @@ export default class FN {
          * 初始化概率数组
          * @param {string} name 概率值名称
          * @param {any[]} data 数据数组
-         * @return {RangeConfig[]} 概率数组
+         * @return {ProbabilityConfig[]} 概率数组
          */
-        initProbability(name: string, data: any[]): RangeConfig[] {
+        initProbability(name: string, data: any[]): ProbabilityConfig[] {
             const _this = this,
-                list = [] as RangeConfig[];
+                list = [] as ProbabilityConfig[];
             
             let max = 0,
                 probability = 0;

@@ -27,7 +27,7 @@ var Adaptation = /** @class */ (function () {
         var _this = this;
         function_1.default.resize(function () {
             _this.changeRem(config);
-        }, config.time || 300);
+        }, config.time || 100);
     };
     /**
      * 改变Rem

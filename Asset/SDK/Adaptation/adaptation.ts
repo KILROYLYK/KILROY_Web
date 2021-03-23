@@ -32,7 +32,7 @@ export default class Adaptation {
         
         FN.resize(() => {
             _this.changeRem(config);
-        }, config.time || 300);
+        }, config.time || 100);
     }
     
     /**

@@ -786,7 +786,7 @@ export default class FN {
      * @param {number} time 间隔时间
      * @return {void}
      */
-    public static resize(callback: Function, time: number = 100): void {
+    public static resize(callback: Function, time: number = 150): void {
         const _this = this,
             resize = () => {
                 if (setTime) clearTimeout(setTime);

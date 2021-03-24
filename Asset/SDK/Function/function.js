@@ -215,7 +215,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         add: function (n1, n2, decimal) {
-            var _this = this, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
+            var _this = FN, arg1 = n1.toString(), arg2 = n2.toString(), arg1Arr = arg1.split('.'), arg2Arr = arg2.split('.'), d1 = arg1Arr.length === 2 ? arg1Arr[1] : '', d2 = arg2Arr.length === 2 ? arg2Arr[1] : '', maxLen = Math.max(d1.length, d2.length), m = Math.pow(10, maxLen), result = Number(((n1 * m + n2 * m) / m).toFixed(maxLen));
             return Number(result.toFixed(decimal));
         },
         /**
@@ -226,7 +226,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         sub: function (n1, n2, decimal) {
-            var _this = this;
+            var _this = FN;
             return _this.calc.add(n1, -Number(n2), decimal);
         },
         /**
@@ -237,7 +237,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         mul: function (n1, n2, decimal) {
-            var _this = this, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
+            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
                 (r2.split('.')[1] ? r2.split('.')[1].length : 0), result = Number(r1.replace('.', '')) *
                 Number(r2.replace('.', '')) /
                 Math.pow(10, m);
@@ -251,7 +251,7 @@ var FN = /** @class */ (function () {
          * @return {number} 结果
          */
         div: function (n1, n2, decimal) {
-            var _this = this, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
+            var _this = FN, r1 = n1.toString(), r2 = n2.toString(), m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
                 (r1.split('.')[1] ? r1.split('.')[1].length : 0), result = Number(r1.replace('.', '')) /
                 Number(r2.replace('.', '')) *
                 Math.pow(10, m);
@@ -264,7 +264,7 @@ var FN = /** @class */ (function () {
          * @return {number} 返回随机数
          */
         random: function (r1, r2) {
-            var _this = this;
+            var _this = FN;
             return Math.floor(Math.random() * (r2 - r1 + 1) + r1);
         },
         /**
@@ -273,7 +273,7 @@ var FN = /** @class */ (function () {
          * @return {number|null} 返回随机数
          */
         probability: function (range) {
-            var _this = this, random = Math.random();
+            var _this = FN, random = Math.random();
             for (var i = 0, n = range.length; i < n; i++) {
                 if (random >= range[i].min && (range[i].max === 1 ? random <= 1 : random < range[i].max))
                     return i;
@@ -287,7 +287,7 @@ var FN = /** @class */ (function () {
          * @return {ProbabilityConfig[]} 概率数组
          */
         initProbability: function (name, data) {
-            var _this = this, list = [];
+            var _this = FN, list = [];
             var max = 0, probability = 0;
             data.forEach(function (v, i, a) {
                 max += v[name];
@@ -309,7 +309,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回客户端信息
          */
         client: function () {
-            var _this = this, reg = {
+            var _this = FN, reg = {
                 pc: /Windows|Mac|Linux/i,
                 mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
             }, agent = W.navigator.userAgent.toLowerCase();
@@ -327,7 +327,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回系统信息
          */
         system: function () {
-            var _this = this, agent = W.navigator.userAgent.toLowerCase();
+            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
             if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
                 return 'Android';
             }
@@ -357,7 +357,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回浏览器信息
          */
         browser: function () {
-            var _this = this, agent = W.navigator.userAgent.toLowerCase();
+            var _this = FN, agent = W.navigator.userAgent.toLowerCase();
             if ((/Huawei/i).test(agent)) {
                 // Huawei 特殊判断
                 if ((/MicroMessenger/i).test(agent)) {
@@ -413,7 +413,7 @@ var FN = /** @class */ (function () {
         set: function (name, value, day, domain) {
             if (day === void 0) { day = 0; }
             if (domain === void 0) { domain = '/'; }
-            var _this = this;
+            var _this = FN;
             var time = '';
             if (day > 0) {
                 time = new Date();
@@ -428,7 +428,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回value|null
          */
         get: function (name) {
-            var _this = this, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = D.cookie.match(reg);
+            var _this = FN, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'), value = D.cookie.match(reg);
             if (value !== null)
                 return decodeURIComponent(value[2]);
             else
@@ -442,7 +442,7 @@ var FN = /** @class */ (function () {
          */
         del: function (name, domain) {
             if (domain === void 0) { domain = '/'; }
-            var _this = this, exp = new Date(), value = _this.cookie.get(name);
+            var _this = FN, exp = new Date(), value = _this.cookie.get(name);
             exp.setTime(exp.getTime() - 1);
             if (value !== null)
                 D.cookie = name + '=' + value + ';expires=' + exp.toUTCString() + ';path=' + domain;
@@ -457,7 +457,7 @@ var FN = /** @class */ (function () {
          */
         toParam: function (object, hasQuestion) {
             if (hasQuestion === void 0) { hasQuestion = false; }
-            var _this = this;
+            var _this = FN;
             var param = '';
             for (var key in object)
                 param += (param === '' ? '' : '&') + key + '=' + object[key];
@@ -471,7 +471,7 @@ var FN = /** @class */ (function () {
          */
         getParam: function (name, url) {
             if (url === void 0) { url = W.location.search.substr(1); }
-            var _this = this, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
+            var _this = FN, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             var param = null;
             if ((/\?/i).test(url))
                 url = url.split('?')[1];
@@ -488,7 +488,7 @@ var FN = /** @class */ (function () {
          */
         getAllParam: function (url) {
             if (url === void 0) { url = W.location.search.substr(1); }
-            var _this = this, param = {};
+            var _this = FN, param = {};
             var u = '';
             if (!url)
                 return param;
@@ -512,7 +512,7 @@ var FN = /** @class */ (function () {
          */
         addParam: function (object, url) {
             if (url === void 0) { url = W.location.href; }
-            var _this = this, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
+            var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
             if (Object.keys(object).length === 0)
                 return url;
@@ -552,7 +552,7 @@ var FN = /** @class */ (function () {
          */
         delParam: function (array, url) {
             if (url === void 0) { url = W.location.href; }
-            var _this = this, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
+            var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '';
             if (array.length === 0)
                 return url;
@@ -577,7 +577,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url的hash值
          */
         getHash: function () {
-            var _this = this, hash = decodeURIComponent(W.location.hash);
+            var _this = FN, hash = decodeURIComponent(W.location.hash);
             return hash.substring(1, hash.length);
         }
     };
@@ -589,7 +589,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         traversing: function (array, callback) {
-            var _this = this;
+            var _this = FN;
             for (var i = 0, n = array.length; i < n; i++)
                 callback(i, array[i]);
         },
@@ -600,7 +600,7 @@ var FN = /** @class */ (function () {
          * @return {array} 返回排序后数组
          */
         sort: function (array, name) {
-            var _this = this;
+            var _this = FN;
             if (array.length === 0)
                 return [];
             if (!(array[0] instanceof Object) || !name)
@@ -615,7 +615,7 @@ var FN = /** @class */ (function () {
          * @return {array} 返回乱序后数组
          */
         random: function (array) {
-            var _this = this;
+            var _this = FN;
             return array.sort(function (x, y) {
                 return Math.random() > 0.5 ? -1 : 1;
             });
@@ -626,7 +626,7 @@ var FN = /** @class */ (function () {
          * @return {array} 新数组
          */
         uniq: function (array) {
-            var _this = this, newArray = [], length = array.length;
+            var _this = FN, newArray = [], length = array.length;
             for (var i = 0; i < length; i++) {
                 for (var j = i + 1; j < length; j++) {
                     if (array[i] === array[j]) {
@@ -647,7 +647,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         traversing: function (object, callback) {
-            var _this = this;
+            var _this = FN;
             for (var key in object) {
                 callback(key, object[key]);
             }
@@ -658,7 +658,7 @@ var FN = /** @class */ (function () {
          * @return {object} 返回排序后对象
          */
         sort: function (object) {
-            var _this = this, newObject = {};
+            var _this = FN, newObject = {};
             Object.keys(object).sort().forEach(function (key) {
                 newObject[key] = object[key];
             });
@@ -670,7 +670,7 @@ var FN = /** @class */ (function () {
          * @return {object} 新建的对象
          */
         copy: function (object) {
-            var _this = this;
+            var _this = FN;
             return JSON.parse(JSON.stringify(object));
         }
     };
@@ -682,7 +682,7 @@ var FN = /** @class */ (function () {
          * @return {boolean} 是否含有Class
          */
         has: function (element, name) {
-            var _this = this, reg = /\s/g, // 查询全局空字符串
+            var _this = FN, reg = /\s/g, // 查询全局空字符串
             className = name || '';
             if (className.replace(reg, '').length === 0)
                 return false;
@@ -695,7 +695,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         add: function (element, name) {
-            var _this = this;
+            var _this = FN;
             if (_this.class.hasClass(element, name))
                 return;
             element.className = element.className === '' ? name : element.className + ' ' + name;
@@ -707,7 +707,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         remove: function (element, name) {
-            var _this = this, reg1 = /[\t\r\n]/g, // 查询空格
+            var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
             reg2 = /^\s+|\s+$/g; // 查询空格
             if (!_this.class.hasClass(element, name))
                 return;
@@ -726,7 +726,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         set: function ($dom, style) {
-            var _this = this;
+            var _this = FN;
             $dom.css({
                 '-webkit-transform': style,
                 '-moz-transform': style,
@@ -741,7 +741,7 @@ var FN = /** @class */ (function () {
          * @return {*}
          */
         get: function ($dom) {
-            var _this = this, reg = /[^0-9\-,]/g, matrix = $dom.css('transform').replace(reg, '').split(',');
+            var _this = FN, reg = /[^0-9\-,]/g, matrix = $dom.css('transform').replace(reg, '').split(',');
             return {
                 x: parseFloat(matrix[4]) || 0,
                 y: parseFloat(matrix[5]) || 0
@@ -755,7 +755,7 @@ var FN = /** @class */ (function () {
          * @return {boolean} 是否是图片
          */
         is: function (name) {
-            var _this = this, reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            var _this = FN, reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
             return reg.test(name);
         },
         /**
@@ -765,7 +765,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         size: function (src, callback) {
-            var _this = this, image = new Image();
+            var _this = FN, image = new Image();
             image.src = src;
             image.onload = function () {
                 callback(image.width, image.height);
@@ -778,7 +778,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (src, callback) {
-            var _this = this, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
+            var _this = FN, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
             image.crossOrigin = '*';
             image.onload = function () {
                 canvas.width = image.width;
@@ -797,7 +797,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (file, callback) {
-            var _this = this, reader = new FileReader();
+            var _this = FN, reader = new FileReader();
             reader.onload = function (e) {
                 callback(e.target);
             };

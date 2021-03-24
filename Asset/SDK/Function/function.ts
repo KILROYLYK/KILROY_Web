@@ -23,7 +23,7 @@ export default class FN {
          * @return {number} 结果
          */
         add(n1: number, n2: number, decimal: number): number {
-            const _this = this,
+            const _this = FN,
                 arg1 = n1.toString(),
                 arg2 = n2.toString(),
                 arg1Arr = arg1.split('.'),
@@ -45,7 +45,7 @@ export default class FN {
          * @return {number} 结果
          */
         sub(n1: number, n2: number, decimal: number): number {
-            const _this = this;
+            const _this = FN;
             return _this.calc.add(n1, -Number(n2), decimal);
         },
         
@@ -57,7 +57,7 @@ export default class FN {
          * @return {number} 结果
          */
         mul(n1: number, n2: number, decimal: number): number {
-            const _this = this,
+            const _this = FN,
                 r1 = n1.toString(),
                 r2 = n2.toString(),
                 m = (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
@@ -77,7 +77,7 @@ export default class FN {
          * @return {number} 结果
          */
         div(n1: number, n2: number, decimal: number): number {
-            const _this = this,
+            const _this = FN,
                 r1 = n1.toString(),
                 r2 = n2.toString(),
                 m = (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
@@ -96,7 +96,7 @@ export default class FN {
          * @return {number} 返回随机数
          */
         random(r1: number, r2:number): number {
-            const _this = this;
+            const _this = FN;
         
             return Math.floor(Math.random() * (r2 - r1 + 1) + r1);
         },
@@ -107,7 +107,7 @@ export default class FN {
          * @return {number|null} 返回随机数
          */
         probability(range: ProbabilityConfig[]): any {
-            const _this = this,
+            const _this = FN,
                 random = Math.random();
             
             for (let i = 0, n = range.length; i < n; i++) {
@@ -124,7 +124,7 @@ export default class FN {
          * @return {ProbabilityConfig[]} 概率数组
          */
         initProbability(name: string, data: any[]): ProbabilityConfig[] {
-            const _this = this,
+            const _this = FN,
                 list = [] as ProbabilityConfig[];
             
             let max = 0,
@@ -153,7 +153,7 @@ export default class FN {
          * @return {string} 返回客户端信息
          */
         client(): string {
-            const _this = this,
+            const _this = FN,
                 reg = {
                     pc: /Windows|Mac|Linux/i,
                     mobile: /Mobile|Android|webOS|Windows Phone|BlackBerry|SymbianOS|\(i[^;]+;( U;)? CPU.+Mac OS X/i
@@ -175,7 +175,7 @@ export default class FN {
          * @return {string} 返回系统信息
          */
         system(): string {
-            const _this = this,
+            const _this = FN,
                 agent = W.navigator.userAgent.toLowerCase();
             
             if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
@@ -203,7 +203,7 @@ export default class FN {
          * @return {string} 返回浏览器信息
          */
         browser(): string {
-            const _this = this,
+            const _this = FN,
                 agent = W.navigator.userAgent.toLowerCase();
             
             if ((/Huawei/i).test(agent)) {
@@ -249,7 +249,7 @@ export default class FN {
          * @return {void}
          */
         set(name: string, value: string, day: number = 0, domain: string = '/'): void {
-            const _this = this;
+            const _this = FN;
             
             let time = '' as any;
             
@@ -268,7 +268,7 @@ export default class FN {
          * @return {string|null} 返回value|null
          */
         get(name: string): string | null {
-            const _this = this,
+            const _this = FN,
                 reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)'),
                 value = D.cookie.match(reg);
             
@@ -282,7 +282,7 @@ export default class FN {
          * @return {void}
          */
         del(name: string, domain: string = '/'): void {
-            const _this = this,
+            const _this = FN,
                 exp = new Date(),
                 value = _this.cookie.get(name);
             
@@ -298,7 +298,7 @@ export default class FN {
          * @return {string} 参数
          */
         toParam(object: any, hasQuestion: boolean = false): string {
-            const _this = this;
+            const _this = FN;
             
             let param = '';
             
@@ -314,7 +314,7 @@ export default class FN {
          * @return {string|null} 返回Url参数的value
          */
         getParam(name: string, url: string = W.location.search.substr(1)): string | null {
-            const _this = this,
+            const _this = FN,
                 reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             
             let param = null as any;
@@ -332,7 +332,7 @@ export default class FN {
          * @return {array|null} 返回Url参数数组
          */
         getAllParam(url: string = W.location.search.substr(1)): any {
-            const _this = this,
+            const _this = FN,
                 param = {} as any;
             
             let u = '' as any;
@@ -358,7 +358,7 @@ export default class FN {
          * @return {string} 返回Url
          */
         addParam(object: any, url: string = W.location.href): string {
-            const _this = this,
+            const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
             
@@ -401,7 +401,7 @@ export default class FN {
          * @return {string} 返回Url
          */
         delParam(array: string[], url = W.location.href): string {
-            const _this = this,
+            const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
             
@@ -431,7 +431,7 @@ export default class FN {
          * @return {string} 返回Url的hash值
          */
         getHash(): string {
-            const _this = this,
+            const _this = FN,
                 hash = decodeURIComponent(W.location.hash);
             
             return hash.substring(1, hash.length);
@@ -445,7 +445,7 @@ export default class FN {
          * @return {void}
          */
         traversing(array: any[], callback: Function): void {
-            const _this = this;
+            const _this = FN;
             
             for (let i = 0, n = array.length; i < n; i++) callback(i, array[i]);
         },
@@ -457,7 +457,7 @@ export default class FN {
          * @return {array} 返回排序后数组
          */
         sort(array: any[], name?: string): any[] {
-            const _this = this;
+            const _this = FN;
             
             if (array.length === 0) return [];
             
@@ -474,7 +474,7 @@ export default class FN {
          * @return {array} 返回乱序后数组
          */
         random(array: any[]): any[] {
-            const _this = this;
+            const _this = FN;
             
             return array.sort((x, y) => {
                 return Math.random() > 0.5 ? -1 : 1;
@@ -487,7 +487,7 @@ export default class FN {
          * @return {array} 新数组
          */
         uniq(array: any[]): any[] {
-            const _this = this,
+            const _this = FN,
                 newArray = [] as any[],
                 length = array.length;
             
@@ -512,7 +512,7 @@ export default class FN {
          * @return {void}
          */
         traversing(object: any, callback: Function): void {
-            const _this = this;
+            const _this = FN;
             
             for (const key in object) {
                 callback(key, object[key]);
@@ -525,7 +525,7 @@ export default class FN {
          * @return {object} 返回排序后对象
          */
         sort(object: any): any {
-            const _this = this,
+            const _this = FN,
                 newObject: any = {};
             
             Object.keys(object).sort().forEach((key: string) => {
@@ -541,7 +541,7 @@ export default class FN {
          * @return {object} 新建的对象
          */
         copy(object: Object): Object {
-            const _this = this;
+            const _this = FN;
             
             return JSON.parse(JSON.stringify(object));
         }
@@ -554,7 +554,7 @@ export default class FN {
          * @return {boolean} 是否含有Class
          */
         has(element: HTMLElement, name: string): boolean {
-            const _this = this,
+            const _this = FN,
                 reg = /\s/g, // 查询全局空字符串
                 className = name || '';
             
@@ -569,7 +569,7 @@ export default class FN {
          * @return {void}
          */
         add(element: HTMLElement, name: string): void {
-            const _this = this;
+            const _this = FN;
             
             if (_this.class.hasClass(element, name)) return;
             element.className = element.className === '' ? name : element.className + ' ' + name;
@@ -582,7 +582,7 @@ export default class FN {
          * @return {void}
          */
         remove(element: HTMLElement, name: string): void {
-            const _this = this,
+            const _this = FN,
                 reg1 = /[\t\r\n]/g, // 查询空格
                 reg2 = /^\s+|\s+$/g; // 查询空格
             
@@ -604,7 +604,7 @@ export default class FN {
          * @return {void}
          */
         set($dom: any, style: string): void {
-            const _this = this;
+            const _this = FN;
             
             $dom.css({
                 '-webkit-transform': style,
@@ -621,7 +621,7 @@ export default class FN {
          * @return {*}
          */
         get($dom: any): any {
-            const _this = this,
+            const _this = FN,
                 reg = /[^0-9\-,]/g,
                 matrix = $dom.css('transform').replace(reg, '').split(',');
             
@@ -638,7 +638,7 @@ export default class FN {
          * @return {boolean} 是否是图片
          */
         is(name: string): boolean {
-            const _this = this,
+            const _this = FN,
                 reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
             
             return reg.test(name);
@@ -651,7 +651,7 @@ export default class FN {
          * @return {void}
          */
         size(src: string, callback: Function): void {
-            const _this = this,
+            const _this = FN,
                 image = new Image();
             
             image.src = src;
@@ -667,7 +667,7 @@ export default class FN {
          * @return {void}
          */
         get(src: string, callback: Function): void {
-            const _this = this,
+            const _this = FN,
                 image = new Image(),
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
@@ -690,7 +690,7 @@ export default class FN {
          * @return {void}
          */
         get(file: File, callback: Function): void {
-            const _this = this,
+            const _this = FN,
                 reader = new FileReader();
             
             reader.onload = (e: ProgressEvent<FileReader>) => {

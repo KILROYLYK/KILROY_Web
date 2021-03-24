@@ -61,4 +61,4 @@ var Global = /** @class */ (function () {
     return Global;
 }());
 exports.default = Global;
-//# sourceMappingURL=global.js.map
+//# sourceMappingURL=_global.js.map

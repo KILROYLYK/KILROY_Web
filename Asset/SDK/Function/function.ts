@@ -639,7 +639,7 @@ export default class FN {
          */
         is(name: string): boolean {
             const _this = FN,
-                reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                reg = /^.+(\.jpg|\.jpeg|\.png)$/i;
             
             return reg.test(name);
         },

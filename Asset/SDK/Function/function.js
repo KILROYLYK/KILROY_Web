@@ -755,7 +755,7 @@ var FN = /** @class */ (function () {
          * @return {boolean} 是否是图片
          */
         is: function (name) {
-            var _this = FN, reg = /^.+(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            var _this = FN, reg = /^.+(\.jpg|\.jpeg|\.png)$/i;
             return reg.test(name);
         },
         /**

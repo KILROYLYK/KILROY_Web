@@ -1,15 +1,12 @@
 html,
 body {
+  position: relative;
   padding: 0;
   margin: 0;
-}
-html {
-  font-size: 14px;
-}
-body {
-  position: relative;
   font-size: 14px;
   font-family: '思源黑体', '黑体', '宋体', '仿宋', '楷体', '-apple-system-font', serif, sans-serif, monospace, fantasy, cursive;
+}
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -4,10 +4,9 @@
 //--- 默认 ---//
 html,
 body {
-  position: relative;
-}
-
-body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
   font-size: 12*@px;
   color: @color_2;
 }
@@ -87,19 +86,20 @@ audio {
   -webkit-overflow-scrolling: touch;
 }
 
-.body {
+.application {
   overflow: hidden;
   position: relative;
   z-index: 0;
   //min-width: @min_width;
   //max-width: @max_width;
-  //height: 100%;
-  //margin: 0 auto;
+  height: 100%;
+  margin: 0 auto;
 
   > .container {
     position: relative;
     z-index: 0;
-    //height: 100%;
+    height: 100%;
+    margin: 0 auto;
   }
 }
 

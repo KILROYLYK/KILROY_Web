@@ -1,7 +1,7 @@
-//----- Common -----//
+// ----- Common ----- //
 @import '_global';
 
-//--- Public ---//
+// --- Public --- //
 html,
 body {
   position: relative;
@@ -86,7 +86,7 @@ table {
   border-spacing: 0;
 }
 
-//--- 移动端适配 ---//
+// --- 移动端适配 --- //
 @media screen and (min-width: 320px) {
   html {
     font-size: 42.67px;
@@ -127,4 +127,13 @@ table {
   html {
     font-size: 100px;
   }
+}
+
+// --- 横竖屏适配 --- //
+// 竖屏
+@media only screen and (orientation: portrait) {
+}
+
+// 横屏
+@media screen and (orientation: landscape) {
 }

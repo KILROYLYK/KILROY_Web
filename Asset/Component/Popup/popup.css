@@ -226,8 +226,10 @@
   margin: auto;
   width: 5.13rem;
   height: 4.29rem;
-  background-image: url('../image/direction.png') center no-repeat;
+  background-image: url('../image/direction.png');
   background-size: 5.13rem 4.29rem;
+  background-position: center;
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 .popup_load {

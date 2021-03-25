@@ -92,16 +92,20 @@
 //--- 背景类 ---//
 // 背景
 .bg(@img,@w:auto,@h:auto,@set_wh:false) when (@set_wh=false) {
-  background-image: url('@{src_img}@{img}') center no-repeat;
+  background-image: url('@{src_img}@{img}');
   background-size: @w @h;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 // 背景（设置宽高）
 .bg(@img,@w:auto,@h:auto,@set_wh:false) when (@set_wh=true) {
   width: @w;
   height: @h;
-  background-image: url('@{src_img}@{img}') center no-repeat;
+  background-image: url('@{src_img}@{img}');
   background-size: @w @h;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 // 懒加载背景

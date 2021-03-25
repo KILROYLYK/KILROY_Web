@@ -92,7 +92,7 @@
 //--- 背景类 ---//
 // 背景
 .bg(@img,@w:auto,@h:auto,@set_wh:false) when (@set_wh=false) {
-  background: url('@{src_img}@{img}') center no-repeat;
+  background-image: url('@{src_img}@{img}') center no-repeat;
   background-size: @w @h;
 }
 
@@ -100,7 +100,7 @@
 .bg(@img,@w:auto,@h:auto,@set_wh:false) when (@set_wh=true) {
   width: @w;
   height: @h;
-  background: url('@{src_img}@{img}') center no-repeat;
+  background-image: url('@{src_img}@{img}') center no-repeat;
   background-size: @w @h;
 }
 

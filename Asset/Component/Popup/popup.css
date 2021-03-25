@@ -226,7 +226,7 @@
   margin: auto;
   width: 5.13rem;
   height: 4.29rem;
-  background: url('../image/direction.png') center no-repeat;
+  background-image: url('../image/direction.png') center no-repeat;
   background-size: 5.13rem 4.29rem;
   pointer-events: none;
 }

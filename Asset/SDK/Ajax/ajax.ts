@@ -10,7 +10,6 @@ export interface AjaxConfig { // Ajax配置
     timeout?: number; // 设置全局请求超时时间
     async?: boolean; // 是否开启异步（true）
     cache?: boolean; // 是否开启缓存（true，script | jsonp 为 false）
-    processData?: boolean; // 是否允许对数据进行处理（true）
     context?: Object; // 回调作用域
     jsonpCallback?: string; // 为Jsonp请求指定一个回调函数名
     jsonp?: string; // 在Jsonp请求中重写回调函数名

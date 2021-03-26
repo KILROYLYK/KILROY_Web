@@ -5,7 +5,8 @@ import FN from '../Function/function'; // 函数
 import Crypto from'../Crypto/crypto'; // 加密
 
 export interface AjaxConfig { // Ajax配置
-    contentType?: string; // 内容编码类型（application/x-www-form-urlencoded）
+    contentType?: string | boolean; // 内容编码类型（application/x-www-form-urlencoded）|false为禁止修改
+    processData?: boolean, // 禁止修改数据
     global?: boolean; // 是否触发全局Ajax事件（true）
     timeout?: number; // 设置全局请求超时时间
     async?: boolean; // 是否开启异步（true）

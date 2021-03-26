@@ -3,7 +3,8 @@
  */
 declare module 'ajax' {
     export interface AjaxConfig { // Ajax配置
-        contentType?: string; // 内容编码类型
+        contentType?: string | boolean; // 内容编码类型（application/x-www-form-urlencoded）|false为禁止修改
+        processData?: boolean, // 禁止修改数据
         global?: boolean; // 是否触发全局Ajax事件
         timeout?: number; // 设置全局请求超时时间
         async?: boolean; // 是否开启异步

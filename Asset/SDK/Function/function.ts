@@ -654,10 +654,10 @@ export default class FN {
             const _this = FN,
                 image = new Image();
             
-            image.src = src;
             image.onload = () => {
                 callback(image.width, image.height);
             };
+            image.src = src;
         },
         
         /**

@@ -766,10 +766,10 @@ var FN = /** @class */ (function () {
          */
         size: function (src, callback) {
             var _this = FN, image = new Image();
-            image.src = src;
             image.onload = function () {
                 callback(image.width, image.height);
             };
+            image.src = src;
         },
         /**
          * 获取图片Base64

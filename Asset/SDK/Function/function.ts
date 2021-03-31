@@ -678,6 +678,7 @@ export default class FN {
             
             if (size > 0) {
                 const ratio = width / height;
+                
                 if (width > height) {
                     width = size;
                     height = width / ratio;

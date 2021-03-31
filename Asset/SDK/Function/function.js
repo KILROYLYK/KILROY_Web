@@ -781,23 +781,23 @@ var FN = /** @class */ (function () {
         get: function (src, callback, size) {
             if (size === void 0) { size = 0; }
             var _this = FN, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
-            var width = image.width, height = image.height;
-            if (size > 0) {
-                var ratio = width / height;
-                if (width > height) {
-                    width = size;
-                    height = width / ratio;
-                }
-                else if (width < height) {
-                    height = size;
-                    width = height * ratio;
-                }
-                else {
-                    width = height = size;
-                }
-            }
             image.crossOrigin = '*';
             image.onload = function () {
+                var width = image.width, height = image.height, ratio = 0;
+                if (size > 0) {
+                    ratio = width / height;
+                    if (width > height) {
+                        width = size;
+                        height = width / ratio;
+                    }
+                    else if (width < height) {
+                        height = size;
+                        width = height * ratio;
+                    }
+                    else {
+                        width = height = size;
+                    }
+                }
                 canvas.width = width;
                 canvas.height = height;
                 context.drawImage(image, 0, 0, width, height);

@@ -673,25 +673,26 @@ export default class FN {
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
             
-            let width = image.width,
-                height = image.height;
-            
-            if (size > 0) {
-                const ratio = width / height;
-                
-                if (width > height) {
-                    width = size;
-                    height = width / ratio;
-                } else if (width < height) {
-                    height = size;
-                    width = height * ratio;
-                } else {
-                    width = height = size;
-                }
-            }
-            
             image.crossOrigin = '*';
             image.onload = () => {
+                let width = image.width,
+                    height = image.height,
+                    ratio = 0
+    
+                if (size > 0) {
+                    ratio = width / height;
+        
+                    if (width > height) {
+                        width = size;
+                        height = width / ratio;
+                    } else if (width < height) {
+                        height = size;
+                        width = height * ratio;
+                    } else {
+                        width = height = size;
+                    }
+                }
+                
                 canvas.width = width;
                 canvas.height = height;
                 context.drawImage(image, 0, 0, width, height);

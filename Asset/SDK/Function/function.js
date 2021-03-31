@@ -775,15 +775,32 @@ var FN = /** @class */ (function () {
          * 获取图片Base64
          * @param {string} src 资源地址
          * @param {Function} callback 回调
+         * @param {number} size 最大宽高（不为0则压缩）
          * @return {void}
          */
-        get: function (src, callback) {
+        get: function (src, callback, size) {
+            if (size === void 0) { size = 0; }
             var _this = FN, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
+            var width = image.width, height = image.height;
+            if (size > 0) {
+                var ratio = width / height;
+                if (width > height) {
+                    width = size;
+                    height = width / ratio;
+                }
+                else if (width < height) {
+                    height = size;
+                    width = height * ratio;
+                }
+                else {
+                    width = height = size;
+                }
+            }
             image.crossOrigin = '*';
             image.onload = function () {
-                canvas.width = image.width;
-                canvas.height = image.height;
-                context.drawImage(image, 0, 0, image.width, image.height);
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(image, 0, 0, width, height);
                 callback(canvas.toDataURL('image/png'));
             };
             image.src = src;
@@ -792,7 +809,7 @@ var FN = /** @class */ (function () {
     FN.file = {
         /**
          * 获取文件Base64
-         * @param {File} file 文件
+         * @param {File|Blob} file 文件
          * @param {Function} callback 回调
          * @return {void}
          */
@@ -802,6 +819,30 @@ var FN = /** @class */ (function () {
                 callback(e.target);
             };
             reader.readAsDataURL(file);
+        },
+        /**
+         * 创建文件
+         * @param {string} src 资源地址
+         * @param {string} name 文件
+         * @return {void}
+         */
+        createFile: function (src, name) {
+            var json = src.split(','), type = json[0].match(/:(.*?);/)[1], content = atob(json[1]), data = new Uint8Array(content.length);
+            var n = content.length;
+            while (n--)
+                data[n] = content.charCodeAt(n);
+            return new File([data], name, { type: type });
+        },
+        /**
+         * 创建文件
+         * @param {string} src 资源地址
+         * @return {void}
+         */
+        createBlob: function (src) {
+            var json = src.split(','), type = json[0].match(/:(.*?);/)[1], content = atob(json[1]), data = new Uint8Array(content.length);
+            for (var i = 0, n = content.length; i < n; i++)
+                data[i] = content.charCodeAt(i);
+            return new Blob([data], { type: type });
         }
     };
     return FN;

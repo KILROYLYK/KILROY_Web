@@ -88,16 +88,16 @@ export default class FN {
             
             return Number(result.toFixed(decimal));
         },
-    
+        
         /**
          * 获取随机数
          * @param {number} r1 范围1
          * @param {number} r2 范围2
          * @return {number} 返回随机数
          */
-        random(r1: number, r2:number): number {
+        random(r1: number, r2: number): number {
             const _this = FN;
-        
+            
             return Math.floor(Math.random() * (r2 - r1 + 1) + r1);
         },
         
@@ -664,19 +664,36 @@ export default class FN {
          * 获取图片Base64
          * @param {string} src 资源地址
          * @param {Function} callback 回调
+         * @param {number} size 最大宽高（不为0则压缩）
          * @return {void}
          */
-        get(src: string, callback: Function): void {
+        get(src: string, callback: Function, size: number = 0): void {
             const _this = FN,
                 image = new Image(),
                 canvas = D.createElement('canvas'),
                 context = canvas.getContext('2d');
             
+            let width = image.width,
+                height = image.height;
+            
+            if (size > 0) {
+                const ratio = width / height;
+                if (width > height) {
+                    width = size;
+                    height = width / ratio;
+                } else if (width < height) {
+                    height = size;
+                    width = height * ratio;
+                } else {
+                    width = height = size;
+                }
+            }
+            
             image.crossOrigin = '*';
             image.onload = () => {
-                canvas.width = image.width;
-                canvas.height = image.height;
-                context.drawImage(image, 0, 0, image.width, image.height);
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(image, 0, 0, width, height);
                 callback(canvas.toDataURL('image/png'));
             };
             image.src = src;
@@ -685,11 +702,11 @@ export default class FN {
     public static readonly file: any = { // 文件
         /**
          * 获取文件Base64
-         * @param {File} file 文件
+         * @param {File|Blob} file 文件
          * @param {Function} callback 回调
          * @return {void}
          */
-        get(file: File, callback: Function): void {
+        get(file: File | Blob, callback: Function): void {
             const _this = FN,
                 reader = new FileReader();
             
@@ -697,6 +714,41 @@ export default class FN {
                 callback(e.target);
             };
             reader.readAsDataURL(file);
+        },
+        
+        /**
+         * 创建文件
+         * @param {string} src 资源地址
+         * @param {string} name 文件
+         * @return {void}
+         */
+        createFile(src: string, name: string): File {
+            const json = src.split(','),
+                type = json[0].match(/:(.*?);/)[1],
+                content = atob(json[1]),
+                data = new Uint8Array(content.length);
+            
+            let n = content.length;
+            
+            while (n--) data[n] = content.charCodeAt(n);
+            
+            return new File([ data ], name, { type });
+        },
+        
+        /**
+         * 创建文件
+         * @param {string} src 资源地址
+         * @return {void}
+         */
+        createBlob(src: string): Blob {
+            const json = src.split(','),
+                type = json[0].match(/:(.*?);/)[1],
+                content = atob(json[1]),
+                data = new Uint8Array(content.length);
+            
+            for(let i = 0,n=content.length; i < n; i++) data[i] = content.charCodeAt(i);
+            
+            return new Blob([data], {type});
         }
     };
     

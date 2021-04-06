@@ -1,115 +1,132 @@
 html,
 body {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  font-size: 0.12rem;
-  color: #000000;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-size: 0.12rem;
+    color: #000000;
 }
+
 a {
-  cursor: pointer;
-  text-decoration: none;
+    cursor: pointer;
+    text-decoration: none;
 }
+
 a:link,
 a:active,
 a:visited,
 a:hover,
 a:visited:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
+
 audio {
-  opacity: 0;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: auto;
-  bottom: auto;
-  z-index: -99;
-  width: 0;
-  height: 0;
-  pointer-events: none;
+    opacity: 0;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: auto;
+    z-index: -99;
+    width: 0;
+    height: 0;
+    pointer-events: none;
 }
+
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-  color: #000000;
+    color: #000000;
 }
+
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-  color: #000000;
+    color: #000000;
 }
+
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
-  color: #000000;
+    color: #000000;
 }
+
 .show {
-  display: block;
+    display: block;
 }
+
 .hide {
-  display: none;
+    display: none;
 }
+
 .disabled {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  filter: grayscale(100%);
-  pointer-events: none;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: grayscale(100%);
+    pointer-events: none;
 }
+
 .hover:hover {
-  -webkit-filter: brightness(130%);
-  -moz-filter: brightness(130%);
-  -o-filter: brightness(130%);
-  -ms-filter: brightness(130%);
-  filter: brightness(130%);
+    -webkit-filter: brightness(130%);
+    -moz-filter: brightness(130%);
+    -o-filter: brightness(130%);
+    -ms-filter: brightness(130%);
+    filter: brightness(130%);
 }
+
 .box_scale {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: 0;
-  bottom: 0;
-  width: 200%;
-  height: 200%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transform: translate(-50%, -50%) scale(1/2);
-  -moz-transform: translate(-50%, -50%) scale(1/2);
-  -o-transform: translate(-50%, -50%) scale(1/2);
-  -ms-transform: translate(-50%, -50%) scale(1/2);
-  transform: translate(-50%, -50%) scale(1/2);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    width: 200%;
+    height: 200%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transform: translate(-50%, -50%) scale(1/2);
+    -moz-transform: translate(-50%, -50%) scale(1/2);
+    -o-transform: translate(-50%, -50%) scale(1/2);
+    -ms-transform: translate(-50%, -50%) scale(1/2);
+    transform: translate(-50%, -50%) scale(1/2);
 }
+
 .box_vertical {
-  display: table;
-  position: relative;
-  height: 100%;
+    display: table;
+    position: relative;
+    height: 100%;
 }
+
 .box_vertical .box_middle {
-  display: table-cell;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
 }
+
 .box_scroll {
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
+
 .application {
-  overflow: hidden;
-  position: relative;
-  z-index: 0;
-  height: 100%;
-  margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    height: 100%;
+    margin: 0 auto;
 }
+
 .application > .container {
-  position: relative;
-  z-index: 0;
-  height: 100%;
-  margin: 0 auto;
+    position: relative;
+    z-index: 0;
+    height: 100%;
+    margin: 0 auto;
 }
+
 /*# sourceMappingURL=public.css.map */

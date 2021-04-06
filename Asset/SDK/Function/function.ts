@@ -678,10 +678,10 @@ export default class FN {
                 let width = image.width,
                     height = image.height,
                     ratio = 0
-    
+                
                 if (size > 0) {
                     ratio = width / height;
-        
+                    
                     if (width > height) {
                         width = size;
                         height = width / ratio;
@@ -748,9 +748,9 @@ export default class FN {
                 content = atob(json[1]),
                 data = new Uint8Array(content.length);
             
-            for(let i = 0,n=content.length; i < n; i++) data[i] = content.charCodeAt(i);
+            for (let i = 0, n = content.length; i < n; i++) data[i] = content.charCodeAt(i);
             
-            return new Blob([data], {type});
+            return new Blob([ data ], { type });
         }
     };
     

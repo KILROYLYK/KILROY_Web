@@ -1,109 +1,131 @@
 .flip .content {
-  overflow: hidden;
-  position: relative;
-  width: 5rem;
-  margin: 1rem auto;
+    overflow: hidden;
+    position: relative;
+    width: 5rem;
+    margin: 1rem auto;
 }
+
 .flip .content .list {
-  overflow: hidden;
-  position: relative;
+    overflow: hidden;
+    position: relative;
 }
+
 .flip .content .list a {
-  text-align: left;
-  line-height: 0.3rem;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 0.2rem;
-  font-weight: 600;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    text-align: left;
+    line-height: 0.3rem;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 0.2rem;
+    font-weight: 600;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .flip .content .list a:last-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
+
 .flip .content .list a:hover {
-  opacity: 0.75;
+    opacity: 0.75;
 }
+
 .flip .content .list a span {
-  display: block;
-  height: 100%;
+    display: block;
+    height: 100%;
 }
+
 .flip .content .list a span:nth-child(1) {
-  float: left;
-  color: red;
-  width: 0.7rem;
+    float: left;
+    color: red;
+    width: 0.7rem;
 }
+
 .flip .content .list a span:nth-child(2) {
-  float: right;
-  width: 0.7rem;
+    float: right;
+    width: 0.7rem;
 }
+
 .flip .content .list a span:nth-child(3) {
-  width: auto;
-  padding: 0 0.15rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    width: auto;
+    padding: 0 0.15rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .flip .content .page {
-  overflow: hidden;
-  position: relative;
-  margin-top: 0.5rem;
-  text-align: center;
-  font-size: 0;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0;
 }
+
 .flip .content .page button {
-  display: inline-block;
-  overflow: hidden;
-  min-width: 0.26rem;
-  margin: 0 0.05rem;
-  text-align: center;
-  line-height: 0.2rem;
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 0.16rem;
-  vertical-align: top;
+    display: inline-block;
+    overflow: hidden;
+    min-width: 0.26rem;
+    margin: 0 0.05rem;
+    text-align: center;
+    line-height: 0.2rem;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 0.16rem;
+    vertical-align: top;
 }
+
 .flip .content .page button:hover {
-  -webkit-filter: brightness(130%);
-  -moz-filter: brightness(130%);
-  -o-filter: brightness(130%);
-  -ms-filter: brightness(130%);
-  filter: brightness(130%);
+    -webkit-filter: brightness(130%);
+    -moz-filter: brightness(130%);
+    -o-filter: brightness(130%);
+    -ms-filter: brightness(130%);
+    filter: brightness(130%);
 }
+
 .flip .content .page button.active {
-  color: red;
+    color: red;
 }
+
 .flip .content .page button.disabled {
-  opacity: 0.5;
+    opacity: 0.5;
 }
+
 .flip .content .scroll {
-  margin-top: 0.2rem;
-  text-align: center;
-  line-height: 0.3rem;
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 0.2rem;
+    margin-top: 0.2rem;
+    text-align: center;
+    line-height: 0.3rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.2rem;
 }
+
 .flip .content .scroll.loading span:nth-child(1),
 .flip .content .scroll.loading span:nth-child(3) {
-  display: none;
+    display: none;
 }
+
 .flip .content .scroll.loading span:nth-child(2) {
-  display: block;
+    display: block;
 }
+
 .flip .content .scroll.over span:nth-child(1),
 .flip .content .scroll.over span:nth-child(2) {
-  display: none;
+    display: none;
 }
+
 .flip .content .scroll.over span:nth-child(3) {
-  display: block;
+    display: block;
 }
+
 .flip .content .scroll span {
-  display: none;
+    display: none;
 }
+
 .flip .content .scroll span:nth-child(1) {
-  display: block;
+    display: block;
 }
+
 .flip .content .scroll span.active {
-  display: block;
+    display: block;
 }
+
 /*# sourceMappingURL=flip.css.map */

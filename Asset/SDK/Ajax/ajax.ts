@@ -2,7 +2,7 @@
 import $ from '/usr/local/lib/node_modules/jquery';
 
 import FN from '../Function/function'; // 函数
-import Crypto from'../Crypto/crypto'; // 加密
+import Crypto from '../Crypto/crypto'; // 加密
 
 export interface AjaxConfig { // Ajax配置
     contentType?: string | boolean; // 内容编码类型（application/x-www-form-urlencoded）|false为禁止修改

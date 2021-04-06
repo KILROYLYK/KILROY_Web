@@ -40,6 +40,7 @@ exports.Preload = preload_1.default, exports.Popup = popup_1.default, exports.Fl
 var Global = /** @class */ (function () {
     function Global() {
     }
+    
     Global.$ = exports.$;
     Global.Console = exports.Console;
     Global.W = exports.W;

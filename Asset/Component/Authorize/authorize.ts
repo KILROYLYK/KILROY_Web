@@ -7,7 +7,7 @@ export interface AuthorizeConfig { // 授权配置
     redirect?: string; // 授权成功回调地址
     success?(openId: string): void; // 授权并获取ID成功
     
-    interface: string; // 授权接口（https://activity-api-test.iyingdi.com/tree/wechat-auth）
+    interface: string; // 授权接口
     appId: string; // 微信公众号
 }
 

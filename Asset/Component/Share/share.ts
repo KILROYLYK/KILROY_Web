@@ -14,18 +14,17 @@ declare global {
 const W: Window = window;
 
 export interface ShareConfig { // 分享配置
+    appId?: string; // 调起App的ID
+    appButtonId?: string; // 调起App按钮ID
+    appExtinfo?: string; // 调起App参数
+    success?(result: any): void; // 分享成功处理
+    cancel?(result: any): void; // 分享取消处理
+    
     interface: string; // 分享接口
     title: string; // 分享标题
     description: string; // 分享简介
     img: string; // 分享图片
     url: string; // 分享地址
-    
-    success?(result: any): void; // 分享成功处理
-    cancel?(result: any): void; // 分享取消处理
-    
-    appId?: string; // 调起App的ID
-    appButtonId?: string; // 调起App按钮ID
-    appExtinfo?: string; // 调起App参数
 }
 
 /**

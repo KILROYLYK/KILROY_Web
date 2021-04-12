@@ -24,7 +24,7 @@ var Authorize = /** @class */ (function () {
         this.userInfo = {
             appId: '',
             openId: function_1.default.cookie.get('openId') || '',
-            code: function_1.default.url.getParam('code') || '', // 微信Code
+            code: function_1.default.url.getParam('code') || '' // 微信Code
         };
         this.success = function (openId) {
             console.log(openId);

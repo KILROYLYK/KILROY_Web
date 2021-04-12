@@ -23,7 +23,7 @@ export default class Authorize {
     private readonly userInfo: any = { // 用户信息
         appId: '', // 微信公众号ID
         openId: FN.cookie.get('openId') || '', // 微信OpenID
-        code: FN.url.getParam('code') || '', // 微信Code
+        code: FN.url.getParam('code') || '' // 微信Code
     };
     private success: Function = (openId: string) => { // 授权并获取ID成功
         console.log(openId);

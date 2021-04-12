@@ -58,13 +58,13 @@ var Share = /** @class */ (function () {
         _this.appInfo.extinfo = config.appExtinfo || '';
         config.success && (_this.success = config.success);
         config.cancel && (_this.cancel = config.cancel);
-        _this.getInfo();
+        _this.getShare();
     }
     /**
-     * 获取信息
+     * 获取分享
      * @return {void}
      */
-    Share.prototype.getInfo = function () {
+    Share.prototype.getShare = function () {
         var _this = this;
         ajax_1.default.baseAjax({
             url: _this.serverInfo.interface,

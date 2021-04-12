@@ -106,14 +106,14 @@ export default class Share {
         config.success && (_this.success = config.success);
         config.cancel && (_this.cancel = config.cancel);
         
-        _this.getInfo();
+        _this.getShare();
     }
     
     /**
-     * 获取信息
+     * 获取分享
      * @return {void}
      */
-    private getInfo(): void {
+    private getShare(): void {
         const _this = this;
         
         Ajax.baseAjax({

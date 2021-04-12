@@ -12,7 +12,6 @@ var W = window, D = document, $W = jquery_1.default(W);
 var FN = /** @class */ (function () {
     function FN() {
     }
-    
     /**
      * 获取数据类型
      * @param {*} param 参数
@@ -36,14 +35,13 @@ var FN = /** @class */ (function () {
      * @return {string} 返回时间字符串
      */
     FN.getTime = function (time) {
-        if (time === void 0) {
-            time = '';
-        }
+        if (time === void 0) { time = ''; }
         var _this = this;
         var t = null;
         if (time) {
             t = new Date(time);
-        } else {
+        }
+        else {
             t = new Date();
         }
         var year = t.getFullYear();
@@ -86,9 +84,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.resize = function (callback, time) {
-        if (time === void 0) {
-            time = 150;
-        }
+        if (time === void 0) { time = 150; }
         var _this = this, resize = function () {
             if (setTime)
                 clearTimeout(setTime);
@@ -111,12 +107,8 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.scroll = function (id, callback, time) {
-        if (callback === void 0) {
-            callback = {};
-        }
-        if (time === void 0) {
-            time = 50;
-        }
+        if (callback === void 0) { callback = {}; }
+        if (time === void 0) { time = 50; }
         var _this = this, $dom = jquery_1.default('#' + id), detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         var openScroll = true, setTime = null;
         $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
@@ -132,7 +124,8 @@ var FN = /** @class */ (function () {
                     callback.top && callback.top(); // 当滑轮向上滚动时
                 if (e.wheelDelta < -detail)
                     callback.bottom && callback.bottom(); // 当滑轮向下滚动时
-            } else if (e.detail) { // Firefox兼容
+            }
+            else if (e.detail) { // Firefox兼容
                 if (e.detail > detail)
                     callback.bottom && callback.bottom(); // 当滑轮向上滚动时
                 if (e.detail < -detail)
@@ -147,9 +140,7 @@ var FN = /** @class */ (function () {
      * @return {void}
      */
     FN.gyroscope = function (callback, time) {
-        if (time === void 0) {
-            time = 50;
-        }
+        if (time === void 0) { time = 50; }
         var _this = this;
         var openGyroscope = true, setTime = null;
         'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
@@ -191,7 +182,8 @@ var FN = /** @class */ (function () {
                 var src = '';
                 if (href.length > 1) {
                     src = hash[0] + W.location.search + '#' + hash[1];
-                } else {
+                }
+                else {
                     src = hash[0] + W.location.search;
                 }
                 $a.attr('href', src);
@@ -323,7 +315,8 @@ var FN = /** @class */ (function () {
             }, agent = W.navigator.userAgent.toLowerCase();
             if (reg.mobile.test(agent)) { // Mobile
                 return 'Mobile';
-            } else if (reg.pc.test(agent)) { // PC
+            }
+            else if (reg.pc.test(agent)) { // PC
                 return 'PC';
             }
             console.log('未知平台：' + agent);
@@ -337,17 +330,23 @@ var FN = /** @class */ (function () {
             var _this = FN, agent = W.navigator.userAgent.toLowerCase();
             if ((/Android/i).test(agent) || (/Adr/i).test(agent)) {
                 return 'Android';
-            } else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(agent)) {
+            }
+            else if ((/\(i[^;]+;( U;)? CPU.+Mac OS X/i).test(agent)) {
                 return 'iOS';
-            } else if ((/BlackBerry/i).test(agent)) {
+            }
+            else if ((/BlackBerry/i).test(agent)) {
                 return 'BlackBerry';
-            } else if ((/SymbianOS/i).test(agent)) {
+            }
+            else if ((/SymbianOS/i).test(agent)) {
                 return 'SymbianOS';
-            } else if ((/Windows/i).test(agent)) {
+            }
+            else if ((/Windows/i).test(agent)) {
                 return 'Windows';
-            } else if ((/Mac/i).test(agent)) {
+            }
+            else if ((/Mac/i).test(agent)) {
                 return 'Mac';
-            } else if ((/Linux/i).test(agent)) {
+            }
+            else if ((/Linux/i).test(agent)) {
                 return 'Linux';
             }
             console.log('未知系统：' + agent);
@@ -363,28 +362,39 @@ var FN = /** @class */ (function () {
                 // Huawei 特殊判断
                 if ((/MicroMessenger/i).test(agent)) {
                     return 'WeChat';
-                } else if ((/pixel|statusbar/i).test(agent)) {
+                }
+                else if ((/pixel|statusbar/i).test(agent)) {
                     return 'HuaWei';
-                } else {
+                }
+                else {
                     return 'QQBrowser';
                 }
-            } else if ((/MQQBrowser/i).test(agent)) {
+            }
+            else if ((/MQQBrowser/i).test(agent)) {
                 return 'QQBrowser';
-            } else if ((/QQ/i).test(agent)) {
+            }
+            else if ((/QQ/i).test(agent)) {
                 return 'QQ';
-            } else if ((/MicroMessenger/i).test(agent)) {
+            }
+            else if ((/MicroMessenger/i).test(agent)) {
                 return 'WeChat';
-            } else if ((/WeiBo/).test(agent)) {
+            }
+            else if ((/WeiBo/).test(agent)) {
                 return 'WeiBo';
-            } else if ((/Chrome/i).test(agent)) {
+            }
+            else if ((/Chrome/i).test(agent)) {
                 return 'Chrome';
-            } else if ((/Firefox/i).test(agent)) {
+            }
+            else if ((/Firefox/i).test(agent)) {
                 return 'Firefox';
-            } else if ((/Safari/i).test(agent)) {
+            }
+            else if ((/Safari/i).test(agent)) {
                 return 'Safari';
-            } else if ((/Edge/i).test(agent)) {
+            }
+            else if ((/Edge/i).test(agent)) {
                 return 'Edge';
-            } else if (W.ActiveXObject || 'ActiveXObject' in W) {
+            }
+            else if (W.ActiveXObject || 'ActiveXObject' in W) {
                 return 'IE';
             }
             console.log('未知浏览器：' + agent);
@@ -401,12 +411,8 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         set: function (name, value, day, domain) {
-            if (day === void 0) {
-                day = 0;
-            }
-            if (domain === void 0) {
-                domain = '/';
-            }
+            if (day === void 0) { day = 0; }
+            if (domain === void 0) { domain = '/'; }
             var _this = FN;
             var time = '';
             if (day > 0) {
@@ -435,9 +441,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         del: function (name, domain) {
-            if (domain === void 0) {
-                domain = '/';
-            }
+            if (domain === void 0) { domain = '/'; }
             var _this = FN, exp = new Date(), value = _this.cookie.get(name);
             exp.setTime(exp.getTime() - 1);
             if (value !== null)
@@ -452,9 +456,7 @@ var FN = /** @class */ (function () {
          * @return {string} 参数
          */
         toParam: function (object, hasQuestion) {
-            if (hasQuestion === void 0) {
-                hasQuestion = false;
-            }
+            if (hasQuestion === void 0) { hasQuestion = false; }
             var _this = FN;
             var param = '';
             for (var key in object)
@@ -468,9 +470,7 @@ var FN = /** @class */ (function () {
          * @return {string|null} 返回Url参数的value
          */
         getParam: function (name, url) {
-            if (url === void 0) {
-                url = W.location.search.substr(1);
-            }
+            if (url === void 0) { url = W.location.search.substr(1); }
             var _this = FN, reg = new RegExp('(^|\\?|&)' + name + '=([^&]*)(&|$)', 'i');
             var param = null;
             if ((/\?/i).test(url))
@@ -487,9 +487,7 @@ var FN = /** @class */ (function () {
          * @return {array|null} 返回Url参数数组
          */
         getAllParam: function (url) {
-            if (url === void 0) {
-                url = W.location.search.substr(1);
-            }
+            if (url === void 0) { url = W.location.search.substr(1); }
             var _this = FN, param = {};
             var u = '';
             if (!url)
@@ -513,9 +511,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         addParam: function (object, url) {
-            if (url === void 0) {
-                url = W.location.href;
-            }
+            if (url === void 0) { url = W.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
             if (Object.keys(object).length === 0)
@@ -536,10 +532,12 @@ var FN = /** @class */ (function () {
             if (search) {
                 if (search[0] === '&') {
                     search = '?' + param + search;
-                } else {
+                }
+                else {
                     search = '?' + param + '&' + search;
                 }
-            } else {
+            }
+            else {
                 search = '?' + param;
             }
             if (hash)
@@ -553,9 +551,7 @@ var FN = /** @class */ (function () {
          * @return {string} 返回Url
          */
         delParam: function (array, url) {
-            if (url === void 0) {
-                url = W.location.href;
-            }
+            if (url === void 0) { url = W.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '';
             if (array.length === 0)
@@ -687,7 +683,7 @@ var FN = /** @class */ (function () {
          */
         has: function (element, name) {
             var _this = FN, reg = /\s/g, // 查询全局空字符串
-                className = name || '';
+            className = name || '';
             if (className.replace(reg, '').length === 0)
                 return false;
             return new RegExp(' ' + className + ' ').test(' ' + element.className + ' ');
@@ -712,7 +708,7 @@ var FN = /** @class */ (function () {
          */
         remove: function (element, name) {
             var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
-                reg2 = /^\s+|\s+$/g; // 查询空格
+            reg2 = /^\s+|\s+$/g; // 查询空格
             if (!_this.class.hasClass(element, name))
                 return;
             var newClass = ' ' + element.className.replace(reg1, '') + ' ';
@@ -783,9 +779,7 @@ var FN = /** @class */ (function () {
          * @return {void}
          */
         get: function (src, callback, size) {
-            if (size === void 0) {
-                size = 0;
-            }
+            if (size === void 0) { size = 0; }
             var _this = FN, image = new Image(), canvas = D.createElement('canvas'), context = canvas.getContext('2d');
             image.crossOrigin = '*';
             image.onload = function () {
@@ -795,10 +789,12 @@ var FN = /** @class */ (function () {
                     if (width > height) {
                         width = size;
                         height = width / ratio;
-                    } else if (width < height) {
+                    }
+                    else if (width < height) {
                         height = size;
                         width = height * ratio;
-                    } else {
+                    }
+                    else {
                         width = height = size;
                     }
                 }
@@ -835,7 +831,7 @@ var FN = /** @class */ (function () {
             var n = content.length;
             while (n--)
                 data[n] = content.charCodeAt(n);
-            return new File([ data ], name, { type: type });
+            return new File([data], name, { type: type });
         },
         /**
          * 创建文件
@@ -846,7 +842,7 @@ var FN = /** @class */ (function () {
             var json = src.split(','), type = json[0].match(/:(.*?);/)[1], content = atob(json[1]), data = new Uint8Array(content.length);
             for (var i = 0, n = content.length; i < n; i++)
                 data[i] = content.charCodeAt(i);
-            return new Blob([ data ], { type: type });
+            return new Blob([data], { type: type });
         }
     };
     return FN;

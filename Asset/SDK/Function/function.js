@@ -100,16 +100,41 @@ var FN = /** @class */ (function () {
         'onorientationchange' in W && $W.bind('orientationchange', resize); // 屏幕旋转
     };
     /**
+     * 监听陀螺仪
+     * @param {function} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    FN.gyroscope = function (callback, time) {
+        if (time === void 0) { time = 50; }
+        var _this = this;
+        var openGyroscope = true, setTime = null;
+        'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
+            if (!openGyroscope)
+                return;
+            openGyroscope = false;
+            setTime = setTimeout(function () {
+                openGyroscope = true;
+            }, time);
+            callback({
+                absolute: e.absolute,
+                alpha: parseInt(String(e.alpha), 10),
+                beta: parseInt(String(e.beta), 10),
+                gamma: parseInt(String(e.gamma), 10)
+            });
+        });
+    };
+    /**
      * 监听滑轮事件
-     * @param {string} id 节点id
+     * @param {$} $dom Jquery节点
      * @param {*} callback 回调
      * @param {number} time 间隔时间
      * @return {void}
      */
-    FN.scroll = function (id, callback, time) {
+    FN.scroll = function ($dom, callback, time) {
         if (callback === void 0) { callback = {}; }
         if (time === void 0) { time = 50; }
-        var _this = this, $dom = jquery_1.default('#' + id), detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+        var _this = this, detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
         var openScroll = true, setTime = null;
         $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', function (e) {
             if (!openScroll)
@@ -134,29 +159,31 @@ var FN = /** @class */ (function () {
         });
     };
     /**
-     * 监听陀螺仪
-     * @param {function} callback 回调
-     * @param {number} time 间隔时间
-     * @return {void}
+     * 监听长按
+     * @param {$} $dom Jquery节点
+     * @param {function} callback
+     * @param {number} time
      */
-    FN.gyroscope = function (callback, time) {
-        if (time === void 0) { time = 50; }
+    FN.press = function ($dom, callback, time) {
+        if (time === void 0) { time = 500; }
         var _this = this;
-        var openGyroscope = true, setTime = null;
-        'DeviceOrientation' in W && $W.bind('deviceorientation', function (e) {
-            if (!openGyroscope)
-                return;
-            openGyroscope = false;
+        var setTime = null;
+        var startCallback = function (e) {
             setTime = setTimeout(function () {
-                openGyroscope = true;
-            }, time);
-            callback({
-                absolute: e.absolute,
-                alpha: parseInt(String(e.alpha), 10),
-                beta: parseInt(String(e.beta), 10),
-                gamma: parseInt(String(e.gamma), 10)
-            });
-        });
+                clearTimeout(setTime);
+                callback();
+            }, 500);
+        }, endCallback = function (e) {
+            clearTimeout(setTime);
+        };
+        if (_this.agent.client() === "PC") {
+            $dom.bind('mousedown', startCallback);
+            $dom.bind('mouseup', endCallback);
+        }
+        else {
+            $dom.bind('touchstart', startCallback);
+            $dom.bind('touchend', endCallback);
+        }
     };
     /**
      * 内链跳转保留参数

@@ -858,39 +858,6 @@ export default class FN {
     }
     
     /**
-     * 监听滑轮事件
-     * @param {string} id 节点id
-     * @param {*} callback 回调
-     * @param {number} time 间隔时间
-     * @return {void}
-     */
-    public static scroll(id: string, callback: any = {}, time: number = 50): void {
-        const _this = this,
-            $dom = $('#' + id),
-            detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
-        
-        let openScroll = true,
-            setTime = null as any;
-        
-        $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
-            if (!openScroll) return;
-            openScroll = false;
-            setTime = setTimeout(() => {
-                openScroll = true;
-            }, time);
-            
-            callback.complete && callback.complete();
-            if (e.wheelDelta) { // 默认
-                if (e.wheelDelta > detail) callback.top && callback.top(); // 当滑轮向上滚动时
-                if (e.wheelDelta < -detail) callback.bottom && callback.bottom(); // 当滑轮向下滚动时
-            } else if (e.detail) { // Firefox兼容
-                if (e.detail > detail) callback.bottom && callback.bottom(); // 当滑轮向上滚动时
-                if (e.detail < -detail) callback.top && callback.top(); // 当滑轮向下滚动时
-            }
-        });
-    }
-    
-    /**
      * 监听陀螺仪
      * @param {function} callback 回调
      * @param {number} time 间隔时间
@@ -916,6 +883,68 @@ export default class FN {
                 gamma: parseInt(String(e.gamma), 10)
             });
         });
+    }
+    
+    /**
+     * 监听滑轮事件
+     * @param {$} $dom Jquery节点
+     * @param {*} callback 回调
+     * @param {number} time 间隔时间
+     * @return {void}
+     */
+    public static scroll($dom: $, callback: any = {}, time: number = 50): void {
+        const _this = this,
+            detail = _this.agent.system() === 'Mac' ? 30 : 0; // Mac兼容,降低灵敏度
+        
+        let openScroll = true,
+            setTime = null as any;
+        
+        $dom.bind(_this.agent.browser() === 'Firefox' ? 'DOMMouseScroll' : 'mousewheel', (e: any) => {
+            if (!openScroll) return;
+            openScroll = false;
+            setTime = setTimeout(() => {
+                openScroll = true;
+            }, time);
+            
+            callback.complete && callback.complete();
+            if (e.wheelDelta) { // 默认
+                if (e.wheelDelta > detail) callback.top && callback.top(); // 当滑轮向上滚动时
+                if (e.wheelDelta < -detail) callback.bottom && callback.bottom(); // 当滑轮向下滚动时
+            } else if (e.detail) { // Firefox兼容
+                if (e.detail > detail) callback.bottom && callback.bottom(); // 当滑轮向上滚动时
+                if (e.detail < -detail) callback.top && callback.top(); // 当滑轮向下滚动时
+            }
+        });
+    }
+    
+    /**
+     * 监听长按
+     * @param {$} $dom Jquery节点
+     * @param {function} callback
+     * @param {number} time
+     */
+    public static press($dom: $, callback: Function, time: number = 500): void {
+        const _this = this;
+        
+        let setTime: any = null;
+        
+        const startCallback = (e: Event) => {
+                setTime = setTimeout(() => {
+                    clearTimeout(setTime);
+                    callback();
+                }, 500);
+            },
+            endCallback = (e: Event) => {
+                clearTimeout(setTime);
+            };
+        
+        if (_this.agent.client() === "PC") {
+            $dom.bind('mousedown', startCallback);
+            $dom.bind('mouseup', endCallback);
+        } else {
+            $dom.bind('touchstart', startCallback);
+            $dom.bind('touchend', endCallback);
+        }
     }
     
     /**

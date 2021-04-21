@@ -1,3 +1,6 @@
+// @ts-ignore
+import $ from '/usr/local/lib/node_modules/jquery';
+
 /**
  * 函数
  */
@@ -34,9 +37,11 @@ declare module 'fn' {
         
         public static resize(callback: Function, time: number): void;
         
-        public static scroll(id: string, top: Function, bottom: Function): void;
-        
         public static gyroscope(callback: Function, time: number): void;
+        
+        public static scroll($dom: $, top: Function, bottom: Function): void;
+        
+        public static press($dom: $, callback: Function, time: number): void;
         
         public static innerChainSaveParam(): void;
         

@@ -410,6 +410,28 @@
   filter: @style;
 }
 
+// 设置滚动条颜色
+.scroll(@color,@bgColor,@wh:8*@px) {
+  &::-webkit-scrollbar {
+    width: @wh;
+    height: @wh;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    min-height: 20*@px;
+    background-color: @color;
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: @bgColor;
+  }
+}
+
 // 隐藏页面滚动条
 .hideScroll() {
   overflow: -moz-scrollbars-none;

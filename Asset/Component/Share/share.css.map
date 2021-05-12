@@ -1,9 +1,1 @@
-{
-  "version": 3,
-  "sources": [
-    "share.less"
-  ],
-  "names": [],
-  "mappings": "AAEA;EACE,kBAAA;EACA,aAAA;EACA,YAAA;EACA,aAAA;EACA,cAAA;EACA,gBAAA",
-  "file": "share.css"
-}
+{"version":3,"sources":["share.less"],"names":[],"mappings":"AAEA;EACE,kBAAA;EACA,aAAA;EACA,YAAA;EACA,aAAA;EACA,cAAA;EACA,gBAAA","file":"share.css"}

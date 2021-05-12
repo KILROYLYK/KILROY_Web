@@ -411,20 +411,22 @@
 }
 
 // 设置滚动条颜色
-.scroll(@color,@bgColor,@wh:8*@px) {
+.scroll(@color,@hoverColor,@bgColor,@wh:10*@px) {
   &::-webkit-scrollbar {
     width: @wh;
     height: @wh;
   }
 
   &::-webkit-scrollbar-thumb {
+    min-width: 20*@px;
     min-height: 20*@px;
     background-color: @color;
     background-clip: padding-box;
+    border-radius: @wh*0.5;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    opacity: 0.8;
+    background-color: @hoverColor;
   }
 
   &::-webkit-scrollbar-track-piece {

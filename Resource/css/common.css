@@ -92,6 +92,7 @@ a:visited:hover {
 }
 img {
   border: none;
+  -webkit-touch-callout: default;
 }
 img[src=''] {
   opacity: 0 !important;

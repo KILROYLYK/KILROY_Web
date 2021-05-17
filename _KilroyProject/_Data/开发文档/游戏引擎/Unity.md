@@ -1,7 +1,9 @@
 # Unity
 
 --------------------
+
 ## 生命周期
+
 ```
 Reset() 组件重设为默认值时（只用于编辑状态）
 Awake() 脚本组件载入时 （调用一次）
@@ -16,15 +18,13 @@ OnDestroy()组件销毁时调用
 ```
 
 --------------------
+
 ## Api
 
----
 ### UnityEngine 引擎
-Classes 类
-Interfaces 接口
-Enumerations 枚举
-Attributes 属性
-Assemblies 装配
+
+Classes 类 Interfaces 接口 Enumerations 枚举 Attributes 属性 Assemblies 装配
+
 ```
 Accessibility 无障碍
 AI 人工智能
@@ -68,11 +68,8 @@ WSA WSA公司
 XR XR公司
 ```
 
----
 ### UnityEditor 编辑器
 
----
 ### Unity 团结
 
----
 ### Other 其他

@@ -17,7 +17,6 @@ var Ajax = /** @class */ (function () {
      * 基础请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.baseAjax = function (config, expand) {
         var _this = this;
@@ -28,7 +27,6 @@ var Ajax = /** @class */ (function () {
      * 跨域请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.crossAjax = function (config, expand) {
         var _this = this;
@@ -46,7 +44,6 @@ var Ajax = /** @class */ (function () {
      * Jsonp请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.jsonpAjax = function (config, expand) {
         var _this = this;
@@ -63,7 +60,6 @@ var Ajax = /** @class */ (function () {
      * @param {AjaxConfig} config 配置
      * @param {EncryptConfig} encrypt 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.encryptMD5Ajax = function (config, encrypt, expand) {
         var _this = this;
@@ -78,7 +74,6 @@ var Ajax = /** @class */ (function () {
      * @param {AjaxConfig} config 配置
      * @param {EncryptConfig} encrypt 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.encryptAESAjax = function (config, encrypt, expand) {
         var _this = this;
@@ -92,7 +87,6 @@ var Ajax = /** @class */ (function () {
      * CMSAES请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.cmsAESAjax = function (config, expand) {
         var _this = this;
@@ -111,7 +105,6 @@ var Ajax = /** @class */ (function () {
      * @param {string} id 通行证
      * @param {string} key 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     Ajax.activityAESAjax = function (config, id, key, expand) {
         var _this = this;

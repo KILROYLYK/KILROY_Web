@@ -20,7 +20,6 @@ var Adaptation = /** @class */ (function () {
     /**
      * 监听屏幕
      * @param {RemConfig} config 配置
-     * @return {void}
      */
     Adaptation.Rem = function (config) {
         if (config === void 0) { config = {}; }
@@ -32,7 +31,6 @@ var Adaptation = /** @class */ (function () {
     /**
      * 改变Rem
      * @param {RemConfig} config 配置
-     * @return {void}
      */
     Adaptation.changeRem = function (config) {
         if (config === void 0) { config = {}; }

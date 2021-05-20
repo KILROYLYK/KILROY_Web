@@ -54,7 +54,6 @@ export default class Authorize {
     
     /**
      * 获取Code
-     * @return {void}
      */
     private getCode(): void {
         const _this = this,
@@ -71,7 +70,6 @@ export default class Authorize {
     
     /**
      * 获取授权
-     * @return {void}
      */
     private getAuthorize(): void {
         const _this = this;

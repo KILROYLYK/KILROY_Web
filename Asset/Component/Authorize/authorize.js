@@ -46,7 +46,6 @@ var Authorize = /** @class */ (function () {
     }
     /**
      * 获取Code
-     * @return {void}
      */
     Authorize.prototype.getCode = function () {
         var _this = this, url = function_1.default.url.delParam(['code'], _this.serverInfo.redirect);
@@ -60,7 +59,6 @@ var Authorize = /** @class */ (function () {
     };
     /**
      * 获取授权
-     * @return {void}
      */
     Authorize.prototype.getAuthorize = function () {
         var _this = this;

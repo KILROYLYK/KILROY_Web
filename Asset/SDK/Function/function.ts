@@ -246,7 +246,6 @@ export default class FN {
          * @param {string} value 值
          * @param {number} day 天数
          * @param {string} domain 域名
-         * @return {void}
          */
         set(name: string, value: string, day: number = 0, domain: string = '/'): void {
             const _this = FN;
@@ -279,7 +278,6 @@ export default class FN {
          * 删除Cookie
          * @param {string} name 名称
          * @param {string} domain 域名
-         * @return {void}
          */
         del(name: string, domain: string = '/'): void {
             const _this = FN,
@@ -442,7 +440,6 @@ export default class FN {
          * 遍历
          * @param {array} array 数组
          * @param {function} callback 回调
-         * @return {void}
          */
         traversing(array: any[], callback: Function): void {
             const _this = FN;
@@ -509,7 +506,6 @@ export default class FN {
          * 遍历
          * @param {object} object 对象
          * @param {function} callback 回调
-         * @return {void}
          */
         traversing(object: any, callback: Function): void {
             const _this = FN;
@@ -566,7 +562,6 @@ export default class FN {
          * 添加Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
-         * @return {void}
          */
         add(element: HTMLElement, name: string): void {
             const _this = FN;
@@ -579,7 +574,6 @@ export default class FN {
          * 删除Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
-         * @return {void}
          */
         remove(element: HTMLElement, name: string): void {
             const _this = FN,
@@ -601,7 +595,6 @@ export default class FN {
          * 设置Transform
          * @param {*} $dom JQuery对象
          * @param {string} style 样式字符串
-         * @return {void}
          */
         set($dom: any, style: string): void {
             const _this = FN;
@@ -648,7 +641,6 @@ export default class FN {
          * 获取图片尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
-         * @return {void}
          */
         size(src: string, callback: Function): void {
             const _this = FN,
@@ -665,7 +657,6 @@ export default class FN {
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @param {number} size 最大宽高（不为0则压缩）
-         * @return {void}
          */
         get(src: string, callback: Function, size: number = 0): void {
             const _this = FN,
@@ -706,7 +697,6 @@ export default class FN {
          * 获取文件Base64
          * @param {File|Blob} file 文件
          * @param {Function} callback 回调
-         * @return {void}
          */
         get(file: File | Blob, callback: Function): void {
             const _this = FN,
@@ -722,7 +712,7 @@ export default class FN {
          * 创建文件
          * @param {string} src 资源地址
          * @param {string} name 文件
-         * @return {void}
+         * @return {File} 文件对象
          */
         createFile(src: string, name: string): File {
             const json = src.split(','),
@@ -740,7 +730,7 @@ export default class FN {
         /**
          * 创建文件
          * @param {string} src 资源地址
-         * @return {void}
+         * @return {Blob} 文件对象
          */
         createBlob(src: string): Blob {
             const json = src.split(','),
@@ -838,7 +828,6 @@ export default class FN {
      * 监听屏幕变化
      * @param {function} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     public static resize(callback: Function, time: number = 150): void {
         const _this = this,
@@ -861,7 +850,6 @@ export default class FN {
      * 监听陀螺仪
      * @param {function} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     public static gyroscope(callback: Function, time: number = 50): void {
         const _this = this;
@@ -890,7 +878,6 @@ export default class FN {
      * @param {$} $dom Jquery节点
      * @param {*} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     public static scroll($dom: $, callback: any = {}, time: number = 50): void {
         const _this = this,
@@ -949,7 +936,6 @@ export default class FN {
     
     /**
      * 内链跳转保留参数
-     * @return {void}
      */
     public static innerChainSaveParam(): void {
         const _this = this,
@@ -991,7 +977,6 @@ export default class FN {
     /**
      * 禁用Console
      * @param {'log'|'assert'|'warn'|'error'} type 类型
-     * @return {void}
      */
     public static disableConsole(type: 'log' | 'assert' | 'warn' | 'error'): void {
         const _this = this;

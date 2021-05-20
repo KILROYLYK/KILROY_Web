@@ -81,7 +81,6 @@ var FN = /** @class */ (function () {
      * 监听屏幕变化
      * @param {function} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     FN.resize = function (callback, time) {
         if (time === void 0) { time = 150; }
@@ -103,7 +102,6 @@ var FN = /** @class */ (function () {
      * 监听陀螺仪
      * @param {function} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     FN.gyroscope = function (callback, time) {
         if (time === void 0) { time = 50; }
@@ -129,7 +127,6 @@ var FN = /** @class */ (function () {
      * @param {$} $dom Jquery节点
      * @param {*} callback 回调
      * @param {number} time 间隔时间
-     * @return {void}
      */
     FN.scroll = function ($dom, callback, time) {
         if (callback === void 0) { callback = {}; }
@@ -187,7 +184,6 @@ var FN = /** @class */ (function () {
     };
     /**
      * 内链跳转保留参数
-     * @return {void}
      */
     FN.innerChainSaveParam = function () {
         var _this = this, reg = {
@@ -225,7 +221,6 @@ var FN = /** @class */ (function () {
     /**
      * 禁用Console
      * @param {'log'|'assert'|'warn'|'error'} type 类型
-     * @return {void}
      */
     FN.disableConsole = function (type) {
         var _this = this;
@@ -435,7 +430,6 @@ var FN = /** @class */ (function () {
          * @param {string} value 值
          * @param {number} day 天数
          * @param {string} domain 域名
-         * @return {void}
          */
         set: function (name, value, day, domain) {
             if (day === void 0) { day = 0; }
@@ -465,7 +459,6 @@ var FN = /** @class */ (function () {
          * 删除Cookie
          * @param {string} name 名称
          * @param {string} domain 域名
-         * @return {void}
          */
         del: function (name, domain) {
             if (domain === void 0) { domain = '/'; }
@@ -613,7 +606,6 @@ var FN = /** @class */ (function () {
          * 遍历
          * @param {array} array 数组
          * @param {function} callback 回调
-         * @return {void}
          */
         traversing: function (array, callback) {
             var _this = FN;
@@ -671,7 +663,6 @@ var FN = /** @class */ (function () {
          * 遍历
          * @param {object} object 对象
          * @param {function} callback 回调
-         * @return {void}
          */
         traversing: function (object, callback) {
             var _this = FN;
@@ -719,7 +710,6 @@ var FN = /** @class */ (function () {
          * 添加Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
-         * @return {void}
          */
         add: function (element, name) {
             var _this = FN;
@@ -731,7 +721,6 @@ var FN = /** @class */ (function () {
          * 删除Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
-         * @return {void}
          */
         remove: function (element, name) {
             var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
@@ -750,7 +739,6 @@ var FN = /** @class */ (function () {
          * 设置Transform
          * @param {*} $dom JQuery对象
          * @param {string} style 样式字符串
-         * @return {void}
          */
         set: function ($dom, style) {
             var _this = FN;
@@ -789,7 +777,6 @@ var FN = /** @class */ (function () {
          * 获取图片尺寸
          * @param {string} src 资源地址
          * @param {Function} callback 回调
-         * @return {void}
          */
         size: function (src, callback) {
             var _this = FN, image = new Image();
@@ -803,7 +790,6 @@ var FN = /** @class */ (function () {
          * @param {string} src 资源地址
          * @param {Function} callback 回调
          * @param {number} size 最大宽高（不为0则压缩）
-         * @return {void}
          */
         get: function (src, callback, size) {
             if (size === void 0) { size = 0; }
@@ -838,7 +824,6 @@ var FN = /** @class */ (function () {
          * 获取文件Base64
          * @param {File|Blob} file 文件
          * @param {Function} callback 回调
-         * @return {void}
          */
         get: function (file, callback) {
             var _this = FN, reader = new FileReader();
@@ -851,7 +836,7 @@ var FN = /** @class */ (function () {
          * 创建文件
          * @param {string} src 资源地址
          * @param {string} name 文件
-         * @return {void}
+         * @return {File} 文件对象
          */
         createFile: function (src, name) {
             var json = src.split(','), type = json[0].match(/:(.*?);/)[1], content = atob(json[1]), data = new Uint8Array(content.length);
@@ -863,7 +848,7 @@ var FN = /** @class */ (function () {
         /**
          * 创建文件
          * @param {string} src 资源地址
-         * @return {void}
+         * @return {Blob} 文件对象
          */
         createBlob: function (src) {
             var json = src.split(','), type = json[0].match(/:(.*?);/)[1], content = atob(json[1]), data = new Uint8Array(content.length);

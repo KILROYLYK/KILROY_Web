@@ -62,7 +62,6 @@ var Share = /** @class */ (function () {
     }
     /**
      * 获取分享
-     * @return {void}
      */
     Share.prototype.getShare = function () {
         var _this = this;
@@ -93,7 +92,6 @@ var Share = /** @class */ (function () {
     };
     /**
      * 初始化分享
-     * @return {void}
      */
     Share.prototype.initShare = function () {
         var _this = this;
@@ -115,7 +113,6 @@ var Share = /** @class */ (function () {
     };
     /**
      * 设置分享
-     * @return {void}
      */
     Share.prototype.setShare = function () {
         var _this = this;

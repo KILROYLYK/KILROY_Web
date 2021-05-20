@@ -111,7 +111,6 @@ export default class Share {
     
     /**
      * 获取分享
-     * @return {void}
      */
     private getShare(): void {
         const _this = this;
@@ -147,7 +146,6 @@ export default class Share {
     
     /**
      * 初始化分享
-     * @return {void}
      */
     private initShare(): void {
         const _this = this;
@@ -173,7 +171,6 @@ export default class Share {
     
     /**
      * 设置分享
-     * @return {void}
      */
     private setShare(): void {
         const _this = this;

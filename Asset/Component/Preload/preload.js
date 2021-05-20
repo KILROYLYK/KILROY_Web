@@ -44,7 +44,6 @@ var Preload = /** @class */ (function () {
      * 根据文件类型执行不同加载
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     Preload.prototype.fileType = function (src, callback) {
         var _this = this;
@@ -66,7 +65,6 @@ var Preload = /** @class */ (function () {
      * 读取Image
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     Preload.prototype.readImage = function (src, callback) {
         var _this = this, image = new Image();
@@ -82,7 +80,6 @@ var Preload = /** @class */ (function () {
      * 读取Media
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     Preload.prototype.readMedia = function (src, callback) {
         var _this = this, audio = new Audio();
@@ -99,7 +96,6 @@ var Preload = /** @class */ (function () {
     };
     /**
      * 加载文件列表
-     * @return {void}
      */
     Preload.prototype.readSrc = function () {
         var _this = this;

@@ -91,7 +91,6 @@ export default class Flip {
     
     /**
      * 获取数据
-     * @return {void}
      */
     public getData(): void {
         const _this = this,
@@ -171,7 +170,6 @@ export default class Flip {
      * 创建列表
      * @param {array} array 数据列表
      * @param {Function} callback 回调
-     * @return {void}
      */
     private creatList(array: any[], callback: Function): void {
         const _this = this,
@@ -190,7 +188,6 @@ export default class Flip {
     
     /**
      * 创建分页器
-     * @return {void}
      */
     private creatPage(): void {
         const _this = this,
@@ -250,7 +247,6 @@ export default class Flip {
     
     /**
      * 滚动加载更多
-     * @return {void}
      */
     private scrollFun(): void {
         const _this = this,

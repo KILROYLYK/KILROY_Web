@@ -25,7 +25,6 @@ export default class Adaptation {
     /**
      * 监听屏幕
      * @param {RemConfig} config 配置
-     * @return {void}
      */
     public static Rem(config: RemConfig = {}): void {
         const _this = this;
@@ -38,7 +37,6 @@ export default class Adaptation {
     /**
      * 改变Rem
      * @param {RemConfig} config 配置
-     * @return {void}
      */
     private static changeRem(config: RemConfig = {}): void {
         const _this = this,

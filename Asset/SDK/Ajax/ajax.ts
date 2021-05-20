@@ -39,7 +39,6 @@ export default class Ajax {
      * 基础请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     public static baseAjax(config: AjaxConfig, expand?: Function): void {
         const _this = this;
@@ -52,7 +51,6 @@ export default class Ajax {
      * 跨域请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     public static crossAjax(config: AjaxConfig, expand?: Function): void {
         const _this = this;
@@ -72,7 +70,6 @@ export default class Ajax {
      * Jsonp请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     public static jsonpAjax(config: AjaxConfig, expand?: Function): void {
         const _this = this;
@@ -91,7 +88,6 @@ export default class Ajax {
      * @param {AjaxConfig} config 配置
      * @param {EncryptConfig} encrypt 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     public static encryptMD5Ajax(config: AjaxConfig, encrypt: EncryptConfig, expand?: Function): void {
         const _this = this;
@@ -112,7 +108,6 @@ export default class Ajax {
      * @param {AjaxConfig} config 配置
      * @param {EncryptConfig} encrypt 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     public static encryptAESAjax(config: AjaxConfig, encrypt: EncryptConfig, expand?: Function): void {
         const _this = this;
@@ -131,7 +126,6 @@ export default class Ajax {
      * CMSAES请求
      * @param {AjaxConfig} config 配置
      * @param {Function} expand 拓展
-     * @return {void}
      */
     private static cmsAESAjax(config: AjaxConfig, expand?: Function): void {
         const _this = this;
@@ -154,7 +148,6 @@ export default class Ajax {
      * @param {string} id 通行证
      * @param {string} key 密钥
      * @param {Function} expand 拓展
-     * @return {void}
      */
     private static activityAESAjax(config: AjaxConfig, id: string, key: string, expand?: Function): void {
         const _this = this;

@@ -1,21 +1,42 @@
-// @ts-ignore
-import fs from '/usr/local/lib/node_modules/fs-i';
-// @ts-ignore
-import del from '/usr/local/lib/node_modules/del';
-// @ts-ignore
-import image from '/usr/local/lib/node_modules/imagemin-mozjpeg';
-// @ts-ignore
-import png from '/usr/local/lib/node_modules/imagemin-pngquant';
-// @ts-ignore
-import gulp from '/usr/local/lib/node_modules/gulp-typescript';
-// @ts-ignore
-import gulpZip from '/usr/local/lib/node_modules/gulp-zip';
-// @ts-ignore
-import gulpJsonMinify from '/usr/local/lib/node_modules/gulp-jsonminify';
-// @ts-ignore
-import gulpImagemin from '/usr/local/lib/node_modules/gulp-imagemin';
-
-const path = {
-    file: '',
-    zip: ''
-};
+// // @ts-ignore
+// import FS from '/usr/local/lib/node_modules/fs-i';
+// // @ts-ignore
+// import Del from '/usr/local/lib/node_modules/del';
+//
+// // @ts-ignore
+// import {sc} from '/usr/local/lib/node_modules/gulp-typescript';
+// // @ts-ignore
+// import GulpZip from '/usr/local/lib/node_modules/gulp-zip';
+// // @ts-ignore
+// import GulpJsonMin from '/usr/local/lib/node_modules/gulp-jsonminify';
+// // @ts-ignore
+// import GulpImageMin from '/usr/local/lib/node_modules/gulp-imagemin';
+//
+// // @ts-ignore
+// import ImageMinJPEG from '/usr/local/lib/node_modules/imagemin-mozjpeg';
+// // @ts-ignore
+// import ImageMinPNG from '/usr/local/lib/node_modules/imagemin-pngquant';
+//
+//
+// export default class Gulp {
+//     private static path: any = { // 地址
+//         file: '../../../Resource',
+//         zip: './test'
+//     };
+//
+//     /**
+//      * 初始化
+//      * @param {string} file 文件地址
+//      * @param {string} zip 压缩地址
+//      */
+//     public static init(file: string, zip: string): void {
+//
+//     }
+//
+//     /**
+//      * 清理
+//      */
+//     public static clean(): void {
+//         GulpTS.task
+//     }
+// }

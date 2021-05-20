@@ -50,7 +50,6 @@ export default class Preload {
      * 根据文件类型执行不同加载
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     private fileType(src: string, callback: Function): void {
         const _this = this;
@@ -72,7 +71,6 @@ export default class Preload {
      * 读取Image
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     private readImage(src: string, callback: Function): void {
         const _this = this,
@@ -92,7 +90,6 @@ export default class Preload {
      * 读取Media
      * @param {string} src 素材地址
      * @param {Function} callback 完成回调
-     * @return {void}
      */
     private readMedia(src: string, callback: Function): void {
         const _this = this,
@@ -113,7 +110,6 @@ export default class Preload {
     
     /**
      * 加载文件列表
-     * @return {void}
      */
     private readSrc(): void {
         const _this = this;

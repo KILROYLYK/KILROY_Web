@@ -56,7 +56,6 @@ export default class Popup {
     
     /**
      * 初始化
-     * @return {void}
      */
     private init(): void {
         const _this = this;
@@ -69,7 +68,6 @@ export default class Popup {
     
     /**
      * 创建弹窗节点
-     * @return {void}
      */
     private creatModal(): void {
         const _this = this,
@@ -91,7 +89,6 @@ export default class Popup {
     
     /**
      * 绑定基础事件
-     * @return {void}
      */
     private bindFun(): void {
         const _this = this;
@@ -115,7 +112,6 @@ export default class Popup {
     
     /**
      * 清除延时动画操作
-     * @return {void}
      */
     private clearSetTime(): void {
         const _this = this;
@@ -128,7 +124,6 @@ export default class Popup {
     /**
      * 打开
      * @param {*} data 参数
-     * @return {void}
      */
     public open(data: any = null): void {
         const _this = this;
@@ -144,7 +139,6 @@ export default class Popup {
     
     /**
      * 关闭
-     * @return {void}
      */
     public close(): void {
         const _this = this;
@@ -160,7 +154,6 @@ export default class Popup {
     
     /**
      * 重置
-     * @return {void}
      */
     public reset(): void {
         const _this = this;
@@ -191,8 +184,7 @@ export default class Popup {
     
     /**
      * 锁定方向弹窗
-     * @return {'vertical'|'horizontal'} type 方向
-     * @return {void}
+     * @param {'vertical'|'horizontal'} type 方向
      */
     public static direction(type: 'vertical' | 'horizontal' = 'vertical'): void {
         const _this = this;
@@ -227,7 +219,6 @@ export default class Popup {
      * 加载弹窗
      * @param {boolean} isOpen 是否显示
      * @param {boolean} showMask 是否显示黑透
-     * @return {void}
      */
     public static load(isOpen: boolean = true, showMask: boolean = false): void {
         const _this = this,
@@ -248,7 +239,6 @@ export default class Popup {
     /**
      * 提示弹窗
      * @param {string} message 提示信息
-     * @return {void}
      */
     public static toast(message: string): void {
         const _this = this;

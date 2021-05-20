@@ -56,7 +56,6 @@ var Flip = /** @class */ (function () {
     }
     /**
      * 获取数据
-     * @return {void}
      */
     Flip.prototype.getData = function () {
         var _this = this, config = _this.config;
@@ -130,7 +129,6 @@ var Flip = /** @class */ (function () {
      * 创建列表
      * @param {array} array 数据列表
      * @param {Function} callback 回调
-     * @return {void}
      */
     Flip.prototype.creatList = function (array, callback) {
         var _this = this, config = _this.config;
@@ -144,7 +142,6 @@ var Flip = /** @class */ (function () {
     };
     /**
      * 创建分页器
-     * @return {void}
      */
     Flip.prototype.creatPage = function () {
         var _this = this, config = _this.config;
@@ -187,7 +184,6 @@ var Flip = /** @class */ (function () {
     };
     /**
      * 滚动加载更多
-     * @return {void}
      */
     Flip.prototype.scrollFun = function () {
         var _this = this, top = $W.scrollTop(), winHeight = $D.height();

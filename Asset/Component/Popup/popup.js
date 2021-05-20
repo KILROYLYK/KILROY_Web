@@ -44,7 +44,6 @@ var Popup = /** @class */ (function () {
     }
     /**
      * 初始化
-     * @return {void}
      */
     Popup.prototype.init = function () {
         var _this = this;
@@ -54,7 +53,6 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 创建弹窗节点
-     * @return {void}
      */
     Popup.prototype.creatModal = function () {
         var _this = this, template = "<div id=\"" + _this.id + "\" class=\"popup " + _this.id + "\">\n                <div class=\"box_popup\">\n                    <div class=\"popup_content\">" + _this.content + "</div>\n                    <button class=\"popup_close\"><i></i></button>\n                </div></div>";
@@ -68,7 +66,6 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 绑定基础事件
-     * @return {void}
      */
     Popup.prototype.bindFun = function () {
         var _this = this;
@@ -91,7 +88,6 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 清除延时动画操作
-     * @return {void}
      */
     Popup.prototype.clearSetTime = function () {
         var _this = this;
@@ -102,7 +98,6 @@ var Popup = /** @class */ (function () {
     /**
      * 打开
      * @param {*} data 参数
-     * @return {void}
      */
     Popup.prototype.open = function (data) {
         if (data === void 0) { data = null; }
@@ -116,7 +111,6 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 关闭
-     * @return {void}
      */
     Popup.prototype.close = function () {
         var _this = this;
@@ -129,7 +123,6 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 重置
-     * @return {void}
      */
     Popup.prototype.reset = function () {
         var _this = this;
@@ -140,8 +133,7 @@ var Popup = /** @class */ (function () {
     };
     /**
      * 锁定方向弹窗
-     * @return {'vertical'|'horizontal'} type 方向
-     * @return {void}
+     * @param {'vertical'|'horizontal'} type 方向
      */
     Popup.direction = function (type) {
         if (type === void 0) { type = 'vertical'; }
@@ -171,7 +163,6 @@ var Popup = /** @class */ (function () {
      * 加载弹窗
      * @param {boolean} isOpen 是否显示
      * @param {boolean} showMask 是否显示黑透
-     * @return {void}
      */
     Popup.load = function (isOpen, showMask) {
         if (isOpen === void 0) { isOpen = true; }
@@ -190,7 +181,6 @@ var Popup = /** @class */ (function () {
     /**
      * 提示弹窗
      * @param {string} message 提示信息
-     * @return {void}
      */
     Popup.toast = function (message) {
         var _this = this;

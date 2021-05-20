@@ -9,18 +9,18 @@
 /package-lock.json
 /webpack.config.js
 /.idea
-/node_modules
 
-# Files
+# File
 main.js
 main.jsx
 main.ts
 main.tsx
 
-# Folders
+# Folder
 /_KilroyLYK
-/_KilroyProject/_Index
+#/_KilroyProject
 
-# Media
+# Other
 *.mp3
 *.mp4
+*.zip

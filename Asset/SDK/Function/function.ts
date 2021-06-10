@@ -344,7 +344,7 @@ export default class FN {
             _this.array.traversing(u, (key: number, value: string) => {
                 const p = value.split('=');
                 if (p[0]) param[p[0]] = decodeURIComponent(p[1]);
-            })
+            });
             
             return param;
         },

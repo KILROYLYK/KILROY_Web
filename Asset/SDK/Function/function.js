@@ -22,41 +22,6 @@ var FN = /** @class */ (function () {
         return Object.prototype.toString.call(param).slice(8, -1);
     };
     /**
-     * 获取当前时间戳
-     * @return {number} 时间戳
-     */
-    FN.getTimestamp = function () {
-        var _this = this;
-        return Date.parse(new Date().toString()) / 1000;
-    };
-    /**
-     * 获取时间
-     * @param {number|string} time 标准时间
-     * @return {string} 返回时间字符串
-     */
-    FN.getTime = function (time) {
-        if (time === void 0) { time = ''; }
-        var _this = this;
-        var t = null;
-        if (time) {
-            t = new Date(time);
-        }
-        else {
-            t = new Date();
-        }
-        var year = t.getFullYear();
-        var month = (t.getMonth() + 1).toString(), date = t.getDate().toString(), hour = t.getHours().toString(), minute = t.getMinutes().toString();
-        if (month.length < 2)
-            month = '0' + month;
-        if (date.length < 2)
-            date = '0' + date;
-        if (hour.length < 2)
-            hour = '0' + hour;
-        if (minute.length < 2)
-            minute = '0' + minute;
-        return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
-    };
-    /**
      * 获取当前Rem
      * @return {number} rem
      */
@@ -692,14 +657,60 @@ var FN = /** @class */ (function () {
             return JSON.parse(JSON.stringify(object));
         }
     };
-    FN.class = {
+    FN.time = {
+        /**
+         * 获取时间戳
+         * @param {number|string} time 标准时间
+         * @return {number} 时间戳
+         */
+        getStamp: function (time) {
+            if (time === void 0) { time = ''; }
+            var _this = FN;
+            var t = null;
+            if (time) {
+                t = new Date(time);
+            }
+            else {
+                t = new Date();
+            }
+            return Date.parse(t) / 1000;
+        },
+        /**
+         * 获取时间
+         * @param {number|string} time 标准时间
+         * @return {string} 返回时间字符串
+         */
+        getFormat: function (time) {
+            if (time === void 0) { time = ''; }
+            var _this = FN;
+            var t = null;
+            if (time) {
+                t = new Date(time);
+            }
+            else {
+                t = new Date();
+            }
+            var year = t.getFullYear();
+            var month = (t.getMonth() + 1).toString(), date = t.getDate().toString(), hour = t.getHours().toString(), minute = t.getMinutes().toString();
+            if (month.length < 2)
+                month = '0' + month;
+            if (date.length < 2)
+                date = '0' + date;
+            if (hour.length < 2)
+                hour = '0' + hour;
+            if (minute.length < 2)
+                minute = '0' + minute;
+            return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
+        }
+    };
+    FN.dom = {
         /**
          * 判断是否含有Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          * @return {boolean} 是否含有Class
          */
-        has: function (element, name) {
+        hasClass: function (element, name) {
             var _this = FN, reg = /\s/g, // 查询全局空字符串
             className = name || '';
             if (className.replace(reg, '').length === 0)
@@ -711,9 +722,9 @@ var FN = /** @class */ (function () {
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          */
-        add: function (element, name) {
+        addClass: function (element, name) {
             var _this = FN;
-            if (_this.class.hasClass(element, name))
+            if (_this.dom.hasClass(element, name))
                 return;
             element.className = element.className === '' ? name : element.className + ' ' + name;
         },
@@ -722,25 +733,23 @@ var FN = /** @class */ (function () {
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          */
-        remove: function (element, name) {
+        removeClass: function (element, name) {
             var _this = FN, reg1 = /[\t\r\n]/g, // 查询空格
             reg2 = /^\s+|\s+$/g; // 查询空格
-            if (!_this.class.hasClass(element, name))
+            if (!_this.dom.hasClass(element, name))
                 return;
             var newClass = ' ' + element.className.replace(reg1, '') + ' ';
             while (newClass.indexOf(' ' + name + ' ') >= 0) {
                 newClass = newClass.replace(' ' + name + ' ', ' ');
             }
             element.className = newClass.replace(reg2, '');
-        }
-    };
-    FN.transform = {
+        },
         /**
          * 设置Transform
          * @param {*} $dom JQuery对象
          * @param {string} style 样式字符串
          */
-        set: function ($dom, style) {
+        setTransform: function ($dom, style) {
             var _this = FN;
             $dom.css({
                 '-webkit-transform': style,
@@ -751,11 +760,11 @@ var FN = /** @class */ (function () {
             });
         },
         /**
-         * 设置Transform
+         * 获取Transform
          * @param {*} $dom JQuery对象
          * @return {*}
          */
-        get: function ($dom) {
+        getTransform: function ($dom) {
             var _this = FN, reg = /[^0-9\-,]/g, matrix = $dom.css('transform').replace(reg, '').split(',');
             return {
                 x: parseFloat(matrix[4]) || 0,

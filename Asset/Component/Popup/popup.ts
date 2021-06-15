@@ -23,8 +23,8 @@ export default class Popup {
     public $id: typeof $ = null; // 根节点
     public $content: typeof $ = null; // 内容容器
     public $close: typeof $ = null; // 关闭按钮
-    private config: PopupConfig = {};
-    private id: string = '';
+    private id: string = ''; // 标识
+    private config: PopupConfig = {}; // 配置
     private content: HTMLElement | string = ''; // 内容
     private readonly setTime: any = { // 定时器列表
         open: null,
@@ -37,7 +37,7 @@ export default class Popup {
      * @param {string} id 弹窗ID
      * @param {PopupConfig} config 配置
      */
-    constructor(id: string, config: PopupConfig) {
+    public constructor(id: string, config: PopupConfig) {
         const _this = this;
         
         _this.id = id;

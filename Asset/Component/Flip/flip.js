@@ -53,6 +53,7 @@ var Flip = /** @class */ (function () {
             callback: config.callback || null
         };
         _this.config.type === 'scroll' && $D.scroll(_this.scrollFun);
+        _this.getData();
     }
     /**
      * 获取数据

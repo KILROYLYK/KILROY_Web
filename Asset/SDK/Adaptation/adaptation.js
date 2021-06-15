@@ -9,12 +9,7 @@ var W = window, D = document;
  * 适配
  */
 var Adaptation = /** @class */ (function () {
-    /**
-     * 构造函数
-     * @constructor Adaptation
-     */
     function Adaptation() {
-        var _this = this;
     }
     // ---------- Rem Start ---------- //
     /**

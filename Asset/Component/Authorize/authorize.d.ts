@@ -14,6 +14,11 @@ declare module 'authorize' {
      * Algorithm
      */
     export default class Authorize {
-        constructor(config: AuthorizeConfig); // 构造函数
+        /**
+         * 构造函数
+         * @constructor Authorize
+         * @param {AuthorizeConfig} config 配置
+         */
+        public constructor(config: AuthorizeConfig);
     }
 }

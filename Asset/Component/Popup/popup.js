@@ -22,8 +22,8 @@ var Popup = /** @class */ (function () {
         this.$id = null; // 根节点
         this.$content = null; // 内容容器
         this.$close = null; // 关闭按钮
-        this.config = {};
-        this.id = '';
+        this.id = ''; // 标识
+        this.config = {}; // 配置
         this.content = ''; // 内容
         this.setTime = {
             open: null,

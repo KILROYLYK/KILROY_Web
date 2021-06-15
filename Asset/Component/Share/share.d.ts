@@ -6,7 +6,6 @@ declare module 'share' {
         isCallApp?: boolean; // 是否开启调起App
         appId?: string; // 调起App的ID
         appButtonId?: string; // 调起App按钮ID
-        
         success?(result: any): void; // 分享成功处理
         cancel?(result: any): void; // 分享取消处理
         
@@ -21,6 +20,11 @@ declare module 'share' {
      * Share
      */
     export default class Share {
-        constructor(config: ShareConfig); // 构造函数
+        /**
+         * 构造函数
+         * @constructor Share
+         * @param {ShareConfig} config 配置
+         */
+        public constructor(config: ShareConfig);
     }
 }

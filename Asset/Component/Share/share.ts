@@ -53,7 +53,7 @@ export default class Share {
     private cancel: Function = (result: any) => { // 分享取消处理
         console.log(result);
     };
-    public readonly template: any = { // 模板
+    private readonly template: any = { // 模板
         callApp() { // 唤起App
             const _this = this;
             return `<div class="box_call_app">
@@ -89,7 +89,7 @@ export default class Share {
      * @constructor Share
      * @param {ShareConfig} config 配置
      */
-    constructor(config: ShareConfig) {
+    public constructor(config: ShareConfig) {
         const _this = this;
         
         _this.serverInfo.interface = config.interface;

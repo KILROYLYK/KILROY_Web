@@ -53,7 +53,7 @@ export default class Flip {
      * @constructor Flip
      * @param {FlipConfig} config 配置
      */
-    constructor(config: FlipConfig) {
+    public constructor(config: FlipConfig) {
         const _this = this;
         
         _this.config = {
@@ -87,12 +87,14 @@ export default class Flip {
         };
         
         _this.config.type === 'scroll' && $D.scroll(_this.scrollFun);
+        
+        _this.getData();
     }
     
     /**
      * 获取数据
      */
-    public getData(): void {
+    private getData(): void {
         const _this = this,
             config = _this.config;
         

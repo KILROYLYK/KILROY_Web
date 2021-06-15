@@ -32,6 +32,11 @@ declare module 'flip' {
      * Flip
      */
     export default class Flip {
-        constructor(config: FlipConfig); // 构造函数
+        /**
+         * 构造函数
+         * @constructor Flip
+         * @param {FlipConfig} config 配置
+         */
+        public constructor(config: FlipConfig);
     }
 }

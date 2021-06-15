@@ -33,18 +33,57 @@ declare module 'ajax' {
      * Ajax
      */
     export default class Ajax {
+        /**
+         * 基础请求
+         * @param {AjaxConfig} config 配置
+         * @param {Function} expand 拓展
+         */
         public static baseAjax(config: AjaxConfig, expand?: Function): void;
         
+        /**
+         * 跨域请求
+         * @param {AjaxConfig} config 配置
+         * @param {Function} expand 拓展
+         */
         public static crossAjax(config: AjaxConfig, expand?: Function): void;
         
+        /**
+         * Jsonp请求
+         * @param {AjaxConfig} config 配置
+         * @param {Function} expand 拓展
+         */
         public static jsonpAjax(config: AjaxConfig, expand?: Function): void;
         
+        /**
+         * MD5加密
+         * @param {AjaxConfig} config 配置
+         * @param {EncryptConfig} encrypt 密钥
+         * @param {Function} expand 拓展
+         */
         public static encryptMD5Ajax(config: AjaxConfig, encrypt: EncryptConfig, expand?: Function): void;
         
+        /**
+         * AES加密请求
+         * @param {AjaxConfig} config 配置
+         * @param {EncryptConfig} encrypt 密钥
+         * @param {Function} expand 拓展
+         */
         public static encryptAESAjax(config: AjaxConfig, encrypt: EncryptConfig, expand?: Function): void;
         
+        /**
+         * CMSAES请求
+         * @param {AjaxConfig} config 配置
+         * @param {Function} expand 拓展
+         */
         public static cmsAESAjax(config: AjaxConfig, expand?: Function): void;
         
-        public static activityAESAjax(config: AjaxConfig, expand?: Function): void;
+        /**
+         * 活动AES请求
+         * @param {AjaxConfig} config 配置
+         * @param {string} id 通行证
+         * @param {string} key 密钥
+         * @param {Function} expand 拓展
+         */
+        private static activityAESAjax(config: AjaxConfig, id: string, key: string, expand?: Function): void;
     }
 }

@@ -13,14 +13,6 @@ export interface RemConfig { // Rem配置
  * 适配
  */
 export default class Adaptation {
-    /**
-     * 构造函数
-     * @constructor Adaptation
-     */
-    constructor() {
-        const _this = this;
-    }
-    
     // ---------- Rem Start ---------- //
     /**
      * 监听屏幕

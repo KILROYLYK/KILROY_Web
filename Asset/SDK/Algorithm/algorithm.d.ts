@@ -6,7 +6,7 @@ declare module 'algorithm' {
         public val: any;
         public next: ListNode | null;
         
-        constructor(val?: any);
+        public constructor(val?: any);
     }
     
     /**

@@ -542,14 +542,65 @@ export default class FN {
             return JSON.parse(JSON.stringify(object));
         }
     };
-    public static readonly class: any = { // 操作节点类
+    public static readonly time: any = { // 时间
+        /**
+         * 获取时间戳
+         * @param {number|string} time 标准时间
+         * @return {number} 时间戳
+         */
+        getStamp(time: number | string = ''): number {
+            const _this = FN;
+            
+            let t = null as any;
+            
+            if (time) {
+                t = new Date(time);
+            } else {
+                t = new Date();
+            }
+            
+            return Date.parse(t) / 1000;
+        },
+        
+        /**
+         * 获取时间
+         * @param {number|string} time 标准时间
+         * @return {string} 返回时间字符串
+         */
+        getFormat(time: number | string = ''): string {
+            const _this = FN;
+            
+            let t = null as any;
+            
+            if (time) {
+                t = new Date(time);
+            } else {
+                t = new Date();
+            }
+            
+            const year = t.getFullYear();
+            
+            let month = (t.getMonth() + 1).toString(),
+                date = t.getDate().toString(),
+                hour = t.getHours().toString(),
+                minute = t.getMinutes().toString();
+            
+            if (month.length < 2) month = '0' + month;
+            if (date.length < 2) date = '0' + date;
+            if (hour.length < 2) hour = '0' + hour;
+            if (minute.length < 2) minute = '0' + minute;
+            
+            return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
+        }
+    };
+    public static readonly dom: any = { // 节点
         /**
          * 判断是否含有Class
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          * @return {boolean} 是否含有Class
          */
-        has(element: HTMLElement, name: string): boolean {
+        hasClass(element: HTMLElement, name: string): boolean {
             const _this = FN,
                 reg = /\s/g, // 查询全局空字符串
                 className = name || '';
@@ -563,10 +614,10 @@ export default class FN {
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          */
-        add(element: HTMLElement, name: string): void {
+        addClass(element: HTMLElement, name: string): void {
             const _this = FN;
             
-            if (_this.class.hasClass(element, name)) return;
+            if (_this.dom.hasClass(element, name)) return;
             element.className = element.className === '' ? name : element.className + ' ' + name;
         },
         
@@ -575,12 +626,12 @@ export default class FN {
          * @param {HTMLElement} element 元素
          * @param {string} name 类名
          */
-        remove(element: HTMLElement, name: string): void {
+        removeClass(element: HTMLElement, name: string): void {
             const _this = FN,
                 reg1 = /[\t\r\n]/g, // 查询空格
                 reg2 = /^\s+|\s+$/g; // 查询空格
             
-            if (!_this.class.hasClass(element, name)) return;
+            if (!_this.dom.hasClass(element, name)) return;
             
             let newClass = ' ' + element.className.replace(reg1, '') + ' ';
             
@@ -588,15 +639,14 @@ export default class FN {
                 newClass = newClass.replace(' ' + name + ' ', ' ');
             }
             element.className = newClass.replace(reg2, '');
-        }
-    };
-    public static readonly transform: any = { // 操作变形
+        },
+        
         /**
          * 设置Transform
          * @param {*} $dom JQuery对象
          * @param {string} style 样式字符串
          */
-        set($dom: any, style: string): void {
+        setTransform($dom: any, style: string): void {
             const _this = FN;
             
             $dom.css({
@@ -609,11 +659,11 @@ export default class FN {
         },
         
         /**
-         * 设置Transform
+         * 获取Transform
          * @param {*} $dom JQuery对象
          * @return {*}
          */
-        get($dom: any): any {
+        getTransform($dom: any): any {
             const _this = FN,
                 reg = /[^0-9\-,]/g,
                 matrix = $dom.css('transform').replace(reg, '').split(',');
@@ -753,47 +803,6 @@ export default class FN {
         const _this = this;
         
         return Object.prototype.toString.call(param).slice(8, -1);
-    }
-    
-    /**
-     * 获取当前时间戳
-     * @return {number} 时间戳
-     */
-    public static getTimestamp(): number {
-        const _this = this;
-        
-        return Date.parse(new Date().toString()) / 1000;
-    }
-    
-    /**
-     * 获取时间
-     * @param {number|string} time 标准时间
-     * @return {string} 返回时间字符串
-     */
-    public static getTime(time: number | string = ''): string {
-        const _this = this;
-        
-        let t = null as any;
-        
-        if (time) {
-            t = new Date(time);
-        } else {
-            t = new Date();
-        }
-        
-        const year = t.getFullYear();
-        
-        let month = (t.getMonth() + 1).toString(),
-            date = t.getDate().toString(),
-            hour = t.getHours().toString(),
-            minute = t.getMinutes().toString();
-        
-        if (month.length < 2) month = '0' + month;
-        if (date.length < 2) date = '0' + date;
-        if (hour.length < 2) hour = '0' + hour;
-        if (minute.length < 2) minute = '0' + minute;
-        
-        return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
     }
     
     /**

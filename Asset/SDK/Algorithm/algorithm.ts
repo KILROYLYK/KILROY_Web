@@ -6,7 +6,7 @@ export class ListNode { // 链表（Linked-list）
      * 构造函数 ListNode
      * @param {*} val
      */
-    constructor(val?: any) {
+    public constructor(val?: any) {
         const _this = this;
         _this.val = val;
         _this.next = null;

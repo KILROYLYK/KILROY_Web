@@ -34,7 +34,7 @@ export default class Authorize {
      * @constructor Authorize
      * @param {AuthorizeConfig} config 配置
      */
-    constructor(config: AuthorizeConfig) {
+    public constructor(config: AuthorizeConfig) {
         const _this = this;
         
         _this.serverInfo.interface = config.interface;

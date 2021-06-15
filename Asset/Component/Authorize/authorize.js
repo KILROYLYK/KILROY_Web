@@ -68,7 +68,7 @@ var Authorize = /** @class */ (function () {
             dataType: 'json',
             data: {
                 code: _this.userInfo.code,
-                timestamp: function_1.default.getTimestamp()
+                timestamp: function_1.default.time.getStamp()
             },
             success: function (result) {
                 var data = result.data;

@@ -80,7 +80,7 @@ export default class Authorize {
             dataType: 'json',
             data: {
                 code: _this.userInfo.code,
-                timestamp: FN.getTimestamp()
+                timestamp: FN.time.getStamp()
             },
             success: (result: any) => {
                 const data = result.data;

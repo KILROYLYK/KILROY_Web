@@ -71,7 +71,7 @@ var Share = /** @class */ (function () {
             dataType: 'json',
             data: {
                 url: W.location.href,
-                timestamp: function_1.default.getTimestamp()
+                timestamp: function_1.default.time.getStamp()
             },
             success: function (result) {
                 var data = jquery_1.default.parseJSON(result.data);

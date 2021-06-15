@@ -121,7 +121,7 @@ export default class Share {
             dataType: 'json',
             data: {
                 url: W.location.href,
-                timestamp: FN.getTimestamp()
+                timestamp: FN.time.getStamp()
             },
             success: (result: any) => {
                 const data = $.parseJSON(result.data);

@@ -436,16 +436,16 @@ var FN = /** @class */ (function () {
     FN.url = {
         /**
          * 参数化
-         * @param {*} object 对象
+         * @param {*} o 对象
          * @param {boolean} hasQuestion 是否添加？
          * @return {string} 参数
          */
-        toParam: function (object, hasQuestion) {
+        toParam: function (o, hasQuestion) {
             if (hasQuestion === void 0) { hasQuestion = false; }
             var _this = FN;
             var param = '';
-            for (var key in object)
-                param += (param === '' ? '' : '&') + key + '=' + object[key];
+            for (var key in o)
+                param += (param === '' ? '' : '&') + key + '=' + o[key];
             return hasQuestion ? '?' + param : param;
         },
         /**
@@ -491,19 +491,19 @@ var FN = /** @class */ (function () {
         },
         /**
          * 添加或修改参数
-         * @param {object} object 参数一维对象
+         * @param {*} o 参数一维对象
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        addParam: function (object, url) {
+        addParam: function (o, url) {
             if (url === void 0) { url = W.location.href; }
             var _this = FN, href = url.split('?')[0] || '', hash = url.split('#')[1] || '';
             var search = url.split('?')[1] || '', param = '';
-            if (Object.keys(object).length === 0)
+            if (Object.keys(o).length === 0)
                 return url;
             if (hash)
                 search = search.replace('#' + hash, '');
-            _this.object.traversing(object, function (key, value) {
+            _this.object.traversing(o, function (key, value) {
                 var reg = new RegExp('(^|\\?|&)' + key + '=([^&]*)(&|$)', 'i');
                 var hasParam = '';
                 if (search)
@@ -626,35 +626,48 @@ var FN = /** @class */ (function () {
     FN.object = {
         /**
          * 遍历
-         * @param {object} object 对象
+         * @param {*} o 对象
          * @param {function} callback 回调
          */
-        traversing: function (object, callback) {
+        traversing: function (o, callback) {
             var _this = FN;
-            for (var key in object) {
-                callback(key, object[key]);
-            }
+            for (var key in o)
+                callback(key, o[key]);
         },
         /**
          * 排序
-         * @param {object} object 对象
-         * @return {object} 返回排序后对象
+         * @param {*} o 对象
+         * @return {*} 返回排序后对象
          */
-        sort: function (object) {
+        sort: function (o) {
             var _this = FN, newObject = {};
-            Object.keys(object).sort().forEach(function (key) {
-                newObject[key] = object[key];
+            Object.keys(o).sort()
+                .forEach(function (key) {
+                newObject[key] = o[key];
             });
             return newObject;
         },
         /**
          * 复制
-         * @param {object} object 对象
-         * @return {object} 新建的对象
+         * @param {*} o 对象
+         * @return {*} 新建的对象
          */
-        copy: function (object) {
+        copy: function (o) {
             var _this = FN;
-            return JSON.parse(JSON.stringify(object));
+            return JSON.parse(JSON.stringify(o));
+        },
+        /**
+         * 数组化
+         * 将可枚举属性转为数组
+         * @param {*} o 对象
+         * @return {{key:string,value:*}[]} 由key和value组成的数组
+         */
+        toArray: function (o) {
+            var _this = FN, newArray = [];
+            Object.keys(o).forEach(function (v) {
+                newArray.push({ key: v, value: o[v] });
+            });
+            return newArray;
         }
     };
     FN.time = {
@@ -666,14 +679,7 @@ var FN = /** @class */ (function () {
         getStamp: function (time) {
             if (time === void 0) { time = ''; }
             var _this = FN;
-            var t = null;
-            if (time) {
-                t = new Date(time);
-            }
-            else {
-                t = new Date();
-            }
-            return Date.parse(t) / 1000;
+            return Date.parse((time !== '' ? new Date(time) : new Date()).toString()) / 1000;
         },
         /**
          * 获取时间

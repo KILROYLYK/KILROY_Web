@@ -291,16 +291,16 @@ export default class FN {
     public static readonly url: any = { // Url
         /**
          * 参数化
-         * @param {*} object 对象
+         * @param {*} o 对象
          * @param {boolean} hasQuestion 是否添加？
          * @return {string} 参数
          */
-        toParam(object: any, hasQuestion: boolean = false): string {
+        toParam(o: any, hasQuestion: boolean = false): string {
             const _this = FN;
             
             let param = '';
             
-            for (const key in object) param += (param === '' ? '' : '&') + key + '=' + object[key];
+            for (const key in o) param += (param === '' ? '' : '&') + key + '=' + o[key];
             
             return hasQuestion ? '?' + param : param;
         },
@@ -351,11 +351,11 @@ export default class FN {
         
         /**
          * 添加或修改参数
-         * @param {object} object 参数一维对象
+         * @param {*} o 参数一维对象
          * @param {string} url Url字符串
          * @return {string} 返回Url
          */
-        addParam(object: any, url: string = W.location.href): string {
+        addParam(o: any, url: string = W.location.href): string {
             const _this = FN,
                 href = url.split('?')[0] || '',
                 hash = url.split('#')[1] || '';
@@ -363,11 +363,11 @@ export default class FN {
             let search = url.split('?')[1] || '',
                 param = '';
             
-            if (Object.keys(object).length === 0) return url;
+            if (Object.keys(o).length === 0) return url;
             
             if (hash) search = search.replace('#' + hash, '');
             
-            _this.object.traversing(object, (key: string, value: string) => {
+            _this.object.traversing(o, (key: string, value: string) => {
                 const reg = new RegExp('(^|\\?|&)' + key + '=([^&]*)(&|$)', 'i');
                 let hasParam = '' as any;
                 
@@ -504,42 +504,58 @@ export default class FN {
     public static readonly object: any = { // 对象
         /**
          * 遍历
-         * @param {object} object 对象
+         * @param {*} o 对象
          * @param {function} callback 回调
          */
-        traversing(object: any, callback: Function): void {
+        traversing(o: any, callback: Function): void {
             const _this = FN;
             
-            for (const key in object) {
-                callback(key, object[key]);
-            }
+            for (const key in o) callback(key, o[key]);
         },
         
         /**
          * 排序
-         * @param {object} object 对象
-         * @return {object} 返回排序后对象
+         * @param {*} o 对象
+         * @return {*} 返回排序后对象
          */
-        sort(object: any): any {
+        sort(o: any): any {
             const _this = FN,
                 newObject: any = {};
             
-            Object.keys(object).sort().forEach((key: string) => {
-                newObject[key] = object[key];
-            });
+            Object.keys(o).sort()
+                .forEach((key: string) => {
+                    newObject[key] = o[key];
+                });
             
             return newObject;
         },
         
         /**
          * 复制
-         * @param {object} object 对象
-         * @return {object} 新建的对象
+         * @param {*} o 对象
+         * @return {*} 新建的对象
          */
-        copy(object: Object): Object {
+        copy(o: any): any {
             const _this = FN;
             
-            return JSON.parse(JSON.stringify(object));
+            return JSON.parse(JSON.stringify(o));
+        },
+        
+        /**
+         * 数组化
+         * 将可枚举属性转为数组
+         * @param {*} o 对象
+         * @return {{key:string,value:*}[]} 由key和value组成的数组
+         */
+        toArray(o: any): { key: string, value: any }[] {
+            const _this = FN,
+                newArray: { key: string, value: any }[] = [];
+            
+            Object.keys(o).forEach((v: string) => {
+                newArray.push({ key: v, value: o[v] });
+            });
+            
+            return newArray;
         }
     };
     public static readonly time: any = { // 时间
@@ -551,15 +567,7 @@ export default class FN {
         getStamp(time: number | string = ''): number {
             const _this = FN;
             
-            let t = null as any;
-            
-            if (time) {
-                t = new Date(time);
-            } else {
-                t = new Date();
-            }
-            
-            return Date.parse(t) / 1000;
+            return Date.parse((time !== '' ? new Date(time) : new Date()).toString()) / 1000;
         },
         
         /**
